@@ -1,0 +1,45 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "mysql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  email       String   @unique
+  name        String
+  password    String
+  reliability Float
+}
+
+model Building {
+  id       Int        @id @default(autoincrement())
+  name     String
+  address  String
+  Location Location[]
+}
+
+model Target {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  Location    Location[]
+}
+
+model Location {
+  id          Int       @id @default(autoincrement())
+  rating      Float
+  cooridnates String?
+  details     String?
+  acctual     Boolean?
+  basedOnAI   Boolean?
+  target      Target    @relation(fields: [targetId], references: [id])
+  targetId    Int
+  building    Building? @relation(fields: [buildingId], references: [id])
+  buildingId  Int?
+  updatedAt   DateTime  @updatedAt
+}
