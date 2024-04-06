@@ -2,6 +2,7 @@ import React from "react";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
+import Profile from "../pages/Profile";
 
 
 interface RouteItem {
@@ -25,5 +26,10 @@ export const routes: RouteItem[] = [
         path: "/register",
         element: <Register />,
         label: "Register",
+    },
+    {
+        path: "/profile",
+        element: <Profile />,
+        label: "Profile",
     }
 ]
