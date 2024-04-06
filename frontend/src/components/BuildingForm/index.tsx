@@ -1,7 +1,7 @@
 import React, {ChangeEventHandler} from "react";
 
 
-export class LoginForm extends React.Component{
+export class BuildingForm extends React.Component{
     // @ts-expect-error becouse yes
     constructor(props) {
         super(props);
@@ -25,14 +25,13 @@ export class LoginForm extends React.Component{
     render() {
         return (
             <form method="post" onSubmit={this.handleSubmit}>
-                <label>Email:</label>
-                <input value={this.state.email} required onChange={this.handleInputChange} type="email" name="email"
-                       placeholder="email"/>
-                <label>Password:</label>
-                <input value={this.state.password} required onChange={this.handleInputChange}
-                       type="password" name="password"  />
-                <button type="submit">Zaloguj się</button>
-                <p>Nie masz konta? <a href={'/register'}>Zarejestruj się</a></p>
+                <label>Name:</label>
+                <input value={this.state.email} required onChange={this.handleInputChange} type="text" name="name"
+                       placeholder="name"/>
+                <label>Address:</label>
+                <textarea value={this.state.address} required onChange={this.handleInputChange}
+                          name="address" placeholder="address"></textarea>
+                <button type="submit">Utwórz osobę</button>
             </form>
 
         )

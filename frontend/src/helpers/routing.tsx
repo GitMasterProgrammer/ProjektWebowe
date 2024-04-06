@@ -1,6 +1,7 @@
 import React from "react";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Home from "../pages/Home";
 
 
 interface RouteItem {
@@ -10,6 +11,11 @@ interface RouteItem {
 }
 
 export const routes: RouteItem[] = [
+    {
+        path: "/",
+        element: <Home  />,
+        label: "Homepage",
+    },
     {
         path: "/login",
         element: <Login />,

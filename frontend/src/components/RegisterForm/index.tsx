@@ -1,5 +1,4 @@
 import React, {ChangeEventHandler} from "react";
-import  './index.css'
 
 
 export class RegisterForm extends React.Component{
@@ -27,19 +26,20 @@ export class RegisterForm extends React.Component{
     render() {
         return (
             <form method="post" onSubmit={this.handleSubmit}>
-                {/*<label>Name:</label>*/}
-                {/*<input value={this.state.name} onChange={this.handleInputChange} type="text" name="name"*/}
-                {/*       placeholder="name"/>*/}
-                {/*<label>location:</label>*/}
-                {/*<input value={this.state.location} onChange={this.handleInputChange} type="text" name="location"*/}
-                {/*       placeholder="location"/>*/}
-                {/*<label>Date:</label>*/}
-                {/*<input value={this.state.date} onChange={this.handleInputChange} type="date" name="date"*/}
-                {/*       placeholder="data"/>*/}
-                {/*<label>Id only for updating</label>*/}
-                {/*<input value={this.state.id} onChange={this.handleInputChange} type="number" name="id"*/}
-                {/*       placeholder="id"/>*/}
-                <button type="submit">Wyślij</button>
+                <label>Userame:</label>
+                <input value={this.state.name} required onChange={this.handleInputChange}
+                       type="text" name="userneme" placeholder="username"/>
+                <label>Email:</label>
+                <input value={this.state.location} required onChange={this.handleInputChange}
+                       type="email" name="email" placeholder="email"/>
+                <label>Password:</label>
+                <input value={this.state.password1} required onChange={this.handleInputChange}
+                       type="password" name="password1"/>
+                <label>Repeat password:</label>
+                <input value={this.state.password2} required onChange={this.handleInputChange}
+                       type="password" name="password2"/>
+                <button type="submit">Utwórz konto</button>
+                <p>Masz już konto? <a href={'/register'}>Zaloguj się</a></p>
             </form>
 
         )

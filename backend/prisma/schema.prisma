@@ -13,21 +13,21 @@ model User {
   email       String   @unique
   name        String
   password    String
-  reliability Float
+  reliability Float    @default(5)
 }
 
 model Building {
-  id       Int        @id @default(autoincrement())
-  name     String
-  address  String
-  Location Location[]
+  id        Int        @id @default(autoincrement())
+  name      String
+  address   String
+  locations Location[]
 }
 
 model Target {
   id          Int        @id @default(autoincrement())
   name        String
   description String
-  Location    Location[]
+  locations   Location[]
 }
 
 model Location {
@@ -35,8 +35,8 @@ model Location {
   rating      Float
   cooridnates String?
   details     String?
-  acctual     Boolean?
-  basedOnAI   Boolean?
+  acctual     Boolean   @default(true)
+  basedOnAI   Boolean   @default(false)
   target      Target    @relation(fields: [targetId], references: [id])
   targetId    Int
   building    Building? @relation(fields: [buildingId], references: [id])

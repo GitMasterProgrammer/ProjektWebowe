@@ -1,5 +1,4 @@
 import {Link} from "react-router-dom";
-import "./index.css"
 import {routes} from "../../helpers/routing.tsx";
 export default function Navbar() {
     return (
