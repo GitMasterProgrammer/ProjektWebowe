@@ -3,6 +3,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
+import Report from "../pages/Report";
 
 
 interface RouteItem {
@@ -16,6 +17,11 @@ export const routes: RouteItem[] = [
         path: "/",
         element: <Home  />,
         label: "Homepage",
+    },
+    {
+        path: "/report",
+        element: <Report  />,
+        label: "Report",
     },
     {
         path: "/login",

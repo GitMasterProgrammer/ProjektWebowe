@@ -32,9 +32,10 @@ model Target {
 
 model Location {
   id          Int       @id @default(autoincrement())
-  rating      Float
+  rating      Float     @default(5)
   cooridnates String?
   details     String?
+  address     String
   acctual     Boolean   @default(true)
   basedOnAI   Boolean   @default(false)
   target      Target    @relation(fields: [targetId], references: [id])

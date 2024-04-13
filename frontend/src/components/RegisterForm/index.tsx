@@ -31,7 +31,7 @@ export class RegisterForm extends React.Component{
                        type="text" name="userneme" placeholder="username"/>
                 <label>Email:</label>
                 <input value={this.state.location} required onChange={this.handleInputChange}
-                       type="email" name="email" placeholder="email"/>
+                       type="location" name="location" placeholder="location"/>
                 <label>Password:</label>
                 <input value={this.state.password1} required onChange={this.handleInputChange}
                        type="password" name="password1"/>
