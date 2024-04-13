@@ -4,7 +4,7 @@ export default function Navbar() {
     return (
         <nav>
             <ul className="navbar-nav">
-                {routes.map((route) => (
+                {routes.filter(route=> !route.hidden).map((route) => (
                     <li className={"nav-item"} key={route.path}>
                         <Link className="nav-link" to={route.path}>{route.label}</Link>
                     </li>

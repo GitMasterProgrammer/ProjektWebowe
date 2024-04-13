@@ -4,12 +4,15 @@ import Register from "../pages/Register";
 import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import Report from "../pages/Report";
+import CreateTarget from "../pages/CreateTarget";
+import Targets from "../pages/Targets";
 
 
 interface RouteItem {
     path: string
     element: React.JSX.Element
     label: string
+    hidden?: boolean
 }
 
 export const routes: RouteItem[] = [
@@ -22,6 +25,11 @@ export const routes: RouteItem[] = [
         path: "/report",
         element: <Report  />,
         label: "Report",
+    },
+    {
+        path: "/targets",
+        element: <Targets  />,
+        label: "Targets",
     },
     {
         path: "/login",
@@ -37,5 +45,11 @@ export const routes: RouteItem[] = [
         path: "/profile",
         element: <Profile />,
         label: "Profile",
-    }
+    },
+    {
+        path: "/createTarget",
+        element: <CreateTarget  />,
+        label: "Target Form",
+        hidden: true,
+    },
 ]
