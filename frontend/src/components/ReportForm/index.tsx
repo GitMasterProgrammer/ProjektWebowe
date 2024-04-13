@@ -52,7 +52,7 @@ export class ReportForm extends React.Component{
                 <input value={this.state.coordinates} onChange={this.handleInputChange}
                        type="text" name="coordinates"/>
                 <label>Datails:</label>
-                <textarea value={this.state.password2} required onChange={this.handleInputChange}
+                <textarea value={this.state.datails} required onChange={this.handleInputChange}
                        name="datails"></textarea>
                 <button type="submit">Zgłoś</button>
                 {/*<p>Masz już konto? <a href={'/register'}>Zaloguj się</a></p>*/}

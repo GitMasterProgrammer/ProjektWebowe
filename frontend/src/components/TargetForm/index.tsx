@@ -26,7 +26,7 @@ export class TargetForm extends React.Component{
         return (
             <form method="post" onSubmit={this.handleSubmit}>
                 <label>Name:</label>
-                <input value={this.state.email} required onChange={this.handleInputChange} type="text" name="name"
+                <input value={this.state.name} required onChange={this.handleInputChange} type="text" name="name"
                        placeholder="name"/>
                 <label>Description:</label>
                 <textarea value={this.state.description} required onChange={this.handleInputChange}
