@@ -6,6 +6,7 @@ import Profile from "../pages/Profile";
 import Report from "../pages/Report";
 import CreateTarget from "../pages/CreateTarget";
 import Targets from "../pages/Targets";
+import Reports from "../pages/Reports";
 
 
 interface RouteItem {
@@ -25,6 +26,11 @@ export const routes: RouteItem[] = [
         path: "/report",
         element: <Report  />,
         label: "Report",
+    },
+    {
+        path: "/reports",
+        element: <Reports  />,
+        label: "Reports",
     },
     {
         path: "/targets",

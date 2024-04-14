@@ -3,6 +3,7 @@ datasource db {
   provider = "mysql"
 }
 
+//  https://prisma-editor.vercel.app/
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,12 +16,16 @@ model User {
   password    String
   reliability Float            @default(5)
   favourites  TargetsOnUsers[]
+  Locations   Location[]
+  Targets     Target[]
 }
 
 model Target {
   id          Int              @id @default(autoincrement())
   name        String
   description String
+  creator     User             @relation(fields: [creatorId], references: [id])
+  creatorId   Int
   locations   Location[]
   users       TargetsOnUsers[]
 }
@@ -41,9 +46,12 @@ model Location {
   cooridnates String?
   details     String?
   address     String
-  acctual     Boolean  @default(true)
+  actual      Boolean  @default(true)
   basedOnAI   Boolean  @default(false)
+  creator     User     @relation(fields: [creatorId], references: [id])
+  creatorId   Int
   target      Target   @relation(fields: [targetId], references: [id])
   targetId    Int
+  createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

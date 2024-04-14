@@ -71,6 +71,7 @@ export default function TargetView() {
                         <Heading level={3} content={target.name}/>
                         <p className="targetDesc">{target.description}</p>
                         <p>Likes: {target.likes}</p>
+                        <button>Follow</button>
                     </div>
                 ))}
             </div>
