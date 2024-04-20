@@ -1,41 +1,44 @@
-import React, {ChangeEventHandler} from "react";
+import axios from "axios";
+import React from "react";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
 
 
-export class LoginForm extends React.Component{
-    // @ts-expect-error becouse yes
-    constructor(props) {
-        super(props);
-        this.state = {sended: false, errorMessages: [], result: "Nie wyslano"};
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
+export default function LoginForm(){
+    const signIn = useSignIn()
+    const [formData, setFormData] = React.useState({email: '', password: ''})
+
+    const onSubmit = (e) => {
+        e.preventDefault()
+        axios.post('http://localhost:3000/api/post/login', formData)
+            .then((res)=>{
+                if(res.status === 200){
+                    if(signIn({
+                        auth: {
+                            token: res.data.token,
+                            type: 'Bearer',
+                        },
+                        userState: {
+                            email: formData.email
+                        }
+                    })){ // Only if you are using refreshToken feature
+                        // Redirect or do-something
+                    }else {
+                        //Throw error
+                    }
+                }
+            })
     }
-
-    handleInputChange(event : ChangeEventHandler) {
-        const target = event.target
-        const value = target.value
-        const name = target.name
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleSubmit(event ) {
-        event.preventDefault()
-    }
-    render() {
         return (
-            <form method="post" onSubmit={this.handleSubmit}>
+            <form method="post" onSubmit={onSubmit}>
                 <label>Email:</label>
-                <input value={this.state.email} required onChange={this.handleInputChange} type="email" name="email"
+                <input required onChange={(e)=>setFormData({...formData, email: e.target.value})} type="email" name="email"
                        placeholder="email"/>
                 <label>Password:</label>
-                <input value={this.state.password} required onChange={this.handleInputChange}
+                <input required onChange={(e)=>setFormData({...formData, password: e.target.value})}
                        type="password" name="password"  />
                 <button type="submit">Zaloguj się</button>
                 <p>Nie masz konta? <a href={'/register'}>Zarejestruj się</a></p>
             </form>
-
         )
-    }
 
 }

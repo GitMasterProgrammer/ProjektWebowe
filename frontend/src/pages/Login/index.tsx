@@ -1,5 +1,5 @@
 import Heading from "../../components/Heading";
-import {LoginForm} from "../../components/LoginForm";
+import LoginForm from "../../components/LoginForm";
 
 
 

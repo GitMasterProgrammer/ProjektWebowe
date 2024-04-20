@@ -5,6 +5,10 @@ const prisma = new PrismaClient();
 
 const router = Router();
 
+router.post('/login', (req, res) => {
+    res.json({"tak": "nie"})
+})
+
 router.post('/user', async (req : Request, res: Response) => {
     try {
         const data = req.body;

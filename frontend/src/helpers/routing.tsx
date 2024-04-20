@@ -13,7 +13,8 @@ interface RouteItem {
     path: string
     element: React.JSX.Element
     label: string
-    hidden?: boolean
+    hidden?: boolean,
+    requireAuth: boolean,
 }
 
 export const routes: RouteItem[] = [
@@ -21,41 +22,49 @@ export const routes: RouteItem[] = [
         path: "/",
         element: <Home  />,
         label: "Homepage",
+        requireAuth: false
     },
     {
         path: "/report",
         element: <Report  />,
         label: "Report",
+        requireAuth: true
     },
     {
         path: "/reports",
         element: <Reports  />,
         label: "Reports",
+        requireAuth: false
     },
     {
         path: "/targets",
         element: <Targets  />,
         label: "Targets",
+        requireAuth: false
     },
     {
         path: "/login",
         element: <Login />,
         label: "Login",
+        requireAuth: false
     },
     {
         path: "/register",
         element: <Register />,
         label: "Register",
+        requireAuth: false
     },
     {
         path: "/profile",
         element: <Profile />,
         label: "Profile",
+        requireAuth: true
     },
     {
         path: "/createTarget",
         element: <CreateTarget  />,
         label: "Target Form",
         hidden: true,
+        requireAuth: true
     },
 ]
