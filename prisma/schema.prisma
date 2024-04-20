@@ -1,0 +1,57 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "mysql"
+}
+
+//  https://prisma-editor.vercel.app/
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id          Int              @id @default(autoincrement())
+  createdAt   DateTime         @default(now())
+  email       String           @unique
+  name        String
+  password    String
+  reliability Float            @default(5)
+  favourites  TargetsOnUsers[]
+  Locations   Location[]
+  Targets     Target[]
+}
+
+model Target {
+  id          Int              @id @default(autoincrement())
+  name        String
+  description String
+  creator     User             @relation(fields: [creatorId], references: [id])
+  creatorId   Int
+  locations   Location[]
+  users       TargetsOnUsers[]
+}
+
+model TargetsOnUsers {
+  user     User     @relation(fields: [userId], references: [id])
+  userId   Int
+  target   Target   @relation(fields: [targetId], references: [id])
+  targetId Int
+  likedAt  DateTime @default(now())
+
+  @@id([userId, targetId])
+}
+
+model Location {
+  id          Int      @id @default(autoincrement())
+  rating      Float    @default(5)
+  cooridnates String?
+  details     String?
+  address     String
+  actual      Boolean  @default(true)
+  basedOnAI   Boolean  @default(false)
+  creator     User     @relation(fields: [creatorId], references: [id])
+  creatorId   Int
+  target      Target   @relation(fields: [targetId], references: [id])
+  targetId    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
