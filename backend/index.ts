@@ -22,9 +22,10 @@ app.use(
         extended: true,
     }),
 );
+
 app.use('/api/post', router_post);
-app.use('/api/getall', router_put);
 app.use('/api/get', router_get);
+
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 })

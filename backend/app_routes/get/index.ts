@@ -4,29 +4,34 @@ const prisma = new PrismaClient();
 
 const router = Router();
 
-router.get('/user', async (req : Request, res: Response) => {
+type TableName = 'user' | 'target' | 'location'; 
+
+router.get('/:table', async (req: Request, res: Response) => {
     try {
         const { table } = req.params;
         const where = req.body;
-        
-        if (Object.keys(where).length === 0) {
-            const record = await prisma.user.findMany();
 
-            res.json({
-                record
-            });
-        } else {
-            // Jeśli obiekt where zawiera kryteria wyszukiwania, zwracamy tylko te rekordy
-            const record = await prisma.user.findMany({
-                where,
-            });
-            res.json({
-                record
-            });
+        let record;
+        switch (table) {
+            case 'user':
+                record = await prisma.user.findMany({ where });
+                break;
+            case 'target':
+                record = await prisma.target.findMany({ where });
+                break;
+            case 'location':
+                record = await prisma.location.findMany({ where });
+                break;
+            default:
+                return res.status(400).json({ error: 'Invalid table name' });
         }
+
+        res.json({
+            record
+        });
     } catch (error) {
         res.status(500).json({ error: error });
     }
 });
 
-export {router as router_get};
+export { router as router_get };
