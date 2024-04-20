@@ -1,21 +1,19 @@
-import express, { Express, Request, Response, Router } from 'express';
+import { Express, Request, Response, Router } from 'express';
 
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const router : Router = express.Router();
+const router : Router = Router();
 
-type PrismaModel = 'user'; 
 
-router.post('/:table', async (req : Request, res : Response) => {
+router.get('/user', async (req : Request, res : Response) => {
     try {
-        const { table } = req.params;
-        const records = await prisma[table as PrismaModel].findMany();
+        const records = await prisma.user.findMany();
         res.json(records);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: (error as Error).message });
+        res.status(500).json({ error: "sam se napraw"});
     }
 })
 

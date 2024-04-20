@@ -1,7 +1,8 @@
 import express, { Express, Request, Response } from 'express';
-import bodyParser from 'body-parser';
 
 import { router_put } from './app_routes/index';
+import { router_post } from './app_routes/post';
+import { router_get } from './app_routes/get';
 
 const app: Express = express();
 const port = 3000;
@@ -13,14 +14,17 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'content-type');
     next();
 });
-app.use('/api/post', router_put);
+
 app.use(express.json());
+
 app.use(
     express.urlencoded({
         extended: true,
     }),
 );
-
+app.use('/api/post', router_post);
+app.use('/api/getall', router_put);
+app.use('/api/get', router_get);
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 })
