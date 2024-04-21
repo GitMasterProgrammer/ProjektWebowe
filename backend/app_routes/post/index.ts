@@ -12,7 +12,7 @@ router.post('/:table', async (req : Request, res: Response) => {
         const saltRounds = 10;
 
         //const hashedPassword = await bcrypt.hash(data.password, saltRounds);
-        let record; // kiedys zmienie tego leta
+        let record; // TODO: kiedys zmienie tego leta
         switch (table) {
             case 'user':
                 data.password = await bcrypt.hash(data.password, saltRounds);

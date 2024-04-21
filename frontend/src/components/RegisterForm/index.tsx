@@ -1,48 +1,77 @@
-import React, {ChangeEventHandler} from "react";
+import React from "react";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
+import bcrypt from "bcryptjs";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 
-export class RegisterForm extends React.Component{
-    // @ts-expect-error becouse yes
-    constructor(props) {
-        super(props);
-        this.state = {sended: false, errorMessages: [], result: "Nie wyslano"};
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
+export default function RegisterForm(){
+    const signIn = useSignIn()
+    const [formData, setFormData] = React.useState({name: "", password1: '',email: '', password2: ''})
+    const [errors, setErrors] = React.useState("")
+    const navigate = useNavigate ();
+    const OnSubmit = (e) =>{
+        e.preventDefault()
+        if (formData.password1 === formData.password2) {
+            const reqData = {
+                name: formData.name,
+                email: formData.email,
+                password: bcrypt.hashSync(formData.password1, '$2a$10$CwTycUXWue0Thq9StjUM0u'),
+            }
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(reqData)
+            };
+            fetch('http://localhost:3000/api/post/user', requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    axios.post('http://localhost:3000/api/post/login', {'email': reqData.email, 'password': reqData.password})
+                        .then((res)=>{
+                            if(res.status === 200){
+                                if(signIn({
+                                    auth: {
+                                        token: res.data.token,
+                                        type: 'Bearer',
+                                    },
+                                    userState: {
+                                        email: formData.email,
+                                        id: res.data.id
+                                    }
+                                })){ // Only if you are using refreshToken feature
+                                    // Redirect or do-something
+                                }else {
+                                    setErrors(res.data.message)
+                                }
+                            }
+                        })
+                });
+            navigate('/reports')
+        }
+        else {
+            setErrors("Passwords must be the same")
+        }
+
     }
-
-    handleInputChange(event : ChangeEventHandler) {
-        const target = event.target
-        const value = target.value
-        const name = target.name
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleSubmit(event ) {
-        event.preventDefault()
-
-    }
-    render() {
-        return (
-            <form method="post" onSubmit={this.handleSubmit}>
+   return (
+            <form method="post" onSubmit={OnSubmit}>
                 <label>Userame:</label>
-                <input value={this.state.name} required onChange={this.handleInputChange}
+                <input required onChange={(e)=>setFormData({...formData, name: e.target.value})}
                        type="text" name="userneme" placeholder="username"/>
                 <label>Email:</label>
-                <input value={this.state.location} required onChange={this.handleInputChange}
-                       type="location" name="location" placeholder="location"/>
+                <input required onChange={(e)=>setFormData({...formData, email: e.target.value})}
+                       type="email" name="email" placeholder="email"/>
                 <label>Password:</label>
-                <input value={this.state.password1} required onChange={this.handleInputChange}
+                <input required onChange={(e)=>setFormData({...formData, password1: e.target.value})}
                        type="password" name="password1"/>
                 <label>Repeat password:</label>
-                <input value={this.state.password2} required onChange={this.handleInputChange}
+                <input required onChange={(e)=>setFormData({...formData, password2: e.target.value})}
                        type="password" name="password2"/>
+                <p>{errors}</p>
                 <button type="submit">Utwórz konto</button>
                 <p>Masz już konto? <a href={'/register'}>Zaloguj się</a></p>
             </form>
 
         )
-    }
 
 }
