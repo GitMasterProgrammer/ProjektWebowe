@@ -23,6 +23,9 @@ router.put('/:table', async (req: Request, res: Response) => {
             case 'location':
                 record = await prisma.location.updateMany({ where, data });
                 break;
+            case 'targetsOnUsers':
+                record = await prisma.targetsOnUsers.updateMany({ where, data });
+                break;
             default:
                 return res.status(400).json({ error: 'Invalid table name' });
         }

@@ -12,7 +12,7 @@ router.post('/:table', async (req : Request, res: Response) => {
         const saltRounds = 10;
 
         //const hashedPassword = await bcrypt.hash(data.password, saltRounds);
-        let record; // TODO: kiedys zmienie tego leta
+        let record; // kiedys zmienie tego leta
         switch (table) {
             case 'user':
                 data.password = await bcrypt.hash(data.password, saltRounds);
@@ -24,6 +24,10 @@ router.post('/:table', async (req : Request, res: Response) => {
             case 'location':
                 record = await prisma.location.create({ data });
                 break;
+            case 'targetsOnUsers':
+                record = await prisma.targetsOnUsers.create({ data });
+                break;
+            
             default:
                 return res.status(400).json({ error: 'Invalid table name' });
         }

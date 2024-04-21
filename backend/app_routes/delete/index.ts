@@ -22,6 +22,9 @@ router.delete('/:table', async (req: Request, res: Response) => {
             case 'location':
                 record = await prisma.location.deleteMany({ where });
                 break;
+            case 'targetsOnUsers':
+                record = await prisma.targetsOnUsers.deleteMany({ where });
+                break;
             default:
                 return res.status(400).json({ error: 'Invalid table name' });
         }
