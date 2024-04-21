@@ -4,7 +4,7 @@ import {Target} from "../../interfaces/Target.tsx";
 
 export default function TargetView() {
     // fetch tagets
-    const targets : Target[] = [
+    const targets_t : Target[] = [
         {
             id: 1,
             name: "Pyssa",
@@ -30,9 +30,11 @@ export default function TargetView() {
             likes: 66
         },
     ]
-
+    const [targets, setTargets] = React.useState(targets_t)
     const [order, setOrder] = React.useState("likes");
     const [quantity, setQuantity] = React.useState(25);
+
+    
 
     return (
         <div className="TargetView">
