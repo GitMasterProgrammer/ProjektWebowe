@@ -34,7 +34,7 @@ export default function TargetView() {
     const [order, setOrder] = React.useState("likes");
     const [quantity, setQuantity] = React.useState(25);
 
-    
+
 
     return (
         <div className="TargetView">

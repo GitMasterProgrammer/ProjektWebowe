@@ -12,8 +12,13 @@ export default function LoginForm(){
 
     const onSubmit = (e) => {
         e.preventDefault()
-        setFormData({...formData, password: bcrypt.hashSync(formData.password, '$2a$10$CwTycUXWue0Thq9StjUM0u')})
-        axios.post('http://localhost:3000/api/post/login', formData)
+        const reqData = {
+            email: formData.email,
+            password: bcrypt.hashSync(formData.password, '$2a$10$CwTycUXWue0Thq9StjUM0u'),
+        }
+
+        console.log(formData)
+        axios.post('http://localhost:3000/api/post/login', reqData)
             .then((res)=>{
                 if(res.status === 200){
                     if(signIn({

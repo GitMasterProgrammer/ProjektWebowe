@@ -22,7 +22,7 @@ router.post('/', async (req : Request, res: Response) => {
       }
   
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      res.json({ token });
+      res.json({ 'token': token, 'id' : user.id });
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: '🐵🐵🐵Server error something broke🐵🐵🐵' });

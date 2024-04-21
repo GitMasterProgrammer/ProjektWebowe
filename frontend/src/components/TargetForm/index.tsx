@@ -1,16 +1,25 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 
 export default function TargetForm(){
     const [formData, setFormData] = React.useState({name: '', description: ''})
     const [errors, setErrors] = React.useState("")
     const navigate = useNavigate ();
+    const auth  = useAuthUser()
+
+
     const OnSubmit = (event ) => {
         event.preventDefault()
         const reqData = {
             name: formData.name,
             description: formData.description,
+            creator: {
+                connect: {
+                    id: auth.id
+                }
+            }
         }
         const requestOptions = {
             method: 'POST',
