@@ -1,40 +1,40 @@
-import React, {ChangeEventHandler} from "react";
+import React from "react";
+import {useNavigate} from "react-router-dom";
 
 
-export class TargetForm extends React.Component{
-    // @ts-expect-error becouse yes
-    constructor(props) {
-        super(props);
-        this.state = {sended: false, errorMessages: [], result: "Nie wyslano"};
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-    }
-
-    handleInputChange(event : ChangeEventHandler) {
-        const target = event.target
-        const value = target.value
-        const name = target.name
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleSubmit(event ) {
+export default function TargetForm(){
+    const [formData, setFormData] = React.useState({name: '', description: ''})
+    const [errors, setErrors] = React.useState("")
+    const navigate = useNavigate ();
+    const OnSubmit = (event ) => {
         event.preventDefault()
+        const reqData = {
+            name: formData.name,
+            description: formData.description,
+        }
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reqData)
+        };
+        fetch('http://localhost:3000/api/post/user', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                navigate('/targets')
+            });
     }
-    render() {
-        return (
-            <form method="post" onSubmit={this.handleSubmit}>
+    return (
+            <form method="post" onSubmit={OnSubmit}>
                 <label>Name:</label>
-                <input value={this.state.name} required onChange={this.handleInputChange} type="text" name="name"
+                <input required onChange={(e)=>setFormData({...formData, name: e.target.value})} type="text" name="name"
                        placeholder="name"/>
                 <label>Description:</label>
-                <textarea value={this.state.description} required onChange={this.handleInputChange}
+                <textarea required onChange={(e)=>setFormData({...formData, description: e.target.value})}
                           name="description" placeholder="description"></textarea>
+                <p>{errors}</p>
                 <button type="submit">Utwórz osobę</button>
             </form>
 
         )
-    }
 
 }

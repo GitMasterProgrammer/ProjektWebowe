@@ -1,64 +1,46 @@
 import React, {ChangeEventHandler} from "react";
 
 
-export class ReportForm extends React.Component{
+export default function ReportForm(){
     // @ts-expect-error becouse yes
-    constructor(props) {
-        super(props);
+    const [targets, setTargets] = React.useState([
+        {id: 1, name: "Pyssa"},
+        {id: 2, name: "Pyssa2"},
+        {id: 3, name: "Pyssa3"},
+    ])
+    const [formData, setFormData] = React.useState({target: '', coordinates: '', details: ''})
+    const [errors, setErrors] = React.useState("")
 
-        // load targets
-        const targets = [
-            {id: 1, name: "Pyssa"},
-            {id: 2, name: "Pyssa2"},
-            {id: 3, name: "Pyssa3"},
-        ]
-
-        this.state = {sended: false, errorMessages: [], result: "Nie wyslano", targets: targets};
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-    }
-
-    handleInputChange(event : ChangeEventHandler) {
-        const target = event.target
-        const value = target.value
-        const name = target.name
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleSubmit(event ) {
+    const  OnSubmit = (event ) => {
         event.preventDefault()
 
     }
-    render() {
-        return (
-            <form method="post" onSubmit={this.handleSubmit}>
+    return (
+            <form method="post" onSubmit={OnSubmit}>
                 <label>Target (Write name or select from list):</label>
-                <input value={this.state.target} required onChange={this.handleInputChange}
+                <input required onChange={(e)=>setFormData({...formData, target: e.target.value})}
                        type="text" name="target" placeholder="Target's name"/>
                 <select name="targetId">
                     {
-                        this.state.targets.map(target =>
+                        targets.map(target =>
                             (<option value={target.id}>{target.name}</option>)
                         )
                     }
 
                 </select>
                 <label>Address:</label>
-                <input value={this.state.address} required onChange={this.handleInputChange}
+                <input required onChange={(e)=>setFormData({...formData, target: e.target.value})}
                        type="text" name="address" placeholder="address"/>
                 <label>Coordinates:</label>
-                <input value={this.state.coordinates} onChange={this.handleInputChange}
+                <input onChange={(e)=>setFormData({...formData, coordinates: e.target.value})}
                        type="text" name="coordinates"/>
                 <label>Datails:</label>
-                <textarea value={this.state.datails} required onChange={this.handleInputChange}
+                <textarea required onChange={(e)=>setFormData({...formData, details: e.target.value})}
                        name="datails"></textarea>
+                <p>{errors}</p>
                 <button type="submit">Zgłoś</button>
                 {/*<p>Masz już konto? <a href={'/register'}>Zaloguj się</a></p>*/}
             </form>
 
         )
-    }
-
 }

@@ -1,5 +1,5 @@
 import Heading from "../../components/Heading";
-import {TargetForm} from "../../components/TargetForm";
+import TargetForm from "../../components/TargetForm";
 
 export default function CreateTarget(){
     return(
