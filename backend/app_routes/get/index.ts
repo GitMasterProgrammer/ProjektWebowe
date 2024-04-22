@@ -6,7 +6,7 @@ const router = Router();
 
 type TableName = 'user' | 'target' | 'location'; 
 
-router.get('/:table', async (req: Request, res: Response) => {
+router.post('/:table', async (req: Request, res: Response) => {
     try {
         const { table } = req.params;
         const where = req.body.where;
@@ -21,7 +21,7 @@ router.get('/:table', async (req: Request, res: Response) => {
                 includes[element] = true;    
             });
         }
-        
+        // TODO: dla target niech zwraca liczbę userów, którzy mają ją w ulubionych count(target.users) (coś takiego)
 
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
 
@@ -31,7 +31,7 @@ router.get('/:table', async (req: Request, res: Response) => {
                 record = await prisma.user.findMany({ where, orderBy: orderBy, take, include : includes });
                 break;
             case 'target':
-                record = await prisma.target.findMany({ where, orderBy: orderBy, take, include : includes });
+                record = await prisma.target.findMany({ where, orderBy: orderBy, take, include : {creator: true} });
                 break;
             case 'location':
                 record = await prisma.location.findMany({ where, orderBy: orderBy, take, include : includes });
