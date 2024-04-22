@@ -33,7 +33,6 @@ export default function TargetView() {
             orderBy: orderBy,
             maxRows: quantity
         }
-        console.log(body)
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -43,8 +42,6 @@ export default function TargetView() {
             .then(response => response.json())
             .then(data => {
                 setTargets(data.record)
-                console.log(data)
-
             });
     }
     return (
@@ -85,6 +82,7 @@ export default function TargetView() {
                             <Heading level={3} content={target.name}/>
                             <p className="targetDesc">{target.description}</p>
                             <p>Likes: {target.likes}</p>
+                            <p>Creator: {target.creator.name}</p>
                             <button>Follow</button>
                         </div>
                     ))}

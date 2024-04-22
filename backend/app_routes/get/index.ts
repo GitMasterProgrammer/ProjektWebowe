@@ -21,7 +21,9 @@ router.post('/:table', async (req: Request, res: Response) => {
                 includes[element] = true;    
             });
         }
-        // TODO: dla target niech zwraca liczbę userów, którzy mają ją w ulubionych count(target.users) (coś takiego)
+        // TODO: dla target niech zwraca liczbę userów, którzy mają ją w ulubionych target.likes = count(target.users) (coś takiego)
+        // TODO: mechanizm doawania i usuwania do ulibionych
+        // TODO: zwracanie wszystkich polubioych targetow dla uzytkownika
 
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
 

@@ -26,7 +26,8 @@ export default function TargetForm(){
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(reqData)
         };
-        fetch('http://localhost:3000/api/post/user', requestOptions)
+        console.log(JSON.stringify(reqData))
+        fetch('http://localhost:3000/api/post/target', requestOptions)
             .then(response => response.json())
             .then(data => {
                 navigate('/targets')
