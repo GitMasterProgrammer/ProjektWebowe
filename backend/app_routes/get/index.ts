@@ -12,21 +12,32 @@ router.get('/:table', async (req: Request, res: Response) => {
         const where = req.body.where;
         const orderBy = req.body.orderBy;
         const maxRows = req.body.maxRows;
+        const includes_query = req.query.join?.toString();
+        
+        const includes: { [key: string]: boolean } = {};
+        
+        if (includes_query){
+            includes_query.split(',').forEach(element => {
+                includes[element] = true;    
+            });
+        }
+        
+
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
 
         let record;
         switch (table) {
             case 'user':
-                record = await prisma.user.findMany({ where, orderBy: orderBy, take });
+                record = await prisma.user.findMany({ where, orderBy: orderBy, take, include : includes });
                 break;
             case 'target':
-                record = await prisma.target.findMany({ where, orderBy: orderBy, take });
+                record = await prisma.target.findMany({ where, orderBy: orderBy, take, include : includes });
                 break;
             case 'location':
-                record = await prisma.location.findMany({ where, orderBy: orderBy, take });
+                record = await prisma.location.findMany({ where, orderBy: orderBy, take, include : includes });
                 break;
             case 'targetsOnUsers':
-                record = await prisma.targetsOnUsers.findMany({ where, orderBy: orderBy, take });
+                record = await prisma.targetsOnUsers.findMany({ where, orderBy: orderBy, take, include : includes });
                 break;
             default:
                 return res.status(400).json({ error: 'Invalid table name' });
