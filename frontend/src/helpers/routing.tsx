@@ -46,13 +46,15 @@ export const routes: RouteItem[] = [
         path: "/login",
         element: <Login />,
         label: "Login",
-        requireAuth: false
+        requireAuth: false,
+        hidden: true
     },
     {
         path: "/register",
         element: <Register />,
         label: "Register",
-        requireAuth: false
+        requireAuth: false,
+        hidden: true
     },
     {
         path: "/profile",

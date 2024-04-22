@@ -26,7 +26,9 @@ export default function Navbar() {
                     </li>
                 )
                 :
-                    (<li className="nav-item">No user logged in</li>)
+                    (<li className="nav-item" key={'login'}>
+                        <Link className="nav-link" to={"/login"}>Login</Link>
+                    </li>)
 
                 }
             </ul>

@@ -21,6 +21,8 @@ router.post('/:table', async (req: Request, res: Response) => {
                 includes[element] = true;    
             });
         }
+
+        // TODO: osobna ścierzka dla 1 elementu z findUnique, bo takie coś jest bezsensu: user = data.record[0]
         // TODO: dla target niech zwraca liczbę userów, którzy mają ją w ulubionych target.likes = count(target.users) (coś takiego)
         // TODO: mechanizm doawania i usuwania do ulibionych
         // TODO: zwracanie wszystkich polubioych targetow dla uzytkownika
