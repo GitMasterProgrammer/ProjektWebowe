@@ -7,6 +7,7 @@ import Report from "../pages/Report";
 import CreateTarget from "../pages/CreateTarget";
 import Targets from "../pages/Targets";
 import Reports from "../pages/Reports";
+import TargetDetails from "../components/TargetDetails";
 
 
 interface RouteItem {
@@ -14,7 +15,7 @@ interface RouteItem {
     element: React.JSX.Element
     label: string
     hidden?: boolean,
-    requireAuth: boolean,
+    requireAuth: boolean
 }
 
 export const routes: RouteItem[] = [
@@ -41,6 +42,13 @@ export const routes: RouteItem[] = [
         element: <Targets  />,
         label: "Targets",
         requireAuth: false
+    },
+    {
+        path: "/targets/:targetID",
+        element: <TargetDetails  />,
+        label: "Targets",
+        requireAuth: false,
+        hidden: true
     },
     {
         path: "/login",

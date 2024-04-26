@@ -1,6 +1,7 @@
 import Heading from "../Heading";
-import React from "react";
+import React, {useEffect} from "react";
 import {Target} from "../../interfaces/Target.tsx";
+import LinkButton from "../LinkButton";
 
 export default function TargetView() {
 
@@ -44,6 +45,12 @@ export default function TargetView() {
                 setTargets(data.record)
             });
     }
+
+    useEffect(() => {
+
+        Refresh();
+    }, []);
+
     return (
         <div className="TargetView">
             <form className="filterOptions">
@@ -83,7 +90,7 @@ export default function TargetView() {
                             <p className="targetDesc">{target.description}</p>
                             <p>Likes: {target.likes}</p>
                             <p>Creator: {target.creator.name}</p>
-                            <button>Follow</button>
+                            <LinkButton href={'/targets/' + target.id} content={"Follow"} />
                         </div>
                     ))}
             </div>
