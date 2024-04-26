@@ -3,16 +3,24 @@ import useSignIn from "react-auth-kit/hooks/useSignIn";
 import bcrypt from "bcryptjs";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import validateEmail from "../../helpers/validateEmail.tsx";
+import {validatePassword} from "../../helpers/validatePassword.tsx";
 
 
 export default function RegisterForm(){
     const signIn = useSignIn()
     const [formData, setFormData] = React.useState({name: "", password1: '',email: '', password2: ''})
-    const [errors, setErrors] = React.useState("")
+    const [errors, setErrors] = React.useState<string[]>([])
     const navigate = useNavigate ();
     const OnSubmit = (e) =>{
         e.preventDefault()
-        if (formData.password1 === formData.password2) {
+        const passwordErrors = validatePassword(formData.password1);
+        if (formData.password1 !== formData.password2){
+            passwordErrors.push("Hasłą muszą być takie same");
+            setErrors(passwordErrors)
+        } else if (passwordErrors) {
+            setErrors(passwordErrors)
+        } else if (validateEmail(formData.email)) {
             const reqData = {
                 name: formData.name,
                 email: formData.email,
@@ -49,7 +57,7 @@ export default function RegisterForm(){
             navigate('/reports')
         }
         else {
-            setErrors("Passwords must be the same")
+            setErrors(["Email nie jest poprawny"])
         }
 
     }
@@ -67,7 +75,11 @@ export default function RegisterForm(){
                 <label>Repeat password:</label>
                 <input required onChange={(e)=>setFormData({...formData, password2: e.target.value})}
                        type="password" name="password2"/>
-                <p>{errors}</p>
+                <ul>{errors.map((error) =>
+                    (
+                        <li>{error}</li>
+                    )
+                )}</ul>
                 <button type="submit">Utwórz konto</button>
                 <p>Masz już konto? <a href={'/register'}>Zaloguj się</a></p>
             </form>

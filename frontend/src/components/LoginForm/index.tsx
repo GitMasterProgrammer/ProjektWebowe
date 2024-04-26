@@ -3,6 +3,7 @@ import React from "react";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
 import bcrypt from 'bcryptjs'
 import {useNavigate} from "react-router-dom";
+import validateEmail from "../../helpers/validateEmail.tsx";
 
 export default function LoginForm(){
     const signIn = useSignIn()
@@ -12,6 +13,11 @@ export default function LoginForm(){
 
     const onSubmit = (e) => {
         e.preventDefault()
+        if(!validateEmail(formData.email)){
+            setErrors("Email jest niepoprawny")
+            return
+        }
+
         const reqData = {
             email: formData.email,
             password: bcrypt.hashSync(formData.password, '$2a$10$CwTycUXWue0Thq9StjUM0u'),
@@ -37,7 +43,7 @@ export default function LoginForm(){
                     }
                 }
             })
-        navigate('/reports')
+        navigate(-1)
     }
         return (
             <form method="post" onSubmit={onSubmit}>
