@@ -10,7 +10,7 @@ router.post('/:table', async (req : Request, res: Response) => {
         const data = req.body;
         const { table } = req.params;
         const saltRounds = 10;
-
+        //TODO: sprawdzanie, czy email jest w bazie i zwracanie informacji
         //const hashedPassword = await bcrypt.hash(data.password, saltRounds);
         let record; // kiedys zmienie tego leta
         switch (table) {
