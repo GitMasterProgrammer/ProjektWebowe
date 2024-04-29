@@ -11,8 +11,9 @@ router.put('/:table', async (req: Request, res: Response) => {
         const { table } = req.params;
         const where = req.body.where;
         const data = req.body.data;
-
-        let record; // kiedys zmienie tego leta
+        //TODO req tylko z id zmieniają.
+        //TODO edycja tylko poszczególnych kolumn
+        let record; // TODO: kiedys zmienie tego leta
         switch (table) {
             case 'user':
                 record = await prisma.user.updateMany({ where, data });

@@ -18,9 +18,10 @@ export default function RegisterForm(){
         if (formData.password1 !== formData.password2){
             passwordErrors.push("Hasłą muszą być takie same");
             setErrors(passwordErrors)
-        } else if (passwordErrors) {
+        } else if (passwordErrors.length > 1) {
             setErrors(passwordErrors)
         } else if (validateEmail(formData.email)) {
+            console.log("poprawne")
             const reqData = {
                 name: formData.name,
                 email: formData.email,
@@ -31,6 +32,7 @@ export default function RegisterForm(){
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(reqData)
             };
+            // TODO: Przygotowanie do email uniuque
             fetch('http://localhost:3000/api/post/user', requestOptions)
                 .then(response => response.json())
                 .then(data => {
@@ -46,15 +48,18 @@ export default function RegisterForm(){
                                         email: formData.email,
                                         id: res.data.id
                                     }
-                                })){ // Only if you are using refreshToken feature
-                                    // Redirect or do-something
+                                })) {
+                                    navigate('/profile')
+
                                 }else {
-                                    setErrors(res.data.message)
+                                    setErrors([res.data.message])
                                 }
                             }
-                        })
+                        }).catch((res) => {
+                            console.log(res)
+                            setErrors([res.response.data.message])
+                    })
                 });
-            navigate('/reports')
         }
         else {
             setErrors(["Email nie jest poprawny"])

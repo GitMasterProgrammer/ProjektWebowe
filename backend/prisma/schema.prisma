@@ -26,8 +26,8 @@ model Target {
   description String
   creator     User             @relation(fields: [creatorId], references: [id])
   creatorId   Int
-  locations   Location[]
   users       TargetsOnUsers[]
+  Location    Location[]
 }
 
 model TargetsOnUsers {

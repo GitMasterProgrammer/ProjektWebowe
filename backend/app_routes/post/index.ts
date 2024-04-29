@@ -9,13 +9,13 @@ router.post('/:table', async (req : Request, res: Response) => {
     try {
         const data = req.body;
         const { table } = req.params;
-        const saltRounds = 10;
-        //TODO: sprawdzanie, czy email jest w bazie i zwracanie informacji
-        //const hashedPassword = await bcrypt.hash(data.password, saltRounds);
+        // const saltRounds = 10;
+        //TODO: sprawdzanie, czy email jest użyty w bazie i zwracanie informacji
+
         let record; // kiedys zmienie tego leta
         switch (table) {
             case 'user':
-                data.password = await bcrypt.hash(data.password, saltRounds);
+                // data.password = await bcrypt.hash(data.password, saltRounds);
                 record = await prisma.user.create({ data });
                 break;
             case 'target':

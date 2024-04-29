@@ -36,14 +36,17 @@ export default function LoginForm(){
                             email: formData.email,
                             id: res.data.id
                         }
-                    })){ // Only if you are using refreshToken feature
-                        // Redirect or do-something
+                    })){
+                        navigate(-1)
+
                     }else {
                         setErrors(res.data.message)
                     }
                 }
-            })
-        navigate(-1)
+            }).catch((res) => {
+            console.log(res)
+                setErrors(res.response.data.message)
+        })
     }
         return (
             <form method="post" onSubmit={onSubmit}>

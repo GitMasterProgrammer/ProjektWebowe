@@ -1,6 +1,6 @@
 export const validatePassword = (password: string) => {
     const errors = [];
-    if (password.length <= 8) {
+    if (password.length < 8) {
         errors.push("Hasło musi zawierać conajmniej 8 znaków")
     }
     if (password.search(/[a-z]/) < 0) {
