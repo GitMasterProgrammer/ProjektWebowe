@@ -1,10 +1,8 @@
 import express, { Express, Request, Response } from 'express';
-
-import { router_login } from './app_routes/post/login';
-import { router_post } from './app_routes/post';
-import { router_get } from './app_routes/get';
-import { router_put } from './app_routes/put';
-import { router_delete } from './app_routes/delete';
+import { router_location } from './app_routes/Location';
+import { router_login } from './app_routes/Login';
+import { router_user } from './app_routes/User';
+import { router_target } from './app_routes/Target';
 
 const app: Express = express();
 const port = 3000;
@@ -25,11 +23,10 @@ app.use(
     }),
 );
 
-app.use('/api/post/login', router_login);
-app.use('/api/post/', router_post);
-app.use('/api/get', router_get);
-app.use('/api/put', router_put);
-app.use('/api/delete', router_delete);
+app.use('/api/login', router_login);
+app.use('/api/user', router_user);
+app.use('/api/target', router_target);
+app.use('/api/location', router_location);
 
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
