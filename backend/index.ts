@@ -3,6 +3,7 @@ import { router_location } from './app_routes/Location';
 import { router_login } from './app_routes/Login';
 import { router_user } from './app_routes/User';
 import { router_target } from './app_routes/Target';
+import { router_favourites } from './app_routes/TargetsOnUsers';
 
 const app: Express = express();
 const port = 3000;
@@ -27,6 +28,7 @@ app.use('/api/login', router_login);
 app.use('/api/user', router_user);
 app.use('/api/target', router_target);
 app.use('/api/location', router_location);
+app.use('/api/favourites', router_favourites);
 
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
