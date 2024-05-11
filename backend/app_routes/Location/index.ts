@@ -23,7 +23,7 @@ router.get('/get', async (req: Request, res: Response) => {
         }
 
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
-        const record = await prisma.user.findMany({ where, orderBy: orderBy, take });
+        const record = await prisma.location.findMany({ where, orderBy: orderBy, take });
 
         res.json({
             record
