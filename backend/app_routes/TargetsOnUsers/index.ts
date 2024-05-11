@@ -9,6 +9,7 @@ const router = Router();
 
 
 router.post('/', async (req, res) => {
+    //TODO: czemu query, napraw albo wyjaśnij jak działa
     const userId = typeof req.query.userId === 'string' ? req.query.userId : '';
     const targetId = typeof req.query.targetId === 'string' ? req.query.targetId : '';
 

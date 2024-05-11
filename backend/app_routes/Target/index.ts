@@ -15,7 +15,7 @@ router.get('/get', async (req: Request, res: Response) => {
         const where = unsetKeys(convertToInt(JSON.parse(JSON.stringify(req.query))), ['maxRows', 'orderBy']) 
         // TODO: dostosuj ten kod (masz tu jak ja składał opderBY, który wysyłałem wcześcniej)
         // TODO: nie moge wysyłać obiektów w, ale tak moge: orderby http://localhost:3000/api/target/get?name=xd&order=name_asc&maxRows=25
-        // TODO: zrób żeby działało
+        // TODO: zrób żeby działało, chyba że teraz działa, to napisz jak to wykożystać
         // const orderBy = [{
         //     name: "asc"
         // }];
