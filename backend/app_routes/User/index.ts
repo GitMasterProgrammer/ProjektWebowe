@@ -89,6 +89,7 @@ router.post('/post', async (req : Request, res: Response) => {
         const check = await prisma.user.findUnique({ where: {email: data.email}})
 
         if(check) {
+            //TODO: chyba powinien to byc kod 400, ale w sumie nie jestem pewien
             res.status(500).json({status: 'failed', error: 'Email already in use'})
             return
         }

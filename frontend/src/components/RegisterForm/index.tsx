@@ -21,7 +21,6 @@ export default function RegisterForm(){
         } else if (passwordErrors.length > 1) {
             setErrors(passwordErrors)
         } else if (validateEmail(formData.email)) {
-            console.log("poprawne")
             const reqData = {
                 name: formData.name,
                 email: formData.email,
@@ -32,33 +31,46 @@ export default function RegisterForm(){
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(reqData)
             };
-            // TODO: Przygotowanie do email uniuque
             fetch('http://localhost:3000/api/user/post', requestOptions)
-                .then(response => response.json())
-                .then(data => {
-                    axios.post('http://localhost:3000/api/login', {'email': reqData.email, 'password': reqData.password})
-                        .then((res)=>{
-                            if(res.status === 200){
-                                if(signIn({
-                                    auth: {
-                                        token: res.data.token,
-                                        type: 'Bearer',
-                                    },
-                                    userState: {
-                                        email: formData.email,
-                                        id: res.data.id
-                                    }
-                                })) {
-                                    navigate('/profile')
+                .then(response => {
+                    return response.json()
 
-                                }else {
-                                    setErrors([res.data.message])
+                }
+                    )
+                .then(data => {
+                    console.log(data)
+                    if (data.status == "success") {
+                        axios.post('http://localhost:3000/api/login', {'email': reqData.email, 'password': reqData.password})
+                            .then((res)=>{
+                                if(res.status === 200){
+                                    if(signIn({
+                                        auth: {
+                                            token: res.data.token,
+                                            type: 'Bearer',
+                                        },
+                                        userState: {
+                                            email: formData.email,
+                                            id: res.data.id
+                                        }
+                                    })) {
+                                        navigate('/profile')
+
+                                    }else {
+                                        setErrors([res.data.message])
+                                    }
                                 }
-                            }
-                        }).catch((res) => {
+                            }).catch((res) => {
                             console.log(res)
                             setErrors([res.response.data.message])
-                    })
+                        })
+                    }
+                    else {
+                        throw data
+                    }
+                })
+                .catch((res) => {
+                    console.log(res)
+                    setErrors([res.error])
                 });
         }
         else {
