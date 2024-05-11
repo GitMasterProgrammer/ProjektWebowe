@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import e, { Express, Request, Response, Router } from 'express';
+import { Express, Request, Response, Router } from 'express';
 import { convertToInt } from '../../functions/convertToInt';
 const prisma = new PrismaClient();
 
@@ -28,7 +28,7 @@ router.get('/get', async (req: Request, res: Response) => {
 router.get('/get/:id', async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-
+        // co to ent radix???
         const numericId = parseInt(id, 10);
         if (isNaN(numericId)) {
             return res.status(400).json({ error: 'Invalid ID format' });
@@ -92,7 +92,6 @@ router.post('/post', async (req : Request, res: Response) => {
             res.status(500).json({status: 'failed', error: 'Email already in use'})
             return
         }
-
         const record = await prisma.user.create({ data });
 
         res.json({

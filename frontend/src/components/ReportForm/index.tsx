@@ -10,7 +10,7 @@ export default function ReportForm(){
     ])
     const [formData, setFormData] = React.useState({target: '', coordinates: '', details: ''})
     const [errors, setErrors] = React.useState("")
-
+    //TODO: ten widok
     const  OnSubmit = (event ) => {
         event.preventDefault()
 

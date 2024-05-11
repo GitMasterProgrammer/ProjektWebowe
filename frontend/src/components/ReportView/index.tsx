@@ -11,6 +11,7 @@ export default function ReportView() {
             id: 1,
             name: "Pyssa",
             description: "Potężny dyro",
+
             likes: 5
         },
         {
@@ -70,7 +71,7 @@ export default function ReportView() {
             createdAt: new Date(2023, 11,11)
         },
     ]
-
+    // TODO: ten wikod
     const [order, setOrder] = React.useState("likes");
     const [quantity, setQuantity] = React.useState(25);
 

@@ -9,14 +9,14 @@ export default function TargetView() {
     const [targets, setTargets] = React.useState(t)
     const [order, setOrder] = React.useState("name_asc");
     const [quantity, setQuantity] = React.useState(25);
-    const [name, setName] = React.useState("");
+    const [name, setName] = React.useState("xd");
 
     const Refresh = (e)=> {
-        const where = {
-            name: {
-                contains: name
-            }
-        }
+        // const where = {
+        //     name: {
+        //         contains: name
+        //     }
+        // }
         const orderBy = [{
             name: "asc"
         }];
@@ -29,17 +29,21 @@ export default function TargetView() {
             case "name_desc":
                 orderBy.name = "name_desc";
         }
-        const body = {
-            where: where,
-            orderBy: orderBy,
-            maxRows: quantity
-        }
+        // const body = {
+        //     name: name,
+        //     orderBy: orderBy,
+        //     maxRows: quantity
+        // }
         const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
+            method: 'GET'
         };
-        fetch('http://localhost:3000/api/get/target', requestOptions)
+        const seachParams = new URLSearchParams({
+            name: name,
+            order: order,
+            maxRows: quantity
+        })
+        console.log('http://localhost:3000/api/target/get?' + seachParams)
+        fetch('http://localhost:3000/api/target/get?' + seachParams, requestOptions)
             .then(response => response.json())
             .then(data => {
                 setTargets(data.record)

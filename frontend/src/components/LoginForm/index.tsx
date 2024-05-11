@@ -24,7 +24,7 @@ export default function LoginForm(){
         }
 
         console.log(formData)
-        axios.post('http://localhost:3000/api/post/login', reqData)
+        axios.post('http://localhost:3000/api/login', reqData)
             .then((res)=>{
                 if(res.status === 200){
                     if(signIn({

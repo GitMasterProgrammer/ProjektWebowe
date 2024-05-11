@@ -33,10 +33,10 @@ export default function RegisterForm(){
                 body: JSON.stringify(reqData)
             };
             // TODO: Przygotowanie do email uniuque
-            fetch('http://localhost:3000/api/post/user', requestOptions)
+            fetch('http://localhost:3000/api/user/post', requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                    axios.post('http://localhost:3000/api/post/login', {'email': reqData.email, 'password': reqData.password})
+                    axios.post('http://localhost:3000/api/login', {'email': reqData.email, 'password': reqData.password})
                         .then((res)=>{
                             if(res.status === 200){
                                 if(signIn({

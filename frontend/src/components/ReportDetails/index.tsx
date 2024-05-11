@@ -25,7 +25,7 @@ export default function ReportDetails() {
         createdAt: new Date(),
         updatedAt: new Date()
     }
-
+        // TODO: ten widok
     return (
         <div className={"reportDetails"}>
             <Heading content={location.target.name} level={2}/>

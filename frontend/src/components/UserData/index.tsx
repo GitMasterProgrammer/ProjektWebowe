@@ -7,26 +7,16 @@ interface UserDataProps {
 }
 export default function UserData({userId} : UserDataProps) {
     const [user_data, setUserData] = useState<User|null>(null)
-    const reqData = {
-        where: {
-            id: userId
-        }
-    }
     const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(reqData)
+        method: 'GET'
     };
 
     useEffect(() => {
-        console.log(JSON.stringify(reqData))
-
         const fetchUserData = async () => {
             try {
-                // Tutaj możesz wywołać swoje API, aby pobrać dane użytkownika z bazy
-                const response = await fetch('http://localhost:3000/api/get/user', requestOptions);
+                const response = await fetch('http://localhost:3000/api/user/get/' + userId, requestOptions);
                 const userData = await response.json();
-                setUserData(userData.record[0]);
+                setUserData(userData.record);
             } catch (error) {
                 console.error('Błąd podczas pobierania danych użytkownika:', error);
             }

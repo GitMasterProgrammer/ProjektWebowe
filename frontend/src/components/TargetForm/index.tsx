@@ -5,7 +5,7 @@ import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 export default function TargetForm(){
     const [formData, setFormData] = React.useState({name: '', description: ''})
-    const [errors, setErrors] = React.useState("")
+    const [error, setError] = React.useState("")
     const navigate = useNavigate ();
     const auth  = useAuthUser()
 
@@ -27,11 +27,12 @@ export default function TargetForm(){
             body: JSON.stringify(reqData)
         };
         console.log(JSON.stringify(reqData))
-        fetch('http://localhost:3000/api/post/target', requestOptions)
+        fetch('http://localhost:3000/api/target/post', requestOptions)
             .then(response => response.json())
             .then(data => {
                 navigate('/targets')
-            });
+            })
+            .catch(err=>{setError(err)})
     }
     return (
             <form method="post" onSubmit={OnSubmit}>
@@ -41,7 +42,7 @@ export default function TargetForm(){
                 <label>Description:</label>
                 <textarea required onChange={(e)=>setFormData({...formData, description: e.target.value})}
                           name="description" placeholder="description"></textarea>
-                <p>{errors}</p>
+                <p>{error}</p>
                 <button type="submit">Utwórz osobę</button>
             </form>
 

@@ -9,25 +9,18 @@ import {useParams} from "react-router-dom";
 export default function TargetDetails() {
     const [targetData, setTargetData] = useState<Target|null>(null)
     const { targetId  } = useParams();
-    const reqData = {
-        where: {
-            id: targetId
-        }
-    }
+
     const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(reqData)
+        method: 'GET'
     };
 
     useEffect(() => {
-        console.log(JSON.stringify(reqData))
 
         const fetchUserData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/get/target', requestOptions);
+                const response = await fetch('http://localhost:3000/api/target/get/' + targetId, requestOptions);
                 const userData = await response.json();
-                setTargetData(userData.record[0]);
+                setTargetData(userData.record);
             } catch (error) {
                 console.error('Błąd podczas  danych:', error);
             }
