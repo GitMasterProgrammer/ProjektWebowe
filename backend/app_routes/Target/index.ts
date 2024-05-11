@@ -10,28 +10,17 @@ const router = Router();
 
 router.get('/get', async (req: Request, res: Response) => {
     try {
-        // Dziwny ten kod?
         const ord = JSON.parse(JSON.stringify(req.query))
         const where = unsetKeys(convertToInt(JSON.parse(JSON.stringify(req.query))), ['maxRows', 'orderBy']) 
-        // TODO: dostosuj ten kod (masz tu jak ja składał opderBY, który wysyłałem wcześcniej)
-        // TODO: nie moge wysyłać obiektów w, ale tak moge: orderby http://localhost:3000/api/target/get?name=xd&order=name_asc&maxRows=25
-        // TODO: zrób żeby działało, chyba że teraz działa, to napisz jak to wykożystać
-        // const orderBy = [{
-        //     name: "asc"
-        // }];
-        // switch (order){
-        //     case "likes":
-        //         orderBy.push({
-        //             likes: "desc"
-        //         })
-        //         break
-        //     case "name_desc":
-        //         orderBy.name = "name_desc";
-        // }
 
-
-        const orderBy = ord.orderBy ? ord.orderBy : undefined;
         const maxRows = ord.maxRows ? ord.maxRows : undefined;
+        
+        let orderBy: any = {};
+
+        if (ord.orderBy) {
+            const [orderField, orderDirection] = ord.orderBy.split('_');
+            orderBy[orderField] = orderDirection.toLowerCase();
+        }
 
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
         const record = await prisma.target.findMany({ where, orderBy: orderBy, take });
@@ -40,6 +29,7 @@ router.get('/get', async (req: Request, res: Response) => {
             record
         });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: error });
     }
 });

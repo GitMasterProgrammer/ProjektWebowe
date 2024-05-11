@@ -9,22 +9,15 @@ const router = Router();
 
 
 router.post('/', async (req, res) => {
-    //TODO: czemu query, napraw albo wyjaśnij jak działa
-    const userId = typeof req.query.userId === 'string' ? req.query.userId : '';
-    const targetId = typeof req.query.targetId === 'string' ? req.query.targetId : '';
+    const data = req.body;
 
-    if (!userId || !targetId) {
+    if (!data.userId || !data.targetId) {
         return res.status(400).json({ error: 'userId i targetId are required' });
     }
 
     try {
-        const favourite = await prisma.targetsOnUsers.create({
-            data: {
-                userId: parseInt(userId),
-                targetId: parseInt(targetId),
-            },
-        });
-        res.status(200).json(favourite);
+        const record = await prisma.target.create({ data });
+        res.status(200).json(record);
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: error });
