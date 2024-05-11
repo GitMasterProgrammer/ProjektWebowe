@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import { Express, Request, Response, Router } from 'express';
 import { convertToInt } from '../../functions/convertToInt';
+import { unsetKeys } from '../../functions/unsetKeys';
+
 const prisma = new PrismaClient();
 
 
@@ -9,18 +11,26 @@ const router = Router();
 
 router.get('/get', async (req: Request, res: Response) => {
     try {
-        const where = req.body.where;
-        const orderBy = req.body.orderBy;
-        const maxRows = req.body.maxRows;
+        const ord = JSON.parse(JSON.stringify(req.query))
+        const where = unsetKeys(convertToInt(JSON.parse(JSON.stringify(req.query))), ['maxRows', 'orderBy']) 
+
+        const maxRows = ord.maxRows ? ord.maxRows : undefined;
+        
+        let orderBy: any = {};
+
+        if (ord.orderBy) {
+            const [orderField, orderDirection] = ord.orderBy.split('_');
+            orderBy[orderField] = orderDirection.toLowerCase();
+        }
 
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
-        const record = await prisma.user.findMany({ where, orderBy: orderBy, take });
-
+        const record = await prisma.target.findMany({ where, orderBy: orderBy, take });
 
         res.json({
             record
         });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: error });
     }
 });

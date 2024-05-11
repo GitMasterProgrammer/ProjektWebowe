@@ -13,17 +13,23 @@ router.get('/get', async (req: Request, res: Response) => {
         const ord = JSON.parse(JSON.stringify(req.query))
         const where = unsetKeys(convertToInt(JSON.parse(JSON.stringify(req.query))), ['maxRows', 'orderBy']) 
 
-        const orderBy = ord.orderBy ? ord.orderBy : undefined;
         const maxRows = ord.maxRows ? ord.maxRows : undefined;
+        
+        const orderBy: any = {};
+
+        if (ord.orderBy) {
+            const [orderField, orderDirection] = ord.orderBy.split('_');
+            orderBy[orderField] = orderDirection.toLowerCase();
+        }
 
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
-        const record = await prisma.location.findMany({ where, orderBy: orderBy, take });
-
+        const record = await prisma.user.findMany({ where, orderBy: orderBy, take });
 
         res.json({
             record
         });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: error });
     }
 });
@@ -36,8 +42,8 @@ router.get('/get/:id', async (req: Request, res: Response) => {
         if (isNaN(numericId)) {
             return res.status(400).json({ error: 'Invalid ID format' });
         }
+        
         const record = await prisma.location.findUnique({ where: { id: numericId } });
-
 
         res.json({
             record
