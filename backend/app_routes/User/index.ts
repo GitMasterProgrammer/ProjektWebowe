@@ -28,6 +28,7 @@ router.get('/get', async (req: Request, res: Response) => {
 router.get('/get/:id', async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
+        // ???
         // co to ent radix???
         const numericId = parseInt(id, 10);
         if (isNaN(numericId)) {
@@ -67,10 +68,7 @@ router.get('/get/likedTargets/:id', async (req: Request, res: Response) => {
         const numericId = parseInt(id, 10);
         if (isNaN(numericId)) {
             return res.status(400).json({ error: 'Invalid ID format' });
-        }
-
-        // TODO: mechanizm doawania i usuwania do ulibionych
-        
+        }        
         const record = await prisma.user.findUnique({ where: { id : numericId }, include: { Targets : true } });
 
         res.json({
@@ -89,8 +87,7 @@ router.post('/post', async (req : Request, res: Response) => {
         const check = await prisma.user.findUnique({ where: {email: data.email}})
 
         if(check) {
-            //TODO: chyba powinien to byc kod 400, ale w sumie nie jestem pewien
-            res.status(500).json({status: 'failed', error: 'Email already in use'})
+            res.status(400).json({status: 'failed', error: 'Email already in use'})
             return
         }
         const record = await prisma.user.create({ data });
@@ -140,25 +137,5 @@ router.put('/put/:id', async (req: Request, res: Response) => {
         res.status(500).json({ error: error });
     }
 });
-
-
-
-
-
-/*router.get('/:table/likedUsers', async (req: Request, res: Response) => {
-    try{
-        const where = req.body.where;
-        const record = await prisma.target.findUnique({ where: where, include : {users: true} })
-
-        return res.json({
-            users: record?.users,
-            count: record?.users.length
-        })
-
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: error });
-    }
-});*/
 
 export { router as router_user };
