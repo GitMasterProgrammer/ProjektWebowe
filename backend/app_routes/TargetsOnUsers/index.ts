@@ -12,11 +12,11 @@ router.post('/', async (req, res) => {
     const data = req.body;
 
     if (!data.userId || !data.targetId) {
-        return res.status(400).json({ error: 'userId i targetId are required' });
+      return res.status(400).json({ error: 'userId i targetId are required' });
     }
 
     try {
-        const record = await prisma.target.create({ data });
+        const record = await prisma.targetsOnUsers.create({ data });
         res.status(200).json(record);
     } catch (error) {
         console.log(error);

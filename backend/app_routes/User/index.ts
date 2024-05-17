@@ -4,7 +4,7 @@ import { convertToInt } from '../../functions/convertToInt';
 import { unsetKeys } from '../../functions/unsetKeys';
 
 const prisma = new PrismaClient();
-
+const bcrypt = require('bcryptjs');
 
 const router = Router();
 
@@ -100,11 +100,15 @@ router.post('/post', async (req : Request, res: Response) => {
             res.status(400).json({status: 'failed', error: 'Email already in use'})
             return
         }
-        const record = await prisma.user.create({ data });
+        
+        /*const hashedPassword = await bcrypt.hash(data.password, 10);
+        data.password = hashedPassword;*/
+
+        const newUser = await prisma.user.create({ data });
 
         res.json({
             status: "success",
-            data: record
+            data: newUser
         });
     } catch (error) {
         console.error(error);

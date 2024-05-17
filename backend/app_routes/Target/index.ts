@@ -85,6 +85,7 @@ router.delete('/delete', async (req: Request, res: Response) => {
             record
         });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: error });
     }
 });

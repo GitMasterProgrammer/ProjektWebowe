@@ -15,8 +15,7 @@ router.post('/', async (req : Request, res: Response) => {
       if (!user) {
         return res.status(400).json({ message: '🐵🐵🐵User not found y are the nogger🐵🐵🐵' });
       }
-      //const isMatch = password === user.password; 
-      // assuming password is not hashed on react side
+
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         return res.status(400).json({ message: '🐵🐵🐵Invalid credentials nogger🐵🐵🐵' });
