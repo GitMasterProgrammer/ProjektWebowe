@@ -9,7 +9,7 @@ export default function TargetView() {
     const [targets, setTargets] = React.useState(t)
     const [order, setOrder] = React.useState("name_asc");
     const [quantity, setQuantity] = React.useState(25);
-    const [name, setName] = React.useState("xd");
+    const [name, setName] = React.useState("");
 
     const Refresh = (e)=> {
         // const where = {
@@ -37,17 +37,28 @@ export default function TargetView() {
         const requestOptions = {
             method: 'GET'
         };
-        const seachParams = new URLSearchParams({
-            name: name,
-            order: order,
-            maxRows: quantity
-        })
-        console.log('http://localhost:3000/api/target/get?' + seachParams)
-        fetch('http://localhost:3000/api/target/get?' + seachParams, requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                setTargets(data.record)
-            });
+        if (name !== "") {
+            const seachParams = new URLSearchParams({
+                'name': name,
+                'orderBy': order,
+                'maxRows': quantity.toString()
+            })
+            fetch('http://localhost:3000/api/target/get?' + seachParams, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    setTargets(data.record)
+                });
+        } else {
+            const seachParams = new URLSearchParams({
+                'orderBy': order,
+                'maxRows': quantity.toString()
+            })
+            fetch('http://localhost:3000/api/target/get?' + seachParams, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    setTargets(data.record)
+                });
+        }
     }
 
     useEffect(() => {

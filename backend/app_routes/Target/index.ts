@@ -14,7 +14,7 @@ router.get('/get', async (req: Request, res: Response) => {
         const where = unsetKeys(convertToInt(JSON.parse(JSON.stringify(req.query))), ['maxRows', 'orderBy']) 
 
         const maxRows = ord.maxRows ? ord.maxRows : undefined;
-        
+        // TODO: wyszukiwanie po części name (np wpisuje Pys i wypisuje Pyssa, Pyssator) Teraz sprawdza czy name jest rowne
         let orderBy: any = {};
 
         if (ord.orderBy) {
@@ -23,7 +23,7 @@ router.get('/get', async (req: Request, res: Response) => {
         }
 
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
-        const record = await prisma.target.findMany({ where, orderBy: orderBy, take });
+        const record = await prisma.target.findMany({ where, orderBy: orderBy, take, include: {creator: true} });
 
         res.json({
             record
