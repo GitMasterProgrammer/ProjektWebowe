@@ -41,7 +41,7 @@ export const routes: RouteItem[] = [
         path: "/targets",
         element: <Targets  />,
         label: "Targets",
-        requireAuth: false
+        requireAuth: true
     },
     {
         path: "/targets/:targetID",

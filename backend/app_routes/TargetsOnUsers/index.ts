@@ -32,7 +32,7 @@ router.delete('/', async (req, res) => {
     if (!userId || !targetId) {
         return res.status(400).json({ error: 'userId i targetId are required' });
     }
-   
+   //TODO: nie działa w przegladarce (CORS)
     try {
        const deletedFavourite = await prisma.targetsOnUsers.delete({
          where: {
