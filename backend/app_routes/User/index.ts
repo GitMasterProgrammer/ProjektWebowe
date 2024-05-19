@@ -36,6 +36,7 @@ router.get('/get', async (req: Request, res: Response) => {
 });
 
 router.get('/get/:id', async (req: Request, res: Response) => {
+    // TODO: jak chcemy mieć tę funkcjonalność to możesz tutaj zwracać np liczbę utworzonych zgłoszeńi ich średnie oceny
     try {
         const { id } = req.params;
         // ???
@@ -70,11 +71,11 @@ router.get('/get/:email', async (req: Request, res: Response) => {
         res.status(500).json({ error: error });
     }
 });
-
 router.get('/get/likedTargets/:id', async (req: Request, res: Response) => {
+//TODO: potrzebuje jeszcze żeby wypisywało targety polubione przez usera waraz z danymi (może być tylko name). (poprostu z joinuj to jakoś)
+
     try {
         const { id } = req.params;
-        console.log("fdf")
         const numericId = parseInt(id, 10);
         if (isNaN(numericId)) {
             return res.status(400).json({ error: 'Invalid ID format' });

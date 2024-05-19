@@ -1,5 +1,5 @@
 import Heading from "../Heading";
-import React from "react";
+import React, {useEffect} from "react";
 import {Target} from "../../interfaces/Target.tsx";
 import {Location} from "../../interfaces/Location.tsx";
 import LinkButton from "../LinkButton";
@@ -71,10 +71,15 @@ export default function ReportView() {
             createdAt: new Date(2023, 11,11)
         },
     ]
-    // TODO: ten wikod
+    // TODO: ten wikok
     const [order, setOrder] = React.useState("likes");
     const [quantity, setQuantity] = React.useState(25);
-
+    const Refresh = () => {
+        //TODO: fetch
+    }
+    useEffect(() => {
+        Refresh()
+    }, []);
     return (
         <div className="ReportView">
             <form method="post" className="filterOptions">
@@ -88,8 +93,8 @@ export default function ReportView() {
                 </select>
                 <label>Order by</label>
                 <select name="order" value={order} onChange={(e)=> setOrder(e.target.value)}>
-                    <option value="newest">Newest</option>
-                    <option value="rating">Rating</option>
+                    <option value="createdAt_desc">Newest</option>
+                    <option value="rating_desc">Rating</option>
                 </select>
                 <label>Tylko aktualne:</label>
                 <input type="checkbox" name="actual"/>
@@ -98,6 +103,7 @@ export default function ReportView() {
 
                 <input type="reset" value="Reset filters"/>
             </form>
+            <button>Refresh</button>
             <div className="targetList">
                 {locations
                     .map(location => (

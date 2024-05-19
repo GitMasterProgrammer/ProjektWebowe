@@ -15,6 +15,7 @@ router.get('/get', async (req: Request, res: Response) => {
 
         const maxRows = ord.maxRows ? ord.maxRows : undefined;
         // TODO: wyszukiwanie po części name (np wpisuje Pys i wypisuje Pyssa, Pyssator) Teraz sprawdza czy name jest rowne
+        //TODO: to samo zrób też dla location
         let orderBy: any = {};
 
         if (ord.orderBy) {

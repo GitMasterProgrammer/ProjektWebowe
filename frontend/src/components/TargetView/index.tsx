@@ -16,11 +16,6 @@ export default function TargetView() {
     const [name, setName] = React.useState("");
 
     const Refresh = ()=> {
-        // const where = {
-        //     name: {
-        //         contains: name
-        //     }
-        // }
         loadFavourites()
 
         const orderBy = [{
