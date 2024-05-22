@@ -7,20 +7,30 @@ const prisma = new PrismaClient();
 
 const router = Router();
 
+type WhereClauseContains = {
+    name?: { contains: string},
+    [key: string]: any
+};
 
 router.get('/get', async (req: Request, res: Response) => {
     try {
         const ord = JSON.parse(JSON.stringify(req.query))
-        const where = unsetKeys(convertToInt(JSON.parse(JSON.stringify(req.query))), ['maxRows', 'orderBy']) 
+        const where: WhereClauseContains = unsetKeys(convertToInt(JSON.parse(JSON.stringify(req.query))), ['maxRows', 'orderBy']);
 
+        if (ord.name) {
+            where.name = { contains: ord.name };
+        }
         const maxRows = ord.maxRows ? ord.maxRows : undefined;
-        // TODO: wyszukiwanie po części name (np wpisuje Pys i wypisuje Pyssa, Pyssator) Teraz sprawdza czy name jest rowne
-        //TODO: to samo zrób też dla location
+
         let orderBy: any = {};
 
         if (ord.orderBy) {
             const [orderField, orderDirection] = ord.orderBy.split('_');
             orderBy[orderField] = orderDirection.toLowerCase();
+        }
+
+        if (ord.name) {
+            where.name = { contains : ord.name.toString()}; // mode: 'insensitive' for case insensitive search
         }
 
         const take = maxRows ? parseInt(maxRows, 10) : undefined;

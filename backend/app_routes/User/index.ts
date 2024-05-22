@@ -71,17 +71,15 @@ router.get('/get/:email', async (req: Request, res: Response) => {
         res.status(500).json({ error: error });
     }
 });
-router.get('/get/likedTargets/:id', async (req: Request, res: Response) => {
-//TODO: potrzebuje jeszcze żeby wypisywało targety polubione przez usera waraz z danymi (może być tylko name). (poprostu z joinuj to jakoś)
-
+router.get('/get/likedTargets/:id', async (req: Request, res: Response) => { 
     try {
         const { id } = req.params;
         const numericId = parseInt(id, 10);
         if (isNaN(numericId)) {
             return res.status(400).json({ error: 'Invalid ID format' });
         }
-        // TODO: zmieniłem poniższe aby zawierało favourites, czyli ulubione, Targets to targety utworzone przez usera (TODO, żebyś zauważył)
-        const record = await prisma.user.findUnique({ where: { id : numericId }, include: { favourites : true } });
+
+        const record = await prisma.user.findUnique({ where: { id : numericId }, include: { favourites : { include: { target : true } } } });
 
         res.json({
             record

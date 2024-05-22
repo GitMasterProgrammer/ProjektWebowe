@@ -4,7 +4,9 @@ import { router_login } from './app_routes/Login';
 import { router_user } from './app_routes/User';
 import { router_target } from './app_routes/Target';
 import { router_favourites } from './app_routes/TargetsOnUsers';
-import cors from 'cors'
+import cors from "cors";
+
+
 const app: Express = express();
 const port = 3000;
 

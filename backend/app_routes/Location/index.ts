@@ -7,23 +7,34 @@ const prisma = new PrismaClient();
 
 const router = Router();
 
+type WhereClauseContains = {
+    name?: { contains: string},
+    [key: string]: any
+};
 
 router.get('/get', async (req: Request, res: Response) => {
     try {
         const ord = JSON.parse(JSON.stringify(req.query))
-        const where = unsetKeys(convertToInt(JSON.parse(JSON.stringify(req.query))), ['maxRows', 'orderBy']) 
+        const where: WhereClauseContains = unsetKeys(convertToInt(JSON.parse(JSON.stringify(req.query))), ['maxRows', 'orderBy']);
 
+        if (ord.name) {
+            where.name = { contains: ord.name };
+        }
         const maxRows = ord.maxRows ? ord.maxRows : undefined;
-        
-        const orderBy: any = {};
+
+        let orderBy: any = {};
 
         if (ord.orderBy) {
             const [orderField, orderDirection] = ord.orderBy.split('_');
             orderBy[orderField] = orderDirection.toLowerCase();
         }
 
+        if (ord.name) {
+            where.name = { contains : ord.name.toString()}; // mode: 'insensitive' for case insensitive search
+        }
+
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
-        const record = await prisma.location.findMany({ where, orderBy: orderBy, take });
+        const record = await prisma.target.findMany({ where, orderBy: orderBy, take, include: {creator: true} });
 
         res.json({
             record
