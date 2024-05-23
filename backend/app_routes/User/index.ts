@@ -36,24 +36,35 @@ router.get('/get', async (req: Request, res: Response) => {
 });
 
 router.get('/get/:id', async (req: Request, res: Response) => {
-    // TODO: jak chcemy mieć tę funkcjonalność to możesz tutaj zwracać np liczbę utworzonych zgłoszeńi ich średnie oceny
     try {
         const { id } = req.params;
-        // ???
-        // co to ent radix???
         const numericId = parseInt(id, 10);
+
         if (isNaN(numericId)) {
             return res.status(400).json({ error: 'Invalid ID format' });
         }
-        
-        const record = await prisma.user.findUnique({ where: { id: numericId } });        
+
+        const user = await prisma.user.findUnique({
+            where: { id: numericId },
+            include: { Locations: true }
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const locationCount = user.Locations.length;
+        const totalRating = user.Locations.reduce((sum, location) => sum + location.rating, 0);
+        const averageRating = locationCount > 0 ? totalRating / locationCount : 0;
 
         res.json({
-            record
+            user,
+            locationCount,
+            averageRating
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: error });
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 

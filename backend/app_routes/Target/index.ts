@@ -30,7 +30,7 @@ router.get('/get', async (req: Request, res: Response) => {
         }
 
         if (ord.name) {
-            where.name = { contains : ord.name.toString()}; // mode: 'insensitive' for case insensitive search
+            where.name = { contains : ord.name.toString()}; 
         }
 
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
