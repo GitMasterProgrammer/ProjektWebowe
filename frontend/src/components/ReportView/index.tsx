@@ -1,81 +1,40 @@
 import Heading from "../Heading";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Target} from "../../interfaces/Target.tsx";
 import {Location} from "../../interfaces/Location.tsx";
 import LinkButton from "../LinkButton";
 
 export default function ReportView() {
-    // fetch tagets and locations
-    const targets : Target[] = [
-        {
-            id: 1,
-            name: "Pyssa",
-            description: "Potężny dyro",
-
-            likes: 5
-        },
-        {
-            id: 3,
-            name: "AAA",
-            description: "Potężny dyro",
-            likes: 523
-        },
-        {
-            id: 5,
-            name: "ZZZ",
-            description: "Potężny dyro",
-            likes: 0
-        },
-        {
-            id: 2,
-            name: "Pyssa4",
-            description: "Potężny dyro",
-            likes: 66
-        },
-    ]
-    const locations : Location[] = [
-        {
-            id: 1,
-            address: "Fredry 13",
-            actual: true,
-            details: "Potężny dyro czycha",
-            rating: 5,
-            target: targets[0],
-            createdAt: new Date()
-        },
-        {
-            id: 2,
-            address: "Fredry 13",
-            actual: true,
-            details: "Bla blabla dyro czycha",
-            rating: 1,
-            target: targets[1],
-            createdAt: new Date(2022, 11,12)
-        },
-        {
-            id: 3,
-            address: "Fredry 13",
-            actual: true,
-            details: "Potężny dyro czycha",
-            rating: 3,
-            target: targets[2],
-            createdAt: new Date(2022, 11,11)
-        },
-        {
-            id: 4,
-            address: "Fredry 13",
-            actual: false,
-            details: "Potężny dyro czycha",
-            rating: 5,
-            target: targets[3],
-            createdAt: new Date(2023, 11,11)
-        },
-    ]
-    // TODO: ten wikok
-    const [order, setOrder] = React.useState("likes");
+    const [order, setOrder] = React.useState("createdAt_desc");
     const [quantity, setQuantity] = React.useState(25);
-    const Refresh = () => {
-        //TODO: fetch
+    const [locations, setLocations] = useState<Location[]|null>(null)
+    const Refresh = ()=> {
+        const requestOptions = {
+            method: 'GET'
+        };
+        if (true) { //TODO: napraw kiedy będzie wyszukiwanie po target name
+            const seachParams = new URLSearchParams({
+                'orderBy': order,
+                'maxRows': quantity.toString()
+            })
+            console.log('http://localhost:3000/api/location/get?' + seachParams)
+            fetch('http://localhost:3000/api/location/get?' + seachParams, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    setLocations(data.record)
+                });
+        } else {
+            const seachParams = new URLSearchParams({
+                'orderBy': order,
+                'maxRows': quantity.toString()
+            })
+            fetch('http://localhost:3000/api/location/get?' + seachParams, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    setLocations(data.record)
+                });
+        }
+        console.log(locations)
     }
     useEffect(() => {
         Refresh()
@@ -83,7 +42,7 @@ export default function ReportView() {
     return (
         <div className="ReportView">
             <form method="post" className="filterOptions">
-                <label>Numer of targets</label>
+                <label>Numer of reports</label>
                 <select name="quantity" value={quantity}
                         onChange={(e)=> setQuantity(parseInt(e.target.value))}>
                     <option value="25">25</option>
@@ -104,10 +63,9 @@ export default function ReportView() {
                 <input type="reset" value="Reset filters"/>
             </form>
             <button>Refresh</button>
-            <div className="targetList">
-                {locations
-                    .map(location => (
-                        <div key={location.id} className="target">
+            <div className="reportList">
+                {locations?.map(location => (
+                        <div key={location.id} className="location">
                             <Heading level={3} content={location.target.name}/>
                             <p>Adres: {location.address}</p>
                             <p>Rating: {location.rating}</p>

@@ -8,7 +8,6 @@ export default function FindTarget({setValue}: FindTargetProps) {
     const t:Target[] = []
     const [name, setName]= useState('')
     const [targets, setTargets]= useState(t)
-    const [selected, setSelected]=useState(undefined)
 
     const Refresh = () => {
 
@@ -40,7 +39,7 @@ export default function FindTarget({setValue}: FindTargetProps) {
 
     //TODO: add likes to display
     return <div className="FindTarget">
-        <input required onChange={(e) => {
+        <input  onChange={(e) => {
             setName(e.target.value)
             Refresh()
         }}

@@ -43,7 +43,7 @@ model TargetsOnUsers {
 model Location {
   id          Int      @id @default(autoincrement())
   rating      Float    @default(5)
-  cooridnates String?
+  coordinates String?
   details     String?
   address     String
   actual      Boolean  @default(true)

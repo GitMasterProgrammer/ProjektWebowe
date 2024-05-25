@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 18 Maj 2024, 16:32
--- Wersja serwera: 10.4.25-MariaDB
--- Wersja PHP: 8.1.10
+-- Generation Time: Maj 25, 2024 at 04:15 PM
+-- Wersja serwera: 10.4.28-MariaDB
+-- Wersja PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `bazanapalacza`
+-- Database: `bazanapalacza`
 --
 
 -- --------------------------------------------------------
@@ -30,9 +30,9 @@ SET time_zone = "+00:00";
 CREATE TABLE `location` (
   `id` int(11) NOT NULL,
   `rating` double NOT NULL DEFAULT 5,
-  `cooridnates` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `details` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `coordinates` varchar(191) DEFAULT NULL,
+  `details` varchar(191) DEFAULT NULL,
+  `address` varchar(191) NOT NULL,
   `basedOnAI` tinyint(1) NOT NULL DEFAULT 0,
   `targetId` int(11) NOT NULL,
   `updatedAt` datetime(3) NOT NULL,
@@ -49,13 +49,13 @@ CREATE TABLE `location` (
 
 CREATE TABLE `target` (
   `id` int(11) NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) NOT NULL,
+  `description` varchar(191) NOT NULL,
   `creatorId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Zrzut danych tabeli `target`
+-- Dumping data for table `target`
 --
 
 INSERT INTO `target` (`id`, `name`, `description`, `creatorId`) VALUES
@@ -76,7 +76,7 @@ CREATE TABLE `targetsonusers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Zrzut danych tabeli `targetsonusers`
+-- Dumping data for table `targetsonusers`
 --
 
 INSERT INTO `targetsonusers` (`userId`, `targetId`, `likedAt`) VALUES
@@ -92,14 +92,14 @@ INSERT INTO `targetsonusers` (`userId`, `targetId`, `likedAt`) VALUES
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `createdAt` datetime(3) NOT NULL DEFAULT current_timestamp(3),
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) NOT NULL,
+  `name` varchar(191) NOT NULL,
+  `password` varchar(191) NOT NULL,
   `reliability` double NOT NULL DEFAULT 5
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Zrzut danych tabeli `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `createdAt`, `email`, `name`, `password`, `reliability`) VALUES
@@ -115,18 +115,18 @@ INSERT INTO `user` (`id`, `createdAt`, `email`, `name`, `password`, `reliability
 --
 
 CREATE TABLE `_prisma_migrations` (
-  `id` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `checksum` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(36) NOT NULL,
+  `checksum` varchar(64) NOT NULL,
   `finished_at` datetime(3) DEFAULT NULL,
-  `migration_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `logs` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `migration_name` varchar(255) NOT NULL,
+  `logs` text DEFAULT NULL,
   `rolled_back_at` datetime(3) DEFAULT NULL,
   `started_at` datetime(3) NOT NULL DEFAULT current_timestamp(3),
   `applied_steps_count` int(10) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Zrzut danych tabeli `_prisma_migrations`
+-- Dumping data for table `_prisma_migrations`
 --
 
 INSERT INTO `_prisma_migrations` (`id`, `checksum`, `finished_at`, `migration_name`, `logs`, `rolled_back_at`, `started_at`, `applied_steps_count`) VALUES
@@ -173,46 +173,46 @@ ALTER TABLE `_prisma_migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT dla zrzuconych tabel
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT dla tabeli `location`
+-- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT dla tabeli `target`
+-- AUTO_INCREMENT for table `target`
 --
 ALTER TABLE `target`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT dla tabeli `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- Ograniczenia dla zrzutów tabel
+-- Constraints for dumped tables
 --
 
 --
--- Ograniczenia dla tabeli `location`
+-- Constraints for table `location`
 --
 ALTER TABLE `location`
   ADD CONSTRAINT `Location_creatorId_fkey` FOREIGN KEY (`creatorId`) REFERENCES `user` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `Location_targetId_fkey` FOREIGN KEY (`targetId`) REFERENCES `target` (`id`) ON UPDATE CASCADE;
 
 --
--- Ograniczenia dla tabeli `target`
+-- Constraints for table `target`
 --
 ALTER TABLE `target`
   ADD CONSTRAINT `Target_creatorId_fkey` FOREIGN KEY (`creatorId`) REFERENCES `user` (`id`) ON UPDATE CASCADE;
 
 --
--- Ograniczenia dla tabeli `targetsonusers`
+-- Constraints for table `targetsonusers`
 --
 ALTER TABLE `targetsonusers`
   ADD CONSTRAINT `TargetsOnUsers_targetId_fkey` FOREIGN KEY (`targetId`) REFERENCES `target` (`id`) ON UPDATE CASCADE,

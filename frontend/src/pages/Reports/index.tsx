@@ -5,7 +5,7 @@ export default function Reports() {
     return (
         <div className="container">
             <Heading content={"Zgłoszone zgłoszenia:"}/>
-            <p>Nie ma zgłoszenia, utwórz je! <a href={'/createTarget'}>utwórz ją!</a></p>
+            <p>Nie ma zgłoszenia, <a href={'/report'}>utwórz je!</a></p>
             <ReportView />
         </div>
     )

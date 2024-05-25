@@ -16,7 +16,8 @@ router.get('/get', async (req: Request, res: Response) => {
     try {
         const ord = JSON.parse(JSON.stringify(req.query))
         const where: WhereClauseContains = unsetKeys(convertToInt(JSON.parse(JSON.stringify(req.query))), ['maxRows', 'orderBy']);
-
+        //TODO: location nie ma name, ale zrób wyszukiwanie po name targeta
+        //TODO: zrób też filtrowanie po aktuialnych, czy actual=true, jeżeli actual będzie false to wszystkie nie tylko nieaktualne
         if (ord.name) {
             where.name = { contains: ord.name };
         }
@@ -28,13 +29,14 @@ router.get('/get', async (req: Request, res: Response) => {
             const [orderField, orderDirection] = ord.orderBy.split('_');
             orderBy[orderField] = orderDirection.toLowerCase();
         }
-
-        if (ord.name) {
-            where.name = { contains : ord.name.toString()}; // mode: 'insensitive' for case insensitive search
-        }
+        //zakomedtowanie bo niedzala
+        // if (ord.name) {
+        //     where.name = { contains : ord.name.toString()}; // mode: 'insensitive' for case insensitive search
+        // }
 
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
-        const record = await prisma.target.findMany({ where, orderBy: orderBy, take, include: {creator: true} });
+
+        const record = await prisma.location.findMany({ /*where,  //zakomedtowanie bo niedzala*/ orderBy: orderBy, take, include: {creator: true, target: true} });
 
         res.json({
             record
