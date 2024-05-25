@@ -35,17 +35,20 @@ export default function TargetForm(){
             .catch(err=>{setError(err)})
     }
     return (
-            <form method="post" onSubmit={OnSubmit}>
-                <label>Name:</label>
-                <input required onChange={(e)=>setFormData({...formData, name: e.target.value})} type="text" name="name"
-                       placeholder="name"/>
-                <label>Description:</label>
-                <textarea required onChange={(e)=>setFormData({...formData, description: e.target.value})}
-                          name="description" placeholder="description"></textarea>
-                <p>{error}</p>
-                <button type="submit">Utwórz osobę</button>
+            <form method="post" onSubmit={OnSubmit} className="container"> 
+                <div className="form-group"> 
+                    <label htmlFor="name">Name:</label> 
+                    <input required onChange={(e)=>setFormData({...formData, name: e.target.value})} type="text" name="name"
+                        id="name" className="form-control" placeholder="name"/>
+                </div>
+                <div className="form-group"> 
+                    <label htmlFor="description">Description:</label> 
+                    <textarea required onChange={(e)=>setFormData({...formData, description: e.target.value})}
+                            name="description" id="description" className="form-control" placeholder="description"></textarea> {/* Dodanie klas Bootstrapowych */}
+                </div>
+                <p className="text-danger">{error}</p> 
+                <button type="submit" className="btn btn-primary">Utwórz osobę</button>
             </form>
-
         )
 
 }

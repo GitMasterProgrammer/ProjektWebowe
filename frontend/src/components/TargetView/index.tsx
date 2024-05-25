@@ -86,44 +86,49 @@ export default function TargetView() {
     }, []);
 
     return (
-        <div className="TargetView">
-            <form className="filterOptions">
-                <label>Numer of targets</label>
-                <select name="quantity" value={quantity}
-                        onChange={(e) => setQuantity(parseInt(e.target.value))}>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                </select>
-                <label>Order by</label>
-                <select name="order" value={order} onChange={(e) => setOrder(e.target.value)}>
-                    <option value="name_asc">Name ASC</option>
-                    <option value="name_desc">Name DESC</option>
-                    <option value="likes">Likes</option>
-                </select>
-                <label>Search:</label>
-                <input onChange={(e) => setName(e.target.value)}
-                       type="text" name="search" placeholder="Search..."/>
-
-                <input type="reset" value="Reset filters"/>
+        <div className="TargetView container"> 
+            <form className="filterOptions form-inline"> 
+                <div className="form-group mr-2"> 
+                    <label htmlFor="quantity">Number of targets:</label> 
+                    <select name="quantity" id="quantity" value={quantity}
+                            onChange={(e) => setQuantity(parseInt(e.target.value))} className="form-control"> 
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div className="form-group mr-2"> 
+                    <label htmlFor="order">Order by:</label> 
+                    <select name="order" id="order" value={order} onChange={(e) => setOrder(e.target.value)} className="form-control"> 
+                        <option value="name_asc">Name ASC</option>
+                        <option value="name_desc">Name DESC</option>
+                        <option value="likes">Likes</option>
+                    </select>
+                </div>
+                <div className="form-group mr-2"> 
+                    <label htmlFor="search">Search:</label> 
+                    <input onChange={(e) => setName(e.target.value)} type="text" id="search" name="search" className="form-control" placeholder="Search..."/> 
+                </div>
+                <input type="reset" value="Reset filters" className="btn btn-secondary mr-2"/> 
+                <button type="button" className="btn btn-primary" onClick={Refresh}>Filter</button> 
             </form>
-            <button onClick={Refresh}>Filter</button>
-            <div className="targetList">
+            <div className="targetList mt-4"> 
                 {targets.map(target => {
-                        const isFollowed = favourities.includes(target.id);
-                        return (
-                            <div key={target.id} className="target">
+                    const isFollowed = favourities.includes(target.id);
+                    return (
+                        <div key={target.id} className="target card mb-3"> 
+                            <div className="card-body"> 
                                 <Heading level={3} content={target.name}/>
-                                <p className="targetDesc">{target.description}</p>
-                                <p>Likes: {target.likes}</p>
-                                <p>Creator: {target.creator.name}</p>
-                                <FollowButton isFollowed={isFollowed} targetId={target.id}/>
-                                <LinkButton href={'/targets/' + target.id} content={"More info"} />
+                                <p className="card-text targetDesc">{target.description}</p> 
+                                <p className="card-text">Likes: {target.likes}</p> 
+                                <p className="card-text">Creator: {target.creator.name}</p> 
+                                <FollowButton isFollowed={isFollowed} targetId={target.id}/> 
+                                <LinkButton href={'/targets/' + target.id} content={"More info"}/> 
                             </div>
-                        )
-                    })}
+                        </div>
+                    )
+                })}
             </div>
         </div>
-
     )
 }

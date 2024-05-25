@@ -2,6 +2,8 @@ import { PrismaClient } from '@prisma/client';
 import { Express, Request, Response, Router } from 'express';
 import { convertToInt } from '../../functions/convertToInt';
 import { unsetKeys } from '../../functions/unsetKeys';
+import CustomRequest from '../../interfaces/customReq';
+
 
 const prisma = new PrismaClient();
 const bcrypt = require('bcryptjs');
@@ -9,10 +11,10 @@ const bcrypt = require('bcryptjs');
 const router = Router();
 
 
-router.get('/get', async (req: Request, res: Response) => {
+router.get('/get', async (req: CustomRequest, res: Response) => {
     try {
-        const ord = JSON.parse(JSON.stringify(req.query))
-        const where = unsetKeys(convertToInt(JSON.parse(JSON.stringify(req.query))), ['maxRows', 'orderBy']) 
+        const ord = JSON.parse(JSON.stringify(req.convertedQuery))
+        const where = unsetKeys(req.convertedQuery, ['maxRows', 'orderBy']) 
 
         const maxRows = ord.maxRows ? ord.maxRows : undefined;
         

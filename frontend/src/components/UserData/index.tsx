@@ -29,11 +29,11 @@ export default function UserData({userId} : UserDataProps) {
         return (<p>brak</p>)
     }
     return (
-            <ul>
-                <li>Username: {user_data.name}</li>
-                <li>Email: {user_data.email}</li>
-                <li>Created at: {user_data.createdAt}</li>
-                <li>Reliability: {user_data.reliability}</li>
+            <ul className="list-group"> 
+                <li className="list-group-item">Username: {user_data.name}</li> 
+                <li className="list-group-item">Email: {user_data.email}</li> 
+                <li className="list-group-item">Created at: {user_data.createdAt}</li> 
+                <li className="list-group-item">Reliability: {user_data.reliability}</li> 
             </ul>
         )
 }

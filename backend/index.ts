@@ -4,6 +4,7 @@ import { router_login } from './app_routes/Login';
 import { router_user } from './app_routes/User';
 import { router_target } from './app_routes/Target';
 import { router_favourites } from './app_routes/TargetsOnUsers';
+import autoConvertTypes from './middlewares/autoConvertTypes';
 import cors from "cors";
 
 
@@ -27,6 +28,7 @@ app.use(
         extended: true,
     }),
 );
+app.use(autoConvertTypes);
 app.use('/api/login', router_login);
 app.use('/api/user', router_user);
 app.use('/api/target', router_target);

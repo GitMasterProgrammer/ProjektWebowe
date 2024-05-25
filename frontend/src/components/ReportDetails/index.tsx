@@ -1,8 +1,8 @@
-import {Location} from "../../interfaces/Location.tsx";
+import { Location } from "../../interfaces/Location.tsx";
 import Heading from "../Heading";
 
 export default function ReportDetails() {
-    const location : Location =
+    const location: Location =
     {
         id: 1,
         address: "Fredry 13",
@@ -24,27 +24,25 @@ export default function ReportDetails() {
         },
         createdAt: new Date(),
         updatedAt: new Date()
-    }
-        // TODO: ten widok
+    };
+
     return (
-        <div className={"reportDetails"}>
-            <Heading content={location.target.name} level={2}/>
+        <div className="reportDetails"> 
+            <Heading content={location.target.name} level={2} />
             <p>Adres: {location.address}</p>
-            <p>Aktualne: {location.actual?"Tak":"Nie"}</p>
+            <p>Aktualne: {location.actual ? "Tak" : "Nie"}</p>
             <p>Szczegóły: {location.details}</p>
             <p>Zgłaszający: {location.creator?.name} ({location.creator?.reliability})</p>
-            {location.creator?.name ==="your"?
-                <button>Edytur</button>
+            {location.creator?.name === "your" ?
+                <button className="btn btn-primary">Edytur</button>
                 :
                 (
                     <div>
-                        <button>Oceń:</button>
-                        <input type={"number"} name={"ocena"} value={0}/>
+                        <button className="btn btn-primary">Oceń:</button>
+                        <input type={"number"} name={"ocena"} value={0} className="form-control" /> 
                     </div>
-
                 )
             }
         </div>
     )
-
 }

@@ -1,12 +1,12 @@
-
 interface LinkButtonProps {
-    href: string
-    content: string
+    href: string;
+    content: string;
 }
-export  default function LinkButton({href, content} : LinkButtonProps) {
+
+export default function LinkButton({ href, content }: LinkButtonProps) {
     return (
-        <a href={href}>
-            <button>{content}</button>
+        <a href={href} className="btn btn-primary">
+            {content}
         </a>
-    )
+    );
 }

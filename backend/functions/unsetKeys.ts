@@ -1,9 +1,8 @@
-export function unsetKeys<T extends Record<string, any>>(obj: T, keysToRemove: (keyof T)[]): Partial<T> {
+export function unsetKeys(obj: any, keys: string[]): any {
     const newObj = { ...obj };
-    
-    keysToRemove.forEach(key => {
+    keys.forEach(key => {
         delete newObj[key];
     });
-    
     return newObj;
 }
+

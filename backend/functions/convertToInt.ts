@@ -1,9 +1,9 @@
 import { ParsedQs } from 'qs';
 
-type QueryParams = { [key: string]: string | undefined };
+type QueryParams = { [key: string]: string | undefined  };
 
-export function convertToInt(obj: QueryParams): { [key: string]: number | string } {
-    const convertedObj: { [key: string]: number | string } = {};
+export function convertToInt(obj: QueryParams): { [key: string]: number | string  } {
+    const convertedObj: { [key: string]: number | string  } = {};
     
     for (const key in obj) {
         if (obj.hasOwnProperty(key)) {

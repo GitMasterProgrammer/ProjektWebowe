@@ -33,12 +33,15 @@ export default function TargetDetails() {
     if (targetData== null) {
         return (<p>Ten obiekt nie istnieje</p>)
     }
+
     return (
-        <ul>
-            <li>Nazwa: {targetData.name}</li>
-            <li>Opis: {targetData.description}</li>
-            <li>Twórca: {targetData.creator.name}</li>
-            <li>Polubienia: {targetData.countLikedUsers}</li>
-        </ul>
-    )
+        <div className="TargetDetails container"> 
+            <ul className="list-group"> 
+                <li className="list-group-item">Nazwa: {targetData.name}</li>
+                <li className="list-group-item">Opis: {targetData.description}</li>
+                <li className="list-group-item">Twórca: {targetData.creator.name}</li>
+                <li className="list-group-item">Polubienia: {targetData.countLikedUsers}</li>
+            </ul>
+        </div>
+    );
 }
