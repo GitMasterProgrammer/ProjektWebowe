@@ -47,7 +47,6 @@ model Location {
   details     String?
   address     String
   actual      Boolean  @default(true)
-  basedOnAI   Boolean  @default(false)
   creator     User     @relation(fields: [creatorId], references: [id])
   creatorId   Int
   target      Target   @relation(fields: [targetId], references: [id])
