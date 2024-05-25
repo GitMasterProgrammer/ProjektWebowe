@@ -1,6 +1,7 @@
-import React, {ChangeEventHandler, useEffect} from "react";
+import React, {ChangeEventHandler, useEffect, useState} from "react";
 import {Target} from "../../interfaces/Target.tsx";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import FindTarget from "../FindTarget";
 
 
 export default function ReportForm(){
@@ -8,7 +9,7 @@ export default function ReportForm(){
 
     const auth  = useAuthUser()
     const [favourities, setFavourities] = React.useState(t)
-
+    const [targetId, setTargetId] = useState(-1)
     const reqOptions = {
         method: 'GET',
     };
@@ -16,7 +17,12 @@ export default function ReportForm(){
         fetch('http://localhost:3000/api/user/get/likedTargets/' + auth.id , reqOptions)
             .then(response => response.json())
             .then(data => {
-                const favs = data.record.favourites
+                const favs : Target[] = [];
+                data.record.favourites.map((relation) => {
+                    favs.push(relation.target)
+                })
+                console.log(favs)
+
                 setFavourities(favs)
             })
             .catch(err=>{
@@ -30,21 +36,23 @@ export default function ReportForm(){
     }
     useEffect(()=>{
         loadFavourites()
-    })
-
+    }, [])
+//TODO selecting target
     return (
             <form method="post" onSubmit={OnSubmit}>
-                <label>Target (Write name or select from list):</label>
-                <input required onChange={(e)=>setFormData({...formData, target: e.target.value})}
-                       type="text" name="target" placeholder="Target's name"/>
+                <label>Wybierz osobę której pozycje zgłaszasz (z twoich polubionych):</label>
+                {/*<input required onChange={(e)=>setFormData({...formData, target: e.target.value})}*/}
+                {/*       type="text" name="target" placeholder="Target's name"/>*/}
+                <FindTarget setValue={setTargetId} />
                 <select name="targetId">
                     {
                         favourities.map(target =>
-                            (<option value={target.id}>{target.name}</option>)
+                            (<option key={target.id} value={target.id}>{target.name}</option>)
                         )
                     }
 
                 </select>
+                <p>{targetId}</p>
                 <label>Address:</label>
                 <input required onChange={(e)=>setFormData({...formData, target: e.target.value})}
                        type="text" name="address" placeholder="address"/>
@@ -55,8 +63,6 @@ export default function ReportForm(){
                 <textarea required onChange={(e)=>setFormData({...formData, details: e.target.value})}
                        name="datails"></textarea>
                 <p>{errors}</p>
-                <button type="submit">Zgłoś</button>
-                {/*<p>Masz już konto? <a href={'/register'}>Zaloguj się</a></p>*/}
             </form>
 
         )

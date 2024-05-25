@@ -109,16 +109,7 @@ export default function TargetView() {
             </form>
             <button onClick={Refresh}>Filter</button>
             <div className="targetList">
-                {targets.sort((targetA, targetB) => {
-                        if (order === "name_asc")
-                            return targetA.name.localeCompare(targetB.name)
-                        else if (order === "name_desc")
-                            return targetB.name.localeCompare(targetA.name)
-                        else
-                            return targetA.likes < targetB.likes
-                    }
-                )
-                    .map(target => {
+                {targets.map(target => {
                         const isFollowed = favourities.includes(target.id);
                         return (
                             <div key={target.id} className="target">
