@@ -38,12 +38,13 @@ export default function TargetView() {
         const requestOptions = {
             method: 'GET'
         };
-        if (name !== "") {
+        if (name != "") {
             const seachParams = new URLSearchParams({
                 'name': name,
                 'orderBy': order,
                 'maxRows': quantity.toString()
             })
+            console.log('http://localhost:3000/api/target/get?' + seachParams)
             fetch('http://localhost:3000/api/target/get?' + seachParams, requestOptions)
                 .then(response => response.json())
                 .then(data => {
@@ -60,6 +61,7 @@ export default function TargetView() {
                     setTargets(data.record)
                 });
         }
+        console.log(targets)
     }
     const reqOptions = {
         method: 'GET',
@@ -100,7 +102,7 @@ export default function TargetView() {
                     <option value="likes">Likes</option>
                 </select>
                 <label>Search:</label>
-                <input onChange={(e) => setName(parseInt(e.target.value))}
+                <input onChange={(e) => setName(e.target.value)}
                        type="text" name="search" placeholder="Search..."/>
 
                 <input type="reset" value="Reset filters"/>

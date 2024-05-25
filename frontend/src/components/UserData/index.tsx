@@ -16,7 +16,8 @@ export default function UserData({userId} : UserDataProps) {
             try {
                 const response = await fetch('http://localhost:3000/api/user/get/' + userId, requestOptions);
                 const userData = await response.json();
-                setUserData(userData.record);
+                // console.log(userData)
+                setUserData(userData.user);
             } catch (error) {
                 console.error('Błąd podczas pobierania danych użytkownika:', error);
             }

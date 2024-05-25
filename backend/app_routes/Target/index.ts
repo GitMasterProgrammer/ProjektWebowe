@@ -16,7 +16,7 @@ router.get('/get', async (req: Request, res: Response) => {
     try {
         const ord = JSON.parse(JSON.stringify(req.query))
         const where: WhereClauseContains = unsetKeys(convertToInt(JSON.parse(JSON.stringify(req.query))), ['maxRows', 'orderBy']);
-
+        // TODO: tutaj też zrób obliczanie lików, masz też po nich sortować jak wyśle likes_desc
         if (ord.name) {
             where.name = { contains: ord.name };
         }
@@ -54,16 +54,16 @@ router.get('/get/:id', async (req: Request, res: Response) => {
             return res.status(400).json({ error: 'Invalid ID format' });
         }
 
-        const record = await prisma.target.findUnique({ where: { id: numericId }, include : { users: true } });
-
-        const toRes  = record as any;
+        const record = await prisma.target.findUnique({ where: { id: numericId }, include : { users: true, creator: true } });
+        // zmieniłem nazwe żeby miała sens
+        const target  = record as any;
         if(record){
-            
-            toRes['countLikedUsers'] = record.users.length;
+
+            target['countLikedUsers'] = record.users.length;
         }
 
         res.json({
-            toRes
+            target
         });
     } catch (error) {
         console.log(error);
