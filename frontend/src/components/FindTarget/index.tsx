@@ -58,7 +58,7 @@ export default function FindTarget({ setValue }: FindTargetProps) {
                         onClick={Select}
                     >
                         <p targetId={target.id} key={target.id}>
-                            {target.name}(010) by {target.creator.name}
+                            {target.name}({target.likes}) by {target.creator.name}
                         </p>
                     </div>
                 ))}

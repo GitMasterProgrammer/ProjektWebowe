@@ -40,7 +40,7 @@ router.get('/get', async (req: CustomRequest, res: Response) => {
 
         const recordsLike = records.map(record => ({
             ...record,
-            likeCounter: record.users.length,
+            likes: record.users.length,
         }));
 
         res.json({

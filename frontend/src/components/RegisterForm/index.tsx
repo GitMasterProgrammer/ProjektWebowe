@@ -21,16 +21,17 @@ export default function RegisterForm() {
         } else if (passwordErrors.length > 1) {
             setErrors(passwordErrors);
         } else if (validateEmail(formData.email)) {
+            const password = bcrypt.hashSync(formData.password1, '$2a$10$CwTycUXWue0Thq9StjUM0u')
             const reqData = {
                 name: formData.name,
                 email: formData.email,
-                password: bcrypt.hashSync(formData.password1, '$2a$10$CwTycUXWue0Thq9StjUM0u'),
+                password: password,
             };
             axios.post('http://localhost:3000/api/user/post', reqData)
                 .then((res) => {
                     console.log(res);
                     if (res.status === 200) {
-                        axios.post('http://localhost:3000/api/login', { 'email': reqData.email, 'password': reqData.password })
+                        axios.post('http://localhost:3000/api/login', { 'email': reqData.email, 'password': password })
                             .then((res) => {
                                 if (res.status === 200) {
                                     if (signIn({
@@ -39,7 +40,7 @@ export default function RegisterForm() {
                                             type: 'Bearer',
                                         },
                                         userState: {
-                                            email: formData.email,
+                                            email: reqData.email,
                                             id: res.data.id
                                         }
                                     })) {

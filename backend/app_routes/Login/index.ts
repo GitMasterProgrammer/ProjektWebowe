@@ -16,7 +16,7 @@ router.post('/', async (req : Request, res: Response) => {
         return res.status(400).json({ message: '🐵🐵🐵User not found y are the nogger🐵🐵🐵' });
       }
 
-      const isMatch = await bcrypt.compare(password, user.password);
+      const isMatch = password == user.password;
       if (!isMatch) {
         return res.status(400).json({ message: '🐵🐵🐵Invalid credentials nogger🐵🐵🐵' });
       }
