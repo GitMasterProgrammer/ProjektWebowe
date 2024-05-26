@@ -1,40 +1,43 @@
 import { Location } from "../../interfaces/Location.tsx";
 import Heading from "../Heading";
+import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 export default function ReportDetails() {
-    const location: Location =
-    {
-        id: 1,
-        address: "Fredry 13",
-        actual: true,
-        details: "Potężny dyro czycha",
-        rating: 5,
-        creator: {
-            id: 1,
-            name: "Fredek",
-            email: "fredry@gmail.com",
-            reliability: 5.2,
-            createdAt: new Date()
-        },
-        target: {
-            id: 1,
-            name: "Pyssa",
-            description: "Potężny dyro",
-            likes: 5
-        },
-        createdAt: new Date(),
-        updatedAt: new Date()
+    const [reportData, setReportData] = useState<Location|null>(null)
+    const { reportId  } = useParams();
+    const requestOptions = {
+        method: 'GET'
     };
-
+    const auth = useAuthUser();
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                // console.log('http://localhost:3000/api/location/get/' + reportId)
+                const response = await fetch('http://localhost:3000/api/location/get/' + reportId, requestOptions);
+                const rep_data = await response.json();
+                console.log(rep_data)
+                setReportData(rep_data.record);
+            } catch (error) {
+                console.error('Błąd podczas  danych:', error);
+            }
+        };
+        console.log(auth)
+        fetchUserData();
+    }, []);
+    if (reportData== null) {
+        return (<p>Ten obiekt nie istnieje</p>)
+    }
     return (
         <div className="reportDetails"> 
-            <Heading content={location.target.name} level={2} />
-            <p>Adres: {location.address}</p>
-            <p>Aktualne: {location.actual ? "Tak" : "Nie"}</p>
-            <p>Szczegóły: {location.details}</p>
-            <p>Zgłaszający: {location.creator?.name} ({location.creator?.reliability})</p>
-            {location.creator?.name === "your" ?
-                <button className="btn btn-primary">Edytur</button>
+            <Heading content={reportData.target.name} level={2} />
+            <p>Adres: {reportData.address}</p>
+            <p>Aktualne: {reportData.actual ? "Tak" : "Nie"}</p>
+            <p>Szczegóły: {reportData.details}</p>
+            <p>Zgłaszający: {reportData.creator?.name} ({reportData.creator?.reliability})</p>
+            {reportData.creator?.id === auth.id ?
+                <button className="btn btn-primary">Ustaw jako nieaktualnie</button>
                 :
                 (
                     <div>

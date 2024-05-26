@@ -8,6 +8,7 @@ import CreateTarget from "../pages/CreateTarget";
 import Targets from "../pages/Targets";
 import Reports from "../pages/Reports";
 import TargetDetails from "../components/TargetDetails";
+import ReportDetails from "../components/ReportDetails";
 
 
 interface RouteItem {
@@ -36,6 +37,13 @@ export const routes: RouteItem[] = [
         element: <Reports  />,
         label: "Reports",
         requireAuth: false
+    },
+    {
+        path: "/reports/:reportId",
+        element: <ReportDetails  />,
+        label: "Report Details",
+        requireAuth: true,
+        hidden: true
     },
     {
         path: "/targets",

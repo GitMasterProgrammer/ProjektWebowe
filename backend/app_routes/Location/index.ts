@@ -47,7 +47,7 @@ router.get('/get/:id', async (req: Request, res: Response) => {
             return res.status(400).json({ error: 'Invalid ID format' });
         }
         
-        const record = await prisma.location.findUnique({ where: { id: numericId } });
+        const record = await prisma.location.findUnique({ where: { id: numericId }, include : {target:true, creator: true} });
 
         res.json({
             record

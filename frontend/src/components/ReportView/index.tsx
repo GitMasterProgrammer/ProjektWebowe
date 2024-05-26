@@ -72,7 +72,7 @@ export default function ReportView() {
                             <p className="card-text">Rating: {location.rating}</p> 
                             <p className="card-text">Zaktualizowano: {location.createdAt?.toLocaleString()}</p> 
                             <p className="card-text">Aktualność: {location.actual ? "Jak najbardziej" : "no niezbyt"}</p> 
-                            <LinkButton content={'Details'} href={`/${location.id}`} className="btn btn-primary" /> 
+                            <LinkButton content={'Details'} href={`/reports/${location.id}`} className="btn btn-primary" />
                         </div>
                     </div>
                 ))}

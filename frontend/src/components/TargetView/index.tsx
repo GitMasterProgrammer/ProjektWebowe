@@ -7,10 +7,9 @@ import FollowButton from "../FollowButton";
 
 export default function TargetView() {
     const auth  = useAuthUser()
-    const t: Target[] = []
     const n: number[] = []
-    const [targets, setTargets] = React.useState(t)
-    const [favourities, setFavourities] = React.useState(n)
+    const [targets, setTargets] = React.useState<Target[]|null>(null)
+    const [favourities, setFavourities] = React.useState<number[]|null>(null)
     const [order, setOrder] = React.useState("name_asc");
     const [quantity, setQuantity] = React.useState(25);
     const [name, setName] = React.useState("");
@@ -58,7 +57,8 @@ export default function TargetView() {
             fetch('http://localhost:3000/api/target/get?' + seachParams, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                    setTargets(data.record)
+                    setTargets(data.recordsLike)
+                    console.log(data)
                 });
         }
         console.log(targets)
@@ -113,8 +113,8 @@ export default function TargetView() {
                 <button type="button" className="btn btn-primary" onClick={Refresh}>Filter</button> 
             </form>
             <div className="targetList mt-4"> 
-                {targets.map(target => {
-                    const isFollowed = favourities.includes(target.id);
+                {targets?.map(target => {
+                    const isFollowed = favourities?.includes(target.id);
                     return (
                         <div key={target.id} className="target card mb-3"> 
                             <div className="card-body"> 
@@ -122,7 +122,7 @@ export default function TargetView() {
                                 <p className="card-text targetDesc">{target.description}</p> 
                                 <p className="card-text">Likes: {target.likes}</p> 
                                 <p className="card-text">Creator: {target.creator.name}</p> 
-                                <FollowButton isFollowed={isFollowed} targetId={target.id}/> 
+                                <FollowButton isFollowed={isFollowed??false} targetId={target.id}/>
                                 <LinkButton href={'/targets/' + target.id} content={"More info"}/> 
                             </div>
                         </div>
