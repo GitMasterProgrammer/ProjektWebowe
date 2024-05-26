@@ -18,7 +18,7 @@ router.get('/get', async (req: CustomRequest, res: Response) => {
     try {
         const ord = JSON.parse(JSON.stringify(req.convertedQuery))
         const where : WhereClauseContains = unsetKeys(req.convertedQuery, ['maxRows', 'orderBy']);
-        // TODO: tutaj też zrób obliczanie lików, masz też po nich sortować jak wyśle likes_desc
+
         if (ord.name) {
             where.name = { contains: ord.name };
         }
@@ -42,7 +42,7 @@ router.get('/get', async (req: CustomRequest, res: Response) => {
             ...record,
             likes: record.users.length,
         }));
-
+        // TODO: tutaj ją liki ale sortowanie  po nich nie działa
         res.json({
             recordsLike
         });

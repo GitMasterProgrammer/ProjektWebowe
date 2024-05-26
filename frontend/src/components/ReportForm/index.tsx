@@ -73,7 +73,18 @@ export default function ReportForm() {
 
     useEffect(() => {
         loadFavourites();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+                setFormData({...formData, coordinates: latitude + ', '+  longitude});
+            });
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
     }, []);
+
 
     return (
         <form method="post" onSubmit={onSubmit} className="needs-validation"> 
@@ -95,7 +106,7 @@ export default function ReportForm() {
             </div>
             <div className="form-group"> 
                 <label>Koordynaty:</label>
-                <input onChange={(e) => setFormData({ ...formData, coordinates: e.target.value })} type="text" name="coordinates" className="form-control" /> 
+                <input value={formData.coordinates} onChange={(e) => setFormData({ ...formData, coordinates: e.target.value })} type="text" name="coordinates" className="form-control" />
             </div>
             <div className="form-group"> 
                 <label>Szczegóły:</label>
