@@ -6,9 +6,8 @@ interface FindTargetProps {
 }
 
 export default function FindTarget({ setValue }: FindTargetProps) {
-    const t: Target[] = [];
     const [name, setName] = useState('');
-    const [targets, setTargets] = useState(t);
+    const [targets, setTargets] = useState<Target[]|null>(null);
 
     const Refresh = () => {
         //TODO: change orderto likes desc later
@@ -25,8 +24,8 @@ export default function FindTarget({ setValue }: FindTargetProps) {
             fetch('http://localhost:3000/api/target/get?' + seachParams, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                    setTargets(data.record);
-                    console.log(targets);
+                    setTargets(data.recordsLike);
+                    console.log(data.recordsLike);
                 });
         }
     };
@@ -51,7 +50,7 @@ export default function FindTarget({ setValue }: FindTargetProps) {
                 placeholder="Target's name"
             />
             <div className="list-group mt-3"> {}
-                {targets.map((target) => (
+                {targets?.map((target) => (
                     <div
                         key={target.id}
                         targetId={target.id}
