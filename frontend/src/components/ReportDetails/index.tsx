@@ -3,46 +3,13 @@ import Heading from "../Heading";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import ActualityButton from "../ActualityButton";
 
 export default function ReportDetails() {
     const [reportData, setReportData] = useState<Location|null>(null)
     const { reportId  } = useParams();
 
     const auth = useAuthUser();
-
-    const changeActiveness = () => {
-        const reqData = {
-            coordinates: formData.coordinates,
-            address: formData.address,
-            details: formData.details,
-            creator: {
-                connect: {
-                    id: auth.id
-                }
-            },
-            target: {
-                connect: {
-                    id: targetId
-                }
-            }
-        };
-
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(reqData)
-        };
-
-        fetch('http://localhost:3000/api/location/post', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                navigate('/reports');
-            })
-            .catch(err => {
-                setError(err.toString());
-            });
-    }
-
 
     useEffect(() => {
         const requestOptions = {
@@ -73,7 +40,7 @@ export default function ReportDetails() {
             <p>Szczegóły: {reportData.details}</p>
             <p>Zgłaszający: {reportData.creator?.name} ({reportData.creator?.reliability})</p>
             {reportData.creator?.id === auth.id ?
-                <button className="btn btn-primary">Ustaw jako nieaktualnie</button>
+                <ActualityButton reportId={parseInt(reportId)} isActive={reportData.actual} />
                 :
                 (
                     <div>
