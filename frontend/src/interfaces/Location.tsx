@@ -10,6 +10,6 @@ export interface Location {
     rating: number,
     creator?: User
     target: Target,
-    updatedAt?: Date,
+    updatedAt: Date,
     createdAt: Date
 }

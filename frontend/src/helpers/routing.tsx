@@ -71,7 +71,7 @@ export const routes: RouteItem[] = [
         element: <Register />,
         label: "Register",
         requireAuth: false,
-        hidden: false
+        hidden: true
     },
     {
         path: "/profile",

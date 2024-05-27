@@ -16,11 +16,11 @@ export default function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg"> 
             <Link className="navbar-brand" to="/">
-                <img src="public/logo.png" alt="Logo" width="100" height="80" className="d-inline-block align-top" />
+                <img src="public/logo.png" alt="Logo" width="80" height="80" className="d-inline-block align-top" />
             </Link>
 
             <div className="nav-container">
-                <ul className="navbar-nav mr-auto">
+                <ul className="navbar-nav navbar-nav-bottom mr-auto">
                     {routes.filter(route => !route.hidden).map((route) => (
                         <li className={"nav-item"} key={route.path}>
                             <Link className="nav-link" to={route.path}>{route.label}</Link>
@@ -38,8 +38,11 @@ export default function Navbar() {
                     </ul>
                 ) : (
                     <ul className="navbar-nav ml-auto">
-                        <li className="nav-item login-item" key={'login'}>
+                        <li className="nav-item nav-login" key={'login'}>
                             <Link className="nav-link" to={"/login"}>Login</Link>
+                        </li>
+                        <li className="nav-item nav-register" key={'register'}>
+                            <Link className="nav-link" to={"/register"}>Register</Link>
                         </li>
                     </ul>
                 )}
