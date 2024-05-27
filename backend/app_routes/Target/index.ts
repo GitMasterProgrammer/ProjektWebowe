@@ -16,42 +16,49 @@ type WhereClauseContains = {
 
 router.get('/get', async (req: CustomRequest, res: Response) => {
     try {
-        const ord = JSON.parse(JSON.stringify(req.convertedQuery))
-        const where : WhereClauseContains = unsetKeys(req.convertedQuery, ['maxRows', 'orderBy']);
-
+        const ord = JSON.parse(JSON.stringify(req.convertedQuery));
+        const where: WhereClauseContains = unsetKeys(req.convertedQuery, ['maxRows', 'orderBy']);
+        
         if (ord.name) {
             where.name = { contains: ord.name };
         }
+        
         const maxRows = ord.maxRows ? ord.maxRows : undefined;
-
         let orderBy: any = {};
 
-        if (ord.orderBy) {
+        if (ord.orderBy != undefined && ord.orderBy != 'likes_desc' && ord.orderBy != 'likes_asc') {
             const [orderField, orderDirection] = ord.orderBy.split('_');
             orderBy[orderField] = orderDirection.toLowerCase();
         }
 
-        if (ord.name) {
-            where.name = { contains : ord.name.toString() }; 
-        }
-
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
-        const records = await prisma.target.findMany({ where, orderBy: orderBy, take, include: { creator: true, users: true } });
+        
+        const records = await prisma.target.findMany({
+            where,
+            orderBy,
+            take,
+            include: { creator: true, users: true },
+        });
 
         const recordsLike = records.map(record => ({
             ...record,
             likes: record.users.length,
         }));
-        // TODO: tutaj ją liki ale sortowanie  po nich nie działa
-        res.json({
-            recordsLike
-        });
+
+        if (ord.orderBy && ord.orderBy === 'likes_desc') {
+            recordsLike.sort((a, b) => b.likes - a.likes);
+        } else if (ord.orderBy && ord.orderBy === 'likes_asc') {
+            recordsLike.sort((a, b) => a.likes - b.likes);
+        }
+
+        res.json({ recordsLike });
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.status(500).json({ error: error });
     }
 });
+
 
 router.get('/get/:id', async (req: Request, res: Response) => {
     try {
