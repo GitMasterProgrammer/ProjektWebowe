@@ -7,11 +7,47 @@ import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 export default function ReportDetails() {
     const [reportData, setReportData] = useState<Location|null>(null)
     const { reportId  } = useParams();
-    const requestOptions = {
-        method: 'GET'
-    };
+
     const auth = useAuthUser();
+
+    const changeActiveness = () => {
+        const reqData = {
+            coordinates: formData.coordinates,
+            address: formData.address,
+            details: formData.details,
+            creator: {
+                connect: {
+                    id: auth.id
+                }
+            },
+            target: {
+                connect: {
+                    id: targetId
+                }
+            }
+        };
+
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reqData)
+        };
+
+        fetch('http://localhost:3000/api/location/post', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                navigate('/reports');
+            })
+            .catch(err => {
+                setError(err.toString());
+            });
+    }
+
+
     useEffect(() => {
+        const requestOptions = {
+            method: 'GET'
+        };
         const fetchUserData = async () => {
             try {
                 // console.log('http://localhost:3000/api/location/get/' + reportId)

@@ -24,7 +24,8 @@ export const routes: RouteItem[] = [
         path: "/",
         element: <Home  />,
         label: "Homepage",
-        requireAuth: false
+        requireAuth: false,
+        hidden: true,
     },
     {
         path: "/report",
@@ -70,7 +71,7 @@ export const routes: RouteItem[] = [
         element: <Register />,
         label: "Register",
         requireAuth: false,
-        hidden: true
+        hidden: false
     },
     {
         path: "/profile",

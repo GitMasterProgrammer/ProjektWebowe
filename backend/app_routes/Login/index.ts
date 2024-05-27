@@ -20,7 +20,7 @@ router.post('/', async (req : Request, res: Response) => {
       if (!isMatch) {
         return res.status(400).json({ message: '🐵🐵🐵Invalid credentials nogger🐵🐵🐵' });
       }
-  
+
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
       res.json({ 'token': token, 'id' : user.id });
     } catch (err) {
