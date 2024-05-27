@@ -10,14 +10,13 @@ export default function FindTarget({ setValue }: FindTargetProps) {
     const [targets, setTargets] = useState<Target[]|null>(null);
 
     const Refresh = () => {
-        //TODO: change orderto likes desc later
         const requestOptions = {
             method: 'GET'
         };
         if (name !== "") {
             const seachParams = new URLSearchParams({
                 'name': name,
-                'orderBy': "name_asc",
+                'orderBy': "likes_desc",
                 'maxRows': '5'
             });
             console.log('http://localhost:3000/api/target/get?' + seachParams);
@@ -34,9 +33,13 @@ export default function FindTarget({ setValue }: FindTargetProps) {
         console.log(e.target.getAttribute('targetId'));
         const targetId: number = parseInt(e.target.getAttribute('targetId'));
         setValue(targetId);
+        targets?.map(target=>{
+            if (target.id === targetId) {
+                setName(target.name);
+            }
+        })
     };
 
-    //TODO: add likes to display
     return (
         <div className="FindTarget">
             <input
@@ -48,6 +51,7 @@ export default function FindTarget({ setValue }: FindTargetProps) {
                 className="form-control"
                 name="target"
                 placeholder="Target's name"
+                value={name}
             />
             <div className="list-group mt-3"> {}
                 {targets?.map((target) => (

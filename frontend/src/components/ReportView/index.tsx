@@ -1,12 +1,12 @@
 import Heading from "../Heading";
 import React, { useEffect, useState } from "react";
-import { Target } from "../../interfaces/Target.tsx";
 import { Location } from "../../interfaces/Location.tsx";
 import LinkButton from "../LinkButton";
 
 export default function ReportView() {
     const [order, setOrder] = React.useState("createdAt_desc");
     const [quantity, setQuantity] = React.useState(25);
+    const [onlyActual, setActuality] = React.useState(true);
     const [locations, setLocations] = useState<Location[] | null>(null);
 
     const refresh = () => {
@@ -15,6 +15,7 @@ export default function ReportView() {
         };
         const searchParams = new URLSearchParams({
             'orderBy': order,
+            'actual': String(onlyActual),
             'maxRows': quantity.toString()
         });
 
@@ -27,6 +28,9 @@ export default function ReportView() {
                 console.error('Error fetching locations:', error);
             });
     };
+    const checkHandler = () => {
+        setActuality(!onlyActual)
+    }
 
     useEffect(() => {
         refresh();
@@ -53,7 +57,7 @@ export default function ReportView() {
                     </select>
                 </div>
                 <div className="form-group form-check"> 
-                    <input type="checkbox" name="actual" className="form-check-input" id="actualCheck" /> 
+                    <input value={onlyActual} onChange={checkHandler} type="checkbox" name="actual" className="form-check-input" id="actualCheck" />
                     <label className="form-check-label" htmlFor="actualCheck">Tylko aktualne:</label> 
                 </div>
                 <div className="form-group"> 
