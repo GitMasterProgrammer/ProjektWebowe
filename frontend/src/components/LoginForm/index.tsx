@@ -4,6 +4,7 @@ import useSignIn from "react-auth-kit/hooks/useSignIn";
 import bcrypt from 'bcryptjs'
 import { useNavigate } from "react-router-dom";
 import validateEmail from "../../helpers/validateEmail.tsx";
+import "./index.css";
 
 export default function LoginForm() {
     const signIn = useSignIn();

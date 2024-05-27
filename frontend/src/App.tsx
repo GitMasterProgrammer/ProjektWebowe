@@ -1,11 +1,13 @@
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Header from "./components/Header";
 import {routes} from "./helpers/routing.tsx";
 import RequireAuth from "@auth-kit/react-router/RequireAuth";
 
 function App() {
 
   return (
+      
       <Router>
           <Navbar/>
           <Routes>

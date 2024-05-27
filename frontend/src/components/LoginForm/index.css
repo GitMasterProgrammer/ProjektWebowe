@@ -1,0 +1,19 @@
+.container{
+    padding: 48px 60px;
+    width: 560px;
+    z-index: 1;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 32px rgba(0, 0, 0, .04), 0 0 24px rgba(0, 0, 0, .04), 0 4px 16px rgba(0, 0, 0, .04), 0 2px 8px rgba(0, 0, 0, .06);
+    border-radius: 10px;
+}
+
+h1{
+    font-size: 26px;
+}
+
+form{
+    width: 100%;
+}

@@ -14,30 +14,38 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light"> {/* Dodanie klas Bootstrapowych */}
-            <ul className="navbar-nav mr-auto">
-                {routes.filter(route => !route.hidden).map((route) => (
-                    <li className={"nav-item"} key={route.path}>
-                        <Link className="nav-link" to={route.path}>{route.label}</Link>
-                    </li>
-                ))}
-            </ul>
-            {auth ? (
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                        <span className="nav-link">{auth.email}</span> 
-                    </li>
-                    <li className="nav-item">
-                        <button className="btn btn-outline-danger" onClick={handleSignOut}>Sign Out</button>
-                    </li>
+        <nav className="navbar navbar-expand-lg"> 
+            <Link className="navbar-brand" to="/">
+                <img src="public/logo.png" alt="Logo" width="100" height="80" className="d-inline-block align-top" />
+            </Link>
+
+            <div className="nav-container">
+                <ul className="navbar-nav mr-auto">
+                    {routes.filter(route => !route.hidden).map((route) => (
+                        <li className={"nav-item"} key={route.path}>
+                            <Link className="nav-link" to={route.path}>{route.label}</Link>
+                        </li>
+                    ))}
                 </ul>
-            ) : (
-                <ul className="navbar-nav ml-auto">
-                    <li className="nav-item" key={'login'}>
-                        <Link className="nav-link" to={"/login"}>Login</Link>
-                    </li>
-                </ul>
-            )}
+                {auth ? (
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <span className="nav-link">{auth.email}</span> 
+                        </li>
+                        <li className="nav-item">
+                            <button className="btn btn-outline-danger" onClick={handleSignOut}>Sign Out</button>
+                        </li>
+                    </ul>
+                ) : (
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item login-item" key={'login'}>
+                            <Link className="nav-link" to={"/login"}>Login</Link>
+                        </li>
+                    </ul>
+                )}
+            </div>
+            
+            
         </nav>
     );
 }
