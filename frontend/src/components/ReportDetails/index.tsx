@@ -5,6 +5,7 @@ import {useParams} from "react-router-dom";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import ActualityButton from "../ActualityButton";
 import {Rating} from "@mui/material";
+import {fixData} from "../../helpers/fixDate.tsx";
 
 export default function ReportDetails() {
     const [reportData, setReportData] = useState<Location|null>(null)
@@ -113,6 +114,7 @@ export default function ReportDetails() {
             <p>Średnia ocen: {reportData.rating}</p>
             <p>Aktualne: {reportData.actual ? "Tak" : "Nie"}</p>
             <p>Szczegóły: {reportData.details}</p>
+            <p>Ostatio aktualizowane: {fixData(reportData.updatedAt)}</p>
             <p>Zgłaszający: {reportData.creator?.name} ({reportData.creator?.reliability})</p>
             {reportData.creator?.id === auth.id ?
                 <ActualityButton reportId={parseInt(reportId)} isActive={reportData.actual}/>
