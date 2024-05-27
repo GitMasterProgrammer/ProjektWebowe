@@ -70,7 +70,6 @@ router.get('/get/:id', async (req: Request, res: Response) => {
         }
 
         const record = await prisma.target.findUnique({ where: { id: numericId }, include : { users: true, creator: true } });
-        // zmieniłem nazwe żeby miała sens
         const target  = record as any;
         if(record){
             target['countLikedUsers'] = record.users.length;
