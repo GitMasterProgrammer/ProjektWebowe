@@ -11,8 +11,10 @@ const router = Router();
 router.get('/get', async (req: CustomRequest, res: Response) => {
     try {
         const ord = JSON.parse(JSON.stringify(req.convertedQuery))
-        const where = unsetKeys(req.convertedQuery, ['maxRows', 'orderBy']);
+        const where = unsetKeys(req.convertedQuery, ['maxRows', 'orderBy', 'lastHrs']);
         const maxRows = ord.maxRows ? ord.maxRows : undefined;
+        const lastHrs = ord.lastHrs ? parseInt(ord.lastHrs, 10) : undefined;
+
 
         let orderBy: any = {};
 
@@ -25,7 +27,17 @@ router.get('/get', async (req: CustomRequest, res: Response) => {
             orderBy[orderField] = orderDirection.toLowerCase();
         }
 
+
+
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
+
+        if (lastHrs) {
+            const currentTime = new Date();
+            const pastTime = new Date(currentTime.getTime() - lastHrs * 60 * 60 * 1000);
+            where.createdAt = {
+                gte: pastTime
+            };
+        }
 
         const record = await prisma.location.findMany({ where, orderBy: orderBy, take, include: {creator: true, target: true} });
 
