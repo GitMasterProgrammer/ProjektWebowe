@@ -7,59 +7,52 @@ import FollowButton from "../FollowButton";
 
 export default function TargetView() {
     const auth  = useAuthUser()
-    const n: number[] = []
     const [targets, setTargets] = React.useState<Target[]|null>(null)
     const [favourities, setFavourities] = React.useState<number[]|null>(null)
-    const [order, setOrder] = React.useState("name_asc");
+    // const [order, setOrder] = React.useState("likes_desc");
     const [quantity, setQuantity] = React.useState(25);
-    const [name, setName] = React.useState("");
+    const [name, setName] = React.useState('');
 
     const Refresh = ()=> {
         loadFavourites()
 
-        const orderBy = [{
-            name: "asc"
-        }];
-        switch (order){
-            case "likes":
-                orderBy.push({
-                    likes: "desc"
-                })
-                break
-            case "name_desc":
-                orderBy.name = "name_desc";
-        }
-        // const body = {
-        //     name: name,
-        //     orderBy: orderBy,
-        //     maxRows: quantity
-        // }
+        const orderBy = 'likes_desc'
         const requestOptions = {
             method: 'GET'
         };
-        if (name != "") {
+        if (name != "" && name != undefined) {
             const seachParams = new URLSearchParams({
                 'name': name,
-                'orderBy': order,
+                'orderBy': orderBy,
+                'maxRows': quantity.toString()
+            })
+
+            console.log('http://localhost:3000/api/target/get?' + seachParams)
+            fetch('http://localhost:3000/api/target/get?' + seachParams, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    setTargets(data.recordsLike)
+
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        } else {
+            const seachParams = new URLSearchParams({
+                'orderBy': orderBy,
                 'maxRows': quantity.toString()
             })
             console.log('http://localhost:3000/api/target/get?' + seachParams)
             fetch('http://localhost:3000/api/target/get?' + seachParams, requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                    setTargets(data.record)
-                });
-        } else {
-            const seachParams = new URLSearchParams({
-                'orderBy': order,
-                'maxRows': quantity.toString()
-            })
-            fetch('http://localhost:3000/api/target/get?' + seachParams, requestOptions)
-                .then(response => response.json())
-                .then(data => {
                     setTargets(data.recordsLike)
                     console.log(data)
-                });
+                    console.log(targets)
+
+                }).catch(error => {
+                console.log(error)
+            });
         }
         console.log(targets)
     }
@@ -97,19 +90,23 @@ export default function TargetView() {
                         <option value="100">100</option>
                     </select>
                 </div>
-                <div className="form-group mr-2"> 
-                    <label htmlFor="order">Order by:</label> 
-                    <select name="order" id="order" value={order} onChange={(e) => setOrder(e.target.value)} className="form-control"> 
-                        <option value="name_asc">Name ASC</option>
-                        <option value="name_desc">Name DESC</option>
-                        <option value="likes">Likes</option>
-                    </select>
-                </div>
+                {/*<div className="form-group mr-2"> */}
+                {/*    <label htmlFor="order">Order by:</label> */}
+                {/*    <select name="order" id="order" value={order} onChange={(e) => setOrder(e.target.value)} className="form-control"> */}
+                {/*        <option value="name_asc">Name ASC</option>*/}
+                {/*        <option value="name_desc">Name DESC</option>*/}
+                {/*        <option value="likes">Likes</option>*/}
+                {/*    </select>*/}
+                {/*</div>*/}
                 <div className="form-group mr-2"> 
                     <label htmlFor="search">Search:</label> 
                     <input onChange={(e) => setName(e.target.value)} type="text" id="search" name="search" className="form-control" placeholder="Search..."/> 
                 </div>
-                <input type="reset" value="Reset filters" className="btn btn-secondary mr-2"/> 
+                <input type="reset" value="Reset filters" onClick={()=> {
+                    setName('')
+                    setQuantity(25)
+                    Refresh()
+                }} className="btn btn-secondary mr-2"/>
                 <button type="button" className="btn btn-primary" onClick={Refresh}>Filter</button> 
             </form>
             <div className="targetList mt-4"> 
