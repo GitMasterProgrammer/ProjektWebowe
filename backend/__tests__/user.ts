@@ -56,7 +56,7 @@ describe('User Tests', () => {
             expect(res.body.record.length).toBeGreaterThanOrEqual(1)
         })
         it('Get all with order by', async ()=> {
-            const res  = await supertest(app).get('/api/user/get/?orderBy=reliability_desc')
+            const res  = await supertest(app).get('/api/user/get/?orderBy=id_desc')
             expect(res.body.record[0].id).toBe(999999)
         })
     })
@@ -75,7 +75,6 @@ describe('User Tests', () => {
                 .expect(400)
         })
         it('Wrong body', async ()=> {
-            sample_user2.email = 'johndoe@gmail.com'
             await supertest(app).post('/api/user/post/')
                 .send({'xd': '2137'})
                 .set('Content-Type', 'application/json')
@@ -100,16 +99,14 @@ describe('User Tests', () => {
                 .expect(200)
         })
         it('PRIMARY exeption', async ()=> {
-            sample_user2.email = 'johndoe@gmail.com'
             await supertest(app).put('/api/user/put/999999')
                 .send({
-                    email: 'John John',
+                    id: 'John John',
                 })
                 .set('Content-Type', 'application/json')
                 .expect(500)
         })
         it('Wrong ID', async ()=> {
-            sample_user2.email = 'johndoe@gmail.com'
             await supertest(app).put('/api/user/put/xd')
                 .send({
                     name: 'John John',
