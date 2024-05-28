@@ -16,27 +16,27 @@ const sample_user = {
     password: '$2a$10$CwTycUXWue0Thq9StjUM0uBroupzYajcgoPfzad9vhEzOHEIAa3Cy',
     reliability: 99999
 }
-const sample_user2 = {
+const sample_target = {
     id: 999998,
     name: 'John Doe2',
-    email: 'johndoe2@gmail.com',
-    password: '$2a$10$CwTycUXWue0Thq9StjUM0uBroupzYajcgoPfzad9vhEzOHEIAa3Cy',
-    reliability: 99999
+    description: 'DEscription',
+    creatorId: 999999,
 }
 beforeAll(async ()=> {
     const newUser = await prisma.user.create({ data: sample_user });
+    const newTarget = await prisma.target.create({ data: sample_target });
 })
 
 afterAll(async ()=> {
     await prisma.user.deleteMany({where:{
-        id: 999999
-    }});
-    await prisma.user.deleteMany({where:{
-            id: 999998
-    }});
+            id: 999999
+        }});
+    await prisma.target.deleteMany({where:{
+            id: 999999
+        }});
 })
 
-describe('User Tests', () => {
+describe('Target Tests', () => {
     describe('Get by id ', ()=> {
         it('No user returns 404', async () => {
             await supertest(app).get('/api/user/get/-1').expect(404)

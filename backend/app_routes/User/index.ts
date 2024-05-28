@@ -70,20 +70,6 @@ router.get('/get/:id', async (req: Request, res: Response) => {
     }
 });
 
-router.get('/get/:email', async (req: Request, res: Response) => {
-    try {
-        const { email } = req.params;
-        
-        const record = await prisma.user.findUnique({ where: { email: email } });        
-
-        res.json({
-            record
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: error });
-    }
-});
 router.get('/get/likedTargets/:id', async (req: Request, res: Response) => { 
     try {
         const { id } = req.params;
