@@ -42,9 +42,9 @@ router.get('/get/:id', async (req: Request, res: Response) => {
         const { id } = req.params;
         const numericId = parseInt(id, 10);
 
-        // if (isNaN(numericId)) {
-        //     return res.status(400).json({ error: 'Invalid ID format' });
-        // }
+        if (isNaN(numericId)) {
+            return res.status(400).json({ error: 'Invalid ID format' });
+        }
 
         const user = await prisma.user.findUnique({
             where: { id: numericId },
