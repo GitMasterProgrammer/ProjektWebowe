@@ -133,7 +133,7 @@ router.delete('/delete', async (req: Request, res: Response) => {
 router.put('/put/:id', async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const data = req.body.data;
+        const data = req.body;
 
         const numericId = parseInt(id, 10);
         if (isNaN(numericId)) {
@@ -147,6 +147,7 @@ router.put('/put/:id', async (req: Request, res: Response) => {
             record
         });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: error });
     }
 });
