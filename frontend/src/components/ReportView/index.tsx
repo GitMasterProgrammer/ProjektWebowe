@@ -2,6 +2,7 @@ import Heading from "../Heading";
 import React, { useEffect, useState } from "react";
 import { Location } from "../../interfaces/Location.tsx";
 import LinkButton from "../LinkButton";
+import {fixData} from "../../helpers/fixDate.tsx";
 
 export default function ReportView() {
     const [order, setOrder] = React.useState("createdAt_desc");
@@ -57,12 +58,8 @@ export default function ReportView() {
                     </select>
                 </div>
                 <div className="form-group form-check"> 
-                    <input value={onlyActual} onChange={checkHandler} type="checkbox" name="actual" className="form-check-input" id="actualCheck" />
+                    <input checked={onlyActual} onChange={checkHandler} type="checkbox" name="actual" className="form-check-input" id="actualCheck" />
                     <label className="form-check-label" htmlFor="actualCheck">Tylko aktualne:</label> 
-                </div>
-                <div className="form-group"> 
-                    <label>Search:</label>
-                    <input type="text" name="search" placeholder="Search..." className="form-control" /> 
                 </div>
                 <input type="reset" value="Reset filters" className="btn btn-secondary mr-2" /> 
                 <button type="button" className="btn btn-primary" onClick={refresh}>Refresh</button> 
@@ -74,7 +71,7 @@ export default function ReportView() {
                             <Heading level={3} content={location.target.name} />
                             <p className="card-text">Adres: {location.address}</p> 
                             <p className="card-text">Rating: {location.rating}</p> 
-                            <p className="card-text">Zaktualizowano: {location.createdAt?.toLocaleString()}</p> 
+                            <p className="card-text">Zaktualizowano: {fixData(location.createdAt)}</p>
                             <p className="card-text">Aktualność: {location.actual ? "Jak najbardziej" : "no niezbyt"}</p> 
                             <LinkButton content={'Details'} href={`/reports/${location.id}`} className="btn btn-primary" />
                         </div>
