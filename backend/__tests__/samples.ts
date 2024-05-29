@@ -60,3 +60,31 @@ export const sample_location2 = {
     targetId: 999997,
     creatorId: 999996,
 }
+export const sample_user5 = {
+    id: 999995,
+    name: 'John Doe5',
+    email: 'johndoe5@gmail.com',
+    password: '$2a$10$CwTycUXWue0Thq9StjUM0uBroupzYajcgoPfzad9vhEzOHEIAa3Cy',
+    reliability: 99999
+}
+export const sample_target4 = {
+    id: 999996,
+    name: 'John Doe2',
+    description: 'DEscription xd',
+    creatorId: 999995,
+}
+export const sample_target5 = {
+    id: 999995,
+    name: 'John Doe2',
+    description: 'DEscription xd',
+    creatorId: 999995,
+}
+
+export const sample_targetOnUser = {
+    userId : 999995,
+    targetId: 999996
+}
+export const sample_targetOnUser2 = {
+    userId : 999995,
+    targetId: 999995
+}

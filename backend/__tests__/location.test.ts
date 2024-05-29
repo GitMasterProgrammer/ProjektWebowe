@@ -31,7 +31,7 @@ afterAll(async ()=> {
 
 })
 
-describe('User Tests', () => {
+describe('Location Tests', () => {
     describe('Get by id ', ()=> {
         it('Wrong id returns 400', async () => {
             await supertest(app).get('/api/location/get/id').expect(400)
