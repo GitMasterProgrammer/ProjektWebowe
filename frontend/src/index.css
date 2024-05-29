@@ -25,7 +25,8 @@
   -moz-osx-font-smoothing: grayscale;
   --dark: #2f2f30;
   --purple: #9958e1;
-  --hover-purple: #9858e1bb;
+  --hover-purple: #a971ea;
+  
 }
 
 a{
@@ -45,7 +46,6 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #111111;
-  padding: 3.5% 5%;
 }
 
 #root{
@@ -63,19 +63,88 @@ h1 {
   border-radius: 9999px;
   border: 1px solid var(--purple);
   padding: 10px 20px;
-
+  font-weight: bold;
 }
 
 .btn-normal:hover{
   background-color: var(--hover-purple);
   border-color: var(--hover-purple);
+  -webkit-box-shadow: 0px 0px 34px -10px var(--hover-purple);
+  -moz-box-shadow: 0px 0px 34px -10px var(--hover-purple);
+  box-shadow: 0px 0px 34px -10px var(--hover-purple);
+}
+
+.location{
+  width: 350px;
+  height: 500px;
+  padding: 20px;
+  background-color: transparent;
+  border: 1px solid greenyellow;
+}
+
+.location:hover{
+  -moz-transition: all .15s ease-in;
+  -webkit-transition: all .15s ease-in;
+  -o-transition: all .15s ease-in;
+  transition: all .15s ease-in;
+  background-color: greenyellow;
+  -webkit-box-shadow: 0px 0px 45px 10px greenyellow;
+  -moz-box-shadow: 0px 0px 45px 10px rgb(178, 255, 62);
+  box-shadow: 0px 0px 60px 8px rgb(188, 255, 88);
+}
+
+.location:hover *{
+  color: var(--dark) !important;
+
+}
+
+.card-body{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: start;
+  overflow-x: hidden;
+}
+
+.rating{
+  display: flex;
+  flex-direction: column;
+}
+
+.rating .big{
+  font-size: 6rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.rating .small{
+  font-size: 1.6rem;
+  font-weight: 500;
 }
 
 .navbar{
   display: flex;
   justify-content: space-between;
   background-color: transparent;
+  margin-left: 20%;
+  margin-right: 20%;
 }
+
+.name-location{
+  font-weight: 800;
+  color: white;
+  text-transform: uppercase;
+  font-size: 2.2rem;
+}
+
+.icon{
+  margin-left: 10px;
+}
+
+.icon *{
+  color: white;
+}
+
 
 nav .nav-link {
   color: white !important;
@@ -88,14 +157,18 @@ nav .nav-link:hover {
 
 .title-main{
   font-weight: bold;
-  font-size: 3.75rem;
-  line-height: 125%;
-  
+  font-size: 4.75rem;
+  line-height: 1.04;
+  max-width: 700px;
   letter-spacing: -1px;
 }
 
-.btn-normal{
-
+.title-main-lighter{
+  font-weight: bold;
+  line-height: 1.04;
+  max-width: 700px;
+  letter-spacing: -1px;
+  font-size: 4.7rem;
 }
 
 .nav-link{
@@ -144,6 +217,8 @@ nav .nav-link:hover {
   margin: auto 0;
   padding: 0;
   margin-top: 10%;
+  margin-left: 20%;
+  width: fit-content;
 }
 
 .nav-register{

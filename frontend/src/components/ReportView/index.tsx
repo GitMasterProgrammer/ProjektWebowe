@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Location } from "../../interfaces/Location.tsx";
 import LinkButton from "../LinkButton";
 import {fixData} from "../../helpers/fixDate.tsx";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function ReportView() {
     const [order, setOrder] = React.useState("createdAt_desc");
@@ -38,7 +40,7 @@ export default function ReportView() {
     }, []);
 
     return (
-        <div className="ReportView container"> 
+        <div className="ReportView d-flex gap-3"> 
             <form method="post" className="filterOptions">
                 <div className="form-group"> 
                     <label>Number of reports:</label>
@@ -64,16 +66,16 @@ export default function ReportView() {
                 <input type="reset" value="Reset filters" className="btn btn-secondary mr-2" /> 
                 <button type="button" className="btn btn-primary" onClick={refresh}>Refresh</button> 
             </form>
-            <div className="reportList mt-4"> 
+            <div className="reportList mt-4 d-flex gap-3"> 
                 {locations?.map(location => (
                     <div key={location.id} className="location card mb-3"> 
                         <div className="card-body"> 
-                            <Heading level={3} content={location.target.name} />
-                            <p className="card-text">Adres: {location.address}</p> 
-                            <p className="card-text">Rating: {location.rating}</p> 
-                            <p className="card-text">Zaktualizowano: {fixData(location.createdAt)}</p>
-                            <p className="card-text">Aktualność: {location.actual ? "Jak najbardziej" : "no niezbyt"}</p> 
-                            <LinkButton content={'Details'} href={`/reports/${location.id}`} className="btn btn-primary" />
+                            <Heading level={3} content={location.target.name} className="name-location"/>
+                            {/*<p className="card-text">Adres: {location.address}</p>*/}
+                            <div className="card-text rating"><div className="big">{(location.rating).toFixed(2)}</div> <div className="small">rating</div></div>  
+                            {/*<p className="card-text">Zaktualizowano: {fixData(location.createdAt)}</p>*/}
+                            {/*<p className="card-text">Aktualność: {location.actual ? "Jak najbardziej" : "no niezbyt"}</p>*/}
+                            <LinkButton content={'Details'} href={`/reports/${location.id}`} icon={<FontAwesomeIcon icon={faArrowRight} />} className="text-light" />
                         </div>
                     </div>
                 ))}
