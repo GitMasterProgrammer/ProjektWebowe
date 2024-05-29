@@ -6,25 +6,14 @@
 import supertest from "supertest";
 import createServer from "../functions/server";
 import {PrismaClient} from "@prisma/client";
+import {sample_user, sample_user2} from "./samples";
 
 const app = createServer()
 const prisma = new PrismaClient();
-const sample_user = {
-    id: 999999,
-    name: 'John Doe',
-    email: 'johndoe@gmail.com',
-    password: '$2a$10$CwTycUXWue0Thq9StjUM0uBroupzYajcgoPfzad9vhEzOHEIAa3Cy',
-    reliability: 99999
-}
-const sample_user2 = {
-    id: 999998,
-    name: 'John Doe2',
-    email: 'johndoe2@gmail.com',
-    password: '$2a$10$CwTycUXWue0Thq9StjUM0uBroupzYajcgoPfzad9vhEzOHEIAa3Cy',
-    reliability: 99999
-}
+
 beforeAll(async ()=> {
     const newUser = await prisma.user.create({ data: sample_user });
+    const newUser2 = await prisma.user.create({ data: sample_user2 });
 })
 
 afterAll(async ()=> {
