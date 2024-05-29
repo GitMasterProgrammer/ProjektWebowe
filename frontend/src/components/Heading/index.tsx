@@ -7,5 +7,5 @@ interface HeadingProps {
 }
 export default function Heading({level = 1, content, className = ''}: HeadingProps) {
     const size = 'h' + level
-    return React.createElement(size, { className } , content);
+    return React.createElement(size, { className } , content);  
 }
