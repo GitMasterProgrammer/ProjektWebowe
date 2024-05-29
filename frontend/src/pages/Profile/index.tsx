@@ -6,7 +6,7 @@ export default function Profile() {
     const auth  = useAuthUser()
     return (
         <div className="container">
-            <Heading content={"Profile page"} />
+            <Heading content={"Profil użytkownia"} />
             <UserData userId={auth.id}  />
         </div>
     )

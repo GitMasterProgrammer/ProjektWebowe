@@ -128,7 +128,6 @@ export default function ReportDetails() {
                             onChange={(event, newValue) => {
                                 updateRating(newValue)
                                 setRating(newValue ?? 0);
-
                             }}
                         />
                     </div>

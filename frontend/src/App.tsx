@@ -2,12 +2,16 @@ import {Route, BrowserRouter as Router, Routes} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import {routes} from "./helpers/routing.tsx";
 import RequireAuth from "@auth-kit/react-router/RequireAuth";
+import {useEffect} from "react";
 
 function App() {
-
+    useEffect(() => {
+        document.title = 'Pysstektor';
+    }, []);
   return (
-      
+
       <Router>
+
           <Navbar/>
           <Routes>
               {routes.map((route)=> {
@@ -36,9 +40,5 @@ function App() {
 export default App
 
 /*
-
-    TODO (do rozważenia): zgłoszenia zwracałbym tylko z danego dnia, i żeby można sobie bylo z selecta pofiltorowac jakiego targeta zgłoszenia wyświetlic
-    TODO (do rozważenia): osoby utworzone przez użytkowników to  na początku defaultowo 3 z najwieksza ilości likow  i zostawił tylko search 
-
-    jtr dokoncze te cssy 
-*/
+    jtr dokoncze te cssy
+    */

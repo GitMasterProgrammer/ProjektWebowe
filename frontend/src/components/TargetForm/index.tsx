@@ -37,12 +37,12 @@ export default function TargetForm(){
     return (
             <form method="post" onSubmit={OnSubmit} className="container"> 
                 <div className="form-group"> 
-                    <label htmlFor="name">Name:</label> 
+                    <label htmlFor="name">Nazwa:</label>
                     <input required onChange={(e)=>setFormData({...formData, name: e.target.value})} type="text" name="name"
                         id="name" className="form-control" placeholder="name"/>
                 </div>
                 <div className="form-group"> 
-                    <label htmlFor="description">Description:</label> 
+                    <label htmlFor="description">Opis:</label>
                     <textarea required onChange={(e)=>setFormData({...formData, description: e.target.value})}
                             name="description" id="description" className="form-control" placeholder="description"></textarea> {/* Dodanie klas Bootstrapowych */}
                 </div>

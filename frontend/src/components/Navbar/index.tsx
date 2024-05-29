@@ -33,16 +33,16 @@ export default function Navbar() {
                             <span className="nav-link">{auth.email}</span> 
                         </li>
                         <li className="nav-item">
-                            <button className="btn btn-outline-danger" onClick={handleSignOut}>Sign Out</button>
+                            <button className="btn btn-outline-danger" onClick={handleSignOut}>Wyloguj się</button>
                         </li>
                     </ul>
                 ) : (
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item nav-login" key={'login'}>
-                            <Link className="nav-link" to={"/login"}>Login</Link>
+                            <Link className="nav-link" to={"/login"}>Zaloguj się</Link>
                         </li>
                         <li className="nav-item nav-register" key={'register'}>
-                            <Link className="nav-link" to={"/register"}>Register</Link>
+                            <Link className="nav-link" to={"/register"}>Zarejestruj się</Link>
                         </li>
                     </ul>
                 )}

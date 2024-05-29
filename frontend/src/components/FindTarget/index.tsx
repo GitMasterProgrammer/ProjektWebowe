@@ -50,7 +50,7 @@ export default function FindTarget({ setValue }: FindTargetProps) {
                 type="text"
                 className="form-control"
                 name="target"
-                placeholder="Target's name"
+                placeholder="Nazwa osoby"
                 value={name}
             />
             <div className="list-group mt-3"> {}
