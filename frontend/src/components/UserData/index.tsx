@@ -1,5 +1,6 @@
 import {User} from "../../interfaces/User.tsx";
 import {useEffect, useState} from "react";
+import {fixData} from "../../helpers/fixDate.tsx";
 
 
 interface UserDataProps {
@@ -30,10 +31,10 @@ export default function UserData({userId} : UserDataProps) {
     }
     return (
             <ul className="list-group"> 
-                <li className="list-group-item">Username: {user_data.name}</li> 
+                <li className="list-group-item">Nazwa użytkownika: {user_data.name}</li>
                 <li className="list-group-item">Email: {user_data.email}</li> 
-                <li className="list-group-item">Created at: {user_data.createdAt}</li> 
-                <li className="list-group-item">Reliability: {user_data.reliability}</li> 
+                <li className="list-group-item">Utworzone: {fixData(user_data.createdAt)}</li>
+                <li className="list-group-item">Zaufanie: {user_data.reliability}</li>
             </ul>
         )
 }

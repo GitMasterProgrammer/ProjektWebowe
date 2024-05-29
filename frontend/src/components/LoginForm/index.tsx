@@ -56,7 +56,7 @@ export default function LoginForm() {
                 <input required onChange={(e) => setFormData({ ...formData, email: e.target.value })} type="email" name="email" className="form-control" placeholder="email" /> 
             </div>
             <div className="form-group"> 
-                <label>Password:</label>
+                <label>Hasło:</label>
                 <input required onChange={(e) => setFormData({ ...formData, password: e.target.value })} type="password" name="password" className="form-control" /> 
             </div>
             <p>{errors}</p>

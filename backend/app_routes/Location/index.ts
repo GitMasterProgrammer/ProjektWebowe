@@ -27,8 +27,6 @@ router.get('/get', async (req: CustomRequest, res: Response) => {
             orderBy[orderField] = orderDirection.toLowerCase();
         }
 
-
-
         const take = maxRows ? parseInt(maxRows, 10) : undefined;
 
         if (lastHrs) {

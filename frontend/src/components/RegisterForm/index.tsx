@@ -77,11 +77,11 @@ export default function RegisterForm() {
                 <input required onChange={(e) => setFormData({ ...formData, email: e.target.value })} type="email" name="email" className="form-control" placeholder="email" /> 
             </div>
             <div className="form-group">
-                <label>Password:</label>
+                <label>Hasło:</label>
                 <input required onChange={(e) => setFormData({ ...formData, password1: e.target.value })} type="password" name="password1" className="form-control" /> 
             </div>
             <div className="form-group">
-                <label>Repeat password:</label>
+                <label>Powtórz hasło:</label>
                 <input required onChange={(e) => setFormData({ ...formData, password2: e.target.value })} type="password" name="password2" className="form-control" /> 
             </div>
             <ul className="list-unstyled">{errors.map((error) => (<li key={error} className="text-danger">{error}</li>))}</ul> 

@@ -4,7 +4,7 @@ import ReportForm from "../../components/ReportForm";
 export default function Report() {
     return (
         <div className="container">
-            <Heading content={"Report location"} />
+            <Heading content={"Zgłoś"} />
             <ReportForm />
         </div>
     )

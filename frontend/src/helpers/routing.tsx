@@ -23,66 +23,66 @@ export const routes: RouteItem[] = [
     {
         path: "/",
         element: <Home  />,
-        label: "Homepage",
+        label: "Strona główna",
         requireAuth: false,
         hidden: true,
     },
     {
         path: "/report",
         element: <Report  />,
-        label: "Report",
+        label: "Zgłoś",
         requireAuth: true
     },
     {
         path: "/reports",
         element: <Reports  />,
-        label: "Reports",
+        label: "Zgłoszenia",
         requireAuth: false
     },
     {
         path: "/reports/:reportId",
         element: <ReportDetails  />,
-        label: "Report Details",
+        label: "Szczegóły zgłoszenia",
         requireAuth: true,
         hidden: true
     },
     {
         path: "/targets",
         element: <Targets  />,
-        label: "Targets",
+        label: "Osoby",
         requireAuth: true
     },
     {
         path: "/targets/:targetId",
         element: <TargetDetails  />,
-        label: "Targets",
+        label: "Szczegóły osób",
         requireAuth: false,
         hidden: true
     },
     {
         path: "/login",
         element: <Login />,
-        label: "Login",
+        label: "Logowanie",
         requireAuth: false,
         hidden: true
     },
     {
         path: "/register",
         element: <Register />,
-        label: "Register",
+        label: "Rejestracja",
         requireAuth: false,
         hidden: true
     },
     {
         path: "/profile",
         element: <Profile />,
-        label: "Profile",
+        label: "Profil",
         requireAuth: true
     },
     {
         path: "/createTarget",
         element: <CreateTarget  />,
-        label: "Target Form",
+        label: "Utwórz osobę",
         hidden: true,
         requireAuth: true
     },

@@ -82,7 +82,7 @@ export default function TargetView() {
         <div className="TargetView container"> 
             <form className="filterOptions form-inline"> 
                 <div className="form-group mr-2"> 
-                    <label htmlFor="quantity">Number of targets:</label> 
+                    <label htmlFor="quantity">Liczba wyników:</label>
                     <select name="quantity" id="quantity" value={quantity}
                             onChange={(e) => setQuantity(parseInt(e.target.value))} className="form-control"> 
                         <option value="25">25</option>
@@ -99,15 +99,16 @@ export default function TargetView() {
                 {/*    </select>*/}
                 {/*</div>*/}
                 <div className="form-group mr-2"> 
-                    <label htmlFor="search">Search:</label> 
-                    <input onChange={(e) => setName(e.target.value)} type="text" id="search" name="search" className="form-control" placeholder="Search..."/> 
+                    <label htmlFor="search">Szukaj:</label>
+                    <input onChange={(e) => setName(e.target.value)} type="text" id="search"
+                           name="search" className="form-control" placeholder="Szukaj..."/>
                 </div>
-                <input type="reset" value="Reset filters" onClick={()=> {
+                <input type="reset" value="Wyczyść filtry" onClick={()=> {
                     setName('')
                     setQuantity(25)
                     Refresh()
                 }} className="btn btn-secondary mr-2"/>
-                <button type="button" className="btn btn-primary" onClick={Refresh}>Filter</button> 
+                <button type="button" className="btn btn-primary" onClick={Refresh}>Filtruj</button>
             </form>
             <div className="targetList mt-4"> 
                 {targets?.map(target => {
@@ -116,9 +117,9 @@ export default function TargetView() {
                         <div key={target.id} className="target card mb-3"> 
                             <div className="card-body"> 
                                 <Heading level={3} content={target.name}/>
-                                <p className="card-text targetDesc">{target.description}</p> 
-                                <p className="card-text">Likes: {target.likes}</p> 
-                                <p className="card-text">Creator: {target.creator.name}</p> 
+                                <p className="card-text targetDesc">Opis: {target.description}</p>
+                                <p className="card-text">Polubienia: {target.likes}</p>
+                                <p className="card-text">Twórca: {target.creator.name}</p>
                                 <FollowButton isFollowed={isFollowed??false} targetId={target.id}/>
                                 <LinkButton href={'/targets/' + target.id} content={"More info"}/> 
                             </div>
