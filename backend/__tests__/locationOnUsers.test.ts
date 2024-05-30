@@ -7,8 +7,7 @@ import supertest from "supertest";
 import createServer from "../functions/server";
 import {PrismaClient} from "@prisma/client";
 import {
-    sample_location,
-    sample_location2, sample_location3, sample_locationOnUser,
+    sample_location3, sample_locationOnUser, sample_locationOnUser2,
     sample_target3,
     sample_target6,
     sample_user4,
@@ -29,6 +28,12 @@ beforeAll(async () => {
 
 afterAll(async ()=> {
 
+    await prisma.locationsOnUsers.deleteMany({
+        where: {
+            userId: 999994,
+            locationId: 999997,
+        },
+    });
     await prisma.location.deleteMany({where:{
             id: sample_location3.id
         }});
@@ -41,84 +46,78 @@ afterAll(async ()=> {
     await prisma.user.deleteMany({where:{
             id: sample_user7.id
         }});
-    await prisma.locationsOnUsers.deleteMany({where:{
-            where: {
-                userId_locationId: {
-                    userId: 999994,
-                    targetId: 999997,
-                },
-            },
-        }});
+
 })
-//
-// describe('Location Tests', () => {
-//     describe('Get by id ', ()=> {
-//         it('Wrong id returns 400', async () => {
-//             await supertest(app).get('/api/location/get/id').expect(400)
-//         });
-//         it('Correct id', async () => {
-//             const res  = await supertest(app).get('/api/location/get/999999')
-//             expect(res.body.record.id).toBe(999999)
-//             expect(res.body.record.address).toBe('Poznan')
-//         });
-//     })
-//     describe('Get all',   ()=> {
-//         it('Get all', async ()=> {
-//             const res  = await supertest(app).get('/api/location/get/')
-//             expect(res.body.record.length).toBeGreaterThanOrEqual(1)
-//         })
-//         it('Get all with order by', async ()=> {
-//             const res  = await supertest(app).get('/api/location/get/?orderBy=id_desc')
-//             expect(res.body.record[0].id).toBe(999999)
-//         })
-//     })
-//     describe('Post',   ()=> {
-//         it('Correct Post', async ()=> {
-//             await supertest(app).post('/api/location/post/')
-//                 .send(sample_location2)
-//                 .set('Content-Type', 'application/json')
-//                 .expect(200)
-//         })
-//         it('Wrong body', async ()=> {
-//             await supertest(app).post('/api/location/post/')
-//                 .send({'xd': '2137'})
-//                 .set('Content-Type', 'application/json')
-//                 .expect(500)
-//         })
-//     })
-//     describe('Delete',   ()=> {
-//         it('Correct delete', async ()=> {
-//             const res  = await supertest(app).delete('/api/location/delete/?id=999998').expect(200)
-//         })
-//         it('Wrong query', async ()=> {
-//             const res  = await supertest(app).delete('/api/location/delete/?id=xd').expect(500)
-//         })
-//     })
-//     describe('Put',   ()=> {
-//         it('Correct Put', async ()=> {
-//             await supertest(app).put('/api/location/put/999999')
-//                 .send({
-//                     details: 'John John',
-//                 })
-//                 .set('Content-Type', 'application/json')
-//                 .expect(200)
-//         })
-//         it('PRIMARY exeption', async ()=> {
-//             await supertest(app).put('/api/location/put/999999')
-//                 .send({
-//                     id: 'John John',
-//                 })
-//                 .set('Content-Type', 'application/json')
-//                 .expect(500)
-//         })
-//         it('Wrong ID', async ()=> {
-//             await supertest(app).put('/api/location/put/xd')
-//                 .send({
-//                     name: 'John John',
-//                 })
-//                 .set('Content-Type', 'application/json')
-//                 .expect(400)
-//         })
-//     })
-//
-// });
+
+describe('Location on users Tests', () => {
+    describe('Get all',   ()=> {
+        it('Get all', async ()=> {
+            const res  = await supertest(app).get('/api/likedLocations/get/')
+            expect(res.body.record.length).toBeGreaterThanOrEqual(1)
+        })
+        it('Get all with where', async ()=> {
+            const res  = await supertest(app).get('/api/likedLocations/get?locationId=999997&userId=999994')
+            expect(res.body.record[0].userId).toBe(999994)
+            expect(res.body.record[0].locationId).toBe(999997)
+        })
+        it('Get all with order by', async ()=> {
+            const res  = await supertest(app).get('/api/likedLocations/get?orderBy=userId_desc')
+            expect(res.body.record[0].userId).toBe(999994)
+            expect(res.body.record[0].locationId).toBe(999997)
+        })
+    })
+    describe('Post',   ()=> {
+        it('Correct Post', async ()=> {
+            await supertest(app).post('/api/likedLocations/post/')
+                .send(sample_locationOnUser2)
+                .set('Content-Type', 'application/json')
+                .expect(200)
+        })
+        it('Wrong body', async ()=> {
+            await supertest(app).post('/api/likedLocations/post/')
+                .send({'xd': '2137'})
+                .set('Content-Type', 'application/json')
+                .expect(500)
+        })
+    })
+    describe('Delete',   ()=> {
+        it('Correct delete', async ()=> {
+            const res  = await supertest(app).delete('/api/likedLocations/delete?userId=999993&locationId=999997').expect(200)
+        })
+        it('Wrong query', async ()=> {
+            const res  = await supertest(app).delete('/api/likedLocations/delete?id=xd').expect(500)
+        })
+    })
+    describe('Put',   ()=> {
+        it('Correct Put', async ()=> {
+            await supertest(app).put('/api/likedLocations/put/')
+                .send({
+                    value: 2,
+                    userId: 999994,
+                    locationId: 999997
+                })
+                .set('Content-Type', 'application/json')
+                .expect(200)
+        })
+        it('Wrong ID', async ()=> {
+            await supertest(app).put('/api/likedLocations/put/')
+                .send({
+                    value: 2,
+                    userId: 999994,
+                    locationId: 'xd'
+                })
+                .set('Content-Type', 'application/json')
+                .expect(500)
+        })
+        it('No ID', async ()=> {
+            await supertest(app).put('/api/likedLocations/put/')
+                .send({
+                    value: 2,
+                    userId: 999994,
+                })
+                .set('Content-Type', 'application/json')
+                .expect(400)
+        })
+    })
+
+});

@@ -103,8 +103,8 @@ export const sample_user6 = {
 }
 export const sample_user7 = {
     id: 999993,
-    name: 'John Doe6',
-    email: 'johndoe6@gmail.com',
+    name: 'John Doe7',
+    email: 'johndoe7@gmail.com',
     password: '$2a$10$CwTycUXWue0Thq9StjUM0uBroupzYajcgoPfzad9vhEzOHEIAa3Cy',
     reliability: 99999
 }
@@ -126,4 +126,11 @@ export const sample_locationOnUser2 = {
     userId: 999993,
     locationId: 999997,
     value: 4
+}
+export const sample_user8 = {
+    id: 999992,
+    name: 'John Doe8',
+    email: 'johndoe78gmail.com',
+    password: '$2a$10$CwTycUXWue0Thq9StjUM0uBroupzYajcgoPfzad9vhEzOHEIAa3Cy',
+    reliability: 99999
 }
