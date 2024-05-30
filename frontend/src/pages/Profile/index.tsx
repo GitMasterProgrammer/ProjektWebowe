@@ -3,7 +3,8 @@ import Heading from "../../components/Heading";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 export default function Profile() {
-    const auth  = useAuthUser()
+    const auth = useAuthUser() as { id: number };
+
     return (
         <div className="container">
             <Heading content={"Profil użytkownia"} />

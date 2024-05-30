@@ -26,7 +26,7 @@
   --dark: #2f2f30;
   --purple: #9958e1;
   --hover-purple: #a971ea;
-  
+  --normal-margin: 15%;
 }
 
 a{
@@ -46,6 +46,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #111111;
+  
 }
 
 #root{
@@ -60,14 +61,22 @@ h1 {
 
 .btn-normal{
   background-color: var(--purple);
-  border-radius: 9999px;
+  border-radius: 10px;
   border: 1px solid var(--purple);
-  padding: 10px 20px;
+  padding: 7px 20px;
   font-weight: bold;
 }
 
-.btn-normal:hover{
+.btn-normal:hover, .nav-login:hover{
   background-color: var(--hover-purple);
+  border-color: var(--hover-purple);
+  -webkit-box-shadow: 0px 0px 34px -10px var(--hover-purple);
+  -moz-box-shadow: 0px 0px 34px -10px var(--hover-purple);
+  box-shadow: 0px 0px 34px -10px var(--hover-purple);
+
+}
+
+.nav-register:hover{
   border-color: var(--hover-purple);
   -webkit-box-shadow: 0px 0px 34px -10px var(--hover-purple);
   -moz-box-shadow: 0px 0px 34px -10px var(--hover-purple);
@@ -76,21 +85,21 @@ h1 {
 
 .location{
   width: 350px;
-  height: 500px;
+  height: 470px;
   padding: 20px;
   background-color: transparent;
-  border: 1px solid greenyellow;
+  border: 1px solid var(--purple);
 }
 
 .location:hover{
-  -moz-transition: all .15s ease-in;
-  -webkit-transition: all .15s ease-in;
-  -o-transition: all .15s ease-in;
-  transition: all .15s ease-in;
-  background-color: greenyellow;
-  -webkit-box-shadow: 0px 0px 45px 10px greenyellow;
-  -moz-box-shadow: 0px 0px 45px 10px rgb(178, 255, 62);
-  box-shadow: 0px 0px 60px 8px rgb(188, 255, 88);
+  -moz-transition: all .18s ease-in-out;
+  -webkit-transition: all .18s ease-in-out;
+  -o-transition: all .18s ease-in-out;
+  transition: all .18s ease-in-out;
+  background-color: var(--purple);
+  -webkit-box-shadow: 0px 0px 45px 10px var(--hover-purple);
+  -moz-box-shadow: 0px 0px 45px 10px var(--hover-purple);
+  box-shadow: 0px 0px 60px 8px var(--hover-purple);
 }
 
 .location:hover *{
@@ -112,7 +121,7 @@ h1 {
 }
 
 .rating .big{
-  font-size: 6rem;
+  font-size: 5.3rem;
   font-weight: 600;
   line-height: 1;
 }
@@ -126,8 +135,24 @@ h1 {
   display: flex;
   justify-content: space-between;
   background-color: transparent;
-  margin-left: 20%;
-  margin-right: 20%;
+  margin: 0 var(--normal-margin) 0 var(--normal-margin);
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.navbar::after{
+  
+  content: '';
+  background-color: transparent;
+  height: 1px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  
+}
+
+.no-after::after{
+  height: 0 !important;
 }
 
 .name-location{
@@ -147,12 +172,31 @@ h1 {
 
 
 nav .nav-link {
+  margin: 0;
+  padding: 0;
   color: white !important;
 }
 
-nav .nav-link:hover {
-  border-bottom: 2px solid white;
-  color: white !important;
+.nav-item{
+  position: relative;
+  height: fit-content;
+}
+
+.nav-item::after {
+  width: 0;
+  background-color: white;
+  height: 2px;
+  content: '';
+  display: flex;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: width 0.3s ease-in-out; 
+  z-index: 2;
+}
+
+.nav-item:hover::after {
+  width: 100%;
 }
 
 .title-main{
@@ -164,11 +208,11 @@ nav .nav-link:hover {
 }
 
 .title-main-lighter{
-  font-weight: bold;
+  font-weight: 600;
   line-height: 1.04;
   max-width: 700px;
   letter-spacing: -1px;
-  font-size: 4.7rem;
+  font-size: 3.5rem;
 }
 
 .nav-link{
@@ -188,7 +232,6 @@ nav .nav-link:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 16px;
 }
 
 .login-item a{
@@ -217,27 +260,36 @@ nav .nav-link:hover {
   margin: auto 0;
   padding: 0;
   margin-top: 10%;
-  margin-left: 20%;
+  margin-left: var(--normal-margin);
   width: fit-content;
 }
 
 .nav-register{
   background-color: transparent;
-  border-radius: 9999px;
-  color: white !important;
-  border: 1px solid white;
+  border-radius: 10px;
+  color: var(--purple) !important;
+  border: 1px solid var(--purple);
+  padding: 7px 10px;
+}
+
+.nav-register .nav-link{
+  color: var(--purple) !important;
+
 }
 
 .navbar-nav{
   gap: 15px;
+  align-items: center;
+  height: fit-content;
 }
 
 
 .nav-login{
-  background-color: white;
-  border-radius: 9999px;
+  background-color: var(--purple);
+  border-radius: 10px;
   color: black !important;
-  border: 1px solid white;
+  border: 1px solid var(--purple);
+  padding: 7px 10px;
 }
 
 .nav-login a{
@@ -272,9 +324,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;

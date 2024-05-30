@@ -12,7 +12,7 @@ export default function RegisterForm() {
     const [errors, setErrors] = React.useState<string[]>([]);
     const navigate = useNavigate();
 
-    const onSubmit = (e) => {
+    const onSubmit = (e : any) => {
         e.preventDefault();
         const passwordErrors = validatePassword(formData.password1);
         if (formData.password1 !== formData.password2) {

@@ -4,7 +4,6 @@ import useSignIn from "react-auth-kit/hooks/useSignIn";
 import bcrypt from 'bcryptjs'
 import { useNavigate } from "react-router-dom";
 import validateEmail from "../../helpers/validateEmail.tsx";
-import "./index.css";
 
 export default function LoginForm() {
     const signIn = useSignIn();
@@ -12,7 +11,7 @@ export default function LoginForm() {
     const [errors, setErrors] = React.useState("");
     const navigate = useNavigate();
 
-    const onSubmit = (e) => {
+    const onSubmit = (e : any) => {
         e.preventDefault();
         if (!validateEmail(formData.email)) {
             setErrors("Email jest niepoprawny");

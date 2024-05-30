@@ -79,17 +79,20 @@ export default function TargetView() {
     }, []);
 
     return (
-        <div className="TargetView container"> 
+        <div className="TargetView"> 
             <form className="filterOptions form-inline"> 
+                {/*
                 <div className="form-group mr-2"> 
                     <label htmlFor="quantity">Liczba wyników:</label>
                     <select name="quantity" id="quantity" value={quantity}
-                            onChange={(e) => setQuantity(parseInt(e.target.value))} className="form-control"> 
+                            onChange={(e) => setQuantity(parseInt(e.target.value))} className="form-control">
                         <option value="25">25</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
                     </select>
                 </div>
+                */}
+
                 {/*<div className="form-group mr-2"> */}
                 {/*    <label htmlFor="order">Order by:</label> */}
                 {/*    <select name="order" id="order" value={order} onChange={(e) => setOrder(e.target.value)} className="form-control"> */}

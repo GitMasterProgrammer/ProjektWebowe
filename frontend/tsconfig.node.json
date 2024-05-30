@@ -5,7 +5,10 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
-    "strict": true
+    "strict": true,
+    "types" : [
+      "@types/testing-library__react"
+    ]
   },
   "include": ["vite.config.ts"]
-}
+} 

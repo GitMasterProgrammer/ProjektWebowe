@@ -1,13 +1,12 @@
-import React, { ChangeEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Target } from "../../interfaces/Target.tsx";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import FindTarget from "../FindTarget";
 import { useNavigate } from "react-router-dom";
 
-
 export default function ReportForm() {
     const navigate = useNavigate();
-    const auth = useAuthUser();
+    const auth = useAuthUser()
     const [favourites, setFavourites] = React.useState<Target[] | null>(null);
     const [targetId, setTargetId] = useState(-1);
     const [formData, setFormData] = React.useState({ address: '', coordinates: '', details: '' });
@@ -20,7 +19,7 @@ export default function ReportForm() {
         fetch('http://localhost:3000/api/user/get/likedTargets/' + auth.id, reqOptions)
             .then(response => response.json())
             .then(data => {
-                const favs: Target[] = data.record.favourites.map((relation) => relation.target);
+                const favs: Target[] = data.record.favourites.map((relation : any) => relation.target);
                 setFavourites(favs);
             })
             .catch(err => {
@@ -29,7 +28,7 @@ export default function ReportForm() {
             });
     };
 
-    const onSubmit = (event) => {
+    const onSubmit = (event : any) => {
         event.preventDefault();
         if (formData.address === '' || formData.address === null) {
             setError("Please enter a valid address");
@@ -63,7 +62,7 @@ export default function ReportForm() {
 
         fetch('http://localhost:3000/api/location/post', requestOptions)
             .then(response => response.json())
-            .then(data => {
+            .then(/*data*/() => {
                 navigate('/reports');
             })
             .catch(err => {

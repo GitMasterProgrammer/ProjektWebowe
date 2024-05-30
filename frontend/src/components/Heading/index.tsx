@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from 'react';
 
 interface HeadingProps {
     level?: 1 | 2 | 3 | 4 | 5 | 6,

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { useState } from "react";
+/*import useAuthUser from "react-auth-kit/hooks/useAuthUser";*/
 
 interface ActualityButtonProps {
     reportId: number;
@@ -7,7 +7,7 @@ interface ActualityButtonProps {
 }
 
 export default function ActualityButton({ reportId, isActive }: ActualityButtonProps) {
-    const auth = useAuthUser();
+    /*const auth = useAuthUser();*/
     const [isActual, setActuality] = useState(isActive);
 
     const SetAsActual = () => {
@@ -22,7 +22,7 @@ export default function ActualityButton({ reportId, isActive }: ActualityButtonP
         console.log(JSON.stringify(reqData));
         fetch('http://localhost:3000/api/location/put/' + reportId, requestOptions)
             .then(response => response.json())
-            .then(data => {
+            .then(/*data*/() => {
                 setActuality(true);
             })
             .catch(err => {
@@ -41,7 +41,7 @@ export default function ActualityButton({ reportId, isActive }: ActualityButtonP
         };
         fetch('http://localhost:3000/api/location/put/' + reportId, requestOptions)
             .then(response => response.json())
-            .then(data => {
+            .then(/*data*/() => {
                 setActuality(false);
             })
             .catch(err => {
