@@ -112,7 +112,6 @@ h1 {
 
 .location:hover *{
   color: var(--dark) !important;
-
 }
 
 .card-body{
@@ -121,6 +120,19 @@ h1 {
   flex-direction: column;
   align-items: start;
   overflow-x: hidden;
+  max-width: 450px;
+}
+
+.card-body h3{
+  font-size: 2.5rem;
+}
+
+.bigger{
+  font-size: 2.5rem;
+}
+
+.smaller{
+  font-size:1.2rem;
 }
 
 .rating{
@@ -191,8 +203,7 @@ nav .nav-link {
 }
 
 .filterOptions{
-  align-items: center;
-  gap: 20px;
+  display: flex;align-items:center;flex-direction: column;
 }
 
 .nav-item::after {
@@ -239,6 +250,20 @@ textarea.form-control{
   color: var(--dark);
 }
 
+.main-description{
+  position: absolute;
+  z-index: 2;
+  bottom: 20px;
+  left: 0;
+  text-align: center;
+  width: 100vw;
+  max-width: 100%;
+}
+
+input:focus{
+  background-color: transparent;
+}
+
 .btn-link{
   color: var(--purple);
 }
@@ -246,6 +271,12 @@ textarea.form-control{
 select.form-control::placeholder, input.form-control::placeholder {
   color: var(--color-light);
   opacity: 1; 
+}
+
+.form-control:focus{
+  background-color: transparent;
+  color: whitesmoke;
+  box-shadow: var(--purple) 2px;
 }
 
 .container-center{
@@ -382,10 +413,6 @@ select.form-control:focus, .form-group input{
   margin-bottom: 10px;
 }
 
-.main-description{
-  max-width: 600px;
-}
-
 .navbar-brand{
   margin-right: 50px;
 }
@@ -419,6 +446,59 @@ button:focus-visible {
   flex-wrap: wrap;
 }
 
+.margin-bottom{
+  margin-bottom: 20px;
+}
+
+.target{
+  background-color: transparent;
+  border: 1px solid white;
+}
+
+.target:hover{
+  -moz-transition: all .18s ease-in-out;
+  -webkit-transition: all .18s ease-in-out;
+  -o-transition: all .18s ease-in-out;
+  transition: all .18s ease-in-out;
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 45px 10px var(--hover-purple);
+  -moz-box-shadow: 0px 0px 45px 10px var(--hover-purple);
+  box-shadow: 0px 0px 60px 8px whitesmoke;
+}
+
+.target:hover .card-text, .target:hover h3{
+  color: var(--dark) !important;
+}
+
+.target *{
+  color: whitesmoke;
+}
+
+.card-body h3{
+  color: white;
+}
+
+.ReportView{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer{
+  width: calc(100%);
+  background-color: white;
+  bottom: 0;
+  color: var(--dark);
+  text-align: center;
+  padding: 20px;
+  left: 0;
+  margin-top: 10%;
+}
+
+.color-rev{
+  filter: invert(100%);
+}
+
 @media only screen and (max-width: 800px) {
   .title-main{
     font-size: 3.55rem;
@@ -433,7 +513,7 @@ button:focus-visible {
 
   .main-description{
     font-size: 1rem;
-    max-width: 80%;
+    max-width: 100%;
   }
 
   .navbar{

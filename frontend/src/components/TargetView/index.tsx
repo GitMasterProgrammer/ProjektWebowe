@@ -1,5 +1,5 @@
 import Heading from "../Heading";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Target} from "../../interfaces/Target.tsx";
 import LinkButton from "../LinkButton";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
@@ -114,7 +114,7 @@ export default function TargetView() {
                     setQuantity(25)
                     Refresh()
                 }} className="btn btn-secondary mr-2"/>*/}
-                <button type="button" className="btn btn-primary btn-normal border-radius-max" onClick={Refresh}>Szukaj</button>
+                <button type="button" className="btn btn-primary btn-normal border-radius-max w-100" onClick={Refresh}>Szukaj</button>
             </form>
             <div className="targetList mt-4"> 
                 {targets?.map(target => {
@@ -126,9 +126,9 @@ export default function TargetView() {
                                 <p className="card-text targetDesc">Opis: {target.description}</p>
                                 <p className="card-text">Polubienia: {target.likes}</p>
                                 <p className="card-text">Twórca: {target.creator.name}</p>
-                                <div className="d-flex gap-3">
-                                    <FollowButton isFollowed={isFollowed??false} targetId={target.id}/>
-                                    <LinkButton href={'/targets/' + target.id} content={"More info"}/> 
+                                <div className="d-flex gap-1">
+                                    <FollowButton isFollowed={isFollowed??false} targetId={target.id} />
+                                    <LinkButton href={'/targets/' + target.id} content={"More info"} className={'btn btn-primary btn-normal border-radius-max'}/>
                                 </div>
                             </div>
                         </div>
