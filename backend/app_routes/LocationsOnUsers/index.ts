@@ -16,10 +16,10 @@ router.get('/get', async (req: CustomRequest, res: Response) => {
         const maxRows = ord.maxRows ? ord.maxRows : undefined;
 
         let orderBy: any = {};
-
-        if (where.actual === false) {
-            delete where.actual;
-        }
+        //
+        // if (where.actual === false) {
+        //     delete where.actual;
+        // }
 
         if (ord.orderBy) {
             const [orderField, orderDirection] = ord.orderBy.split('_'); 
