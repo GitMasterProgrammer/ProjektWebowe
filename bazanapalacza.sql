@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Maj 26, 2024 at 02:13 PM
+-- Generation Time: Maj 29, 2024 at 08:56 PM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -45,10 +45,11 @@ CREATE TABLE `location` (
 --
 
 INSERT INTO `location` (`id`, `rating`, `details`, `address`, `targetId`, `updatedAt`, `actual`, `createdAt`, `creatorId`, `coordinates`) VALUES
-(1, 5, 'fdg', 'gfdg', 1, '2024-05-25 14:16:19.190', 1, '2024-05-25 14:16:19.190', 4, 'fdg'),
-(2, 5, 'fdgdfg', 'gfd', 1, '2024-05-26 11:15:50.785', 1, '2024-05-26 11:15:50.785', 4, 'fdgfd'),
+(1, 4, 'fdg', 'gfdg', 1, '2024-05-27 17:47:52.920', 1, '2024-05-25 14:16:19.190', 4, 'fdg'),
+(2, 3, 'fdgdfg', 'gfd', 1, '2024-05-27 17:48:39.531', 1, '2024-05-26 11:15:50.785', 4, 'fdgfd'),
 (3, 5, 'fdg', 'gbtfd', 3, '2024-05-26 11:32:35.551', 1, '2024-05-26 11:32:35.551', 4, 'gfdg'),
-(4, 5, 'tgf432g', 'tutaj', 1, '2024-05-26 12:04:13.458', 1, '2024-05-26 12:04:13.458', 7, 'xd');
+(4, 5, 'tgf432g', 'tutaj', 1, '2024-05-27 16:47:14.697', 0, '2024-05-26 12:04:13.458', 7, 'xd'),
+(5, 5, 'ds', 'fds', 4, '2024-05-27 16:49:11.721', 1, '2024-05-27 16:49:11.721', 7, '52.3835, 16.9174');
 
 -- --------------------------------------------------------
 
@@ -62,6 +63,15 @@ CREATE TABLE `locationsonusers` (
   `value` int(11) NOT NULL,
   `likedAt` datetime(3) NOT NULL DEFAULT current_timestamp(3)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `locationsonusers`
+--
+
+INSERT INTO `locationsonusers` (`userId`, `locationId`, `value`, `likedAt`) VALUES
+(7, 1, 4, '2024-05-27 17:47:52.914'),
+(7, 2, 3, '2024-05-27 17:48:39.526'),
+(7, 3, 0, '2024-05-27 17:26:57.715');
 
 -- --------------------------------------------------------
 
@@ -105,8 +115,9 @@ CREATE TABLE `targetsonusers` (
 INSERT INTO `targetsonusers` (`userId`, `targetId`, `likedAt`) VALUES
 (4, 1, '2024-05-26 11:31:50.694'),
 (4, 3, '2024-05-18 13:01:51.013'),
-(7, 1, '2024-05-26 12:03:39.878'),
-(7, 2, '2024-05-26 12:03:41.386');
+(7, 1, '2024-05-28 14:26:21.339'),
+(7, 2, '2024-05-26 12:03:41.386'),
+(7, 3, '2024-05-28 14:42:07.290');
 
 -- --------------------------------------------------------
 
@@ -128,7 +139,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `createdAt`, `email`, `name`, `password`, `reliability`) VALUES
-(2, '2024-04-21 14:28:22.754', 'atomel@wp.pl', 'tomek', '$2a$10$KbCcM4d0dx0J.gxOz9Yp8ed6yusHmxjdfTOIYCfThj7kR8WUayDDi', 5),
+(2, '2024-04-21 14:28:22.754', 'atomel@wp.pl', 'moaaaaaaaaaaaaaaaaaaaaaaaaaa', '$2a$10$KbCcM4d0dx0J.gxOz9Yp8ed6yusHmxjdfTOIYCfThj7kR8WUayDDi', 5),
 (4, '2024-04-21 14:45:31.737', 'admin@wp.pl', 'Tomeczek', '$2a$10$Fk34irMgcxGN/rksYs8ltuqxkNRlRQkTzOxbN.Dl2t7UW4EVGjmBu', 5),
 (5, '2024-04-26 14:50:04.280', 'huuj@dp.djj', 'admin@wp.pl', '$2a$10$ArfZPr/MPwqbhMIlQ1wj/.5uXl1oc/AfzA89LaIlTiRi6TTkO9HYG', 5),
 (6, '2024-05-26 11:50:18.906', 'kgfd@wp.gg', 'nikt@wp.pl', '$2a$10$CwTycUXWue0Thq9StjUM0uBroupzYajcgoPfzad9vhEzOHEIAa3Cy', 5),
@@ -215,19 +226,19 @@ ALTER TABLE `_prisma_migrations`
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000;
 
 --
 -- AUTO_INCREMENT for table `target`
 --
 ALTER TABLE `target`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000000;
 
 --
 -- Constraints for dumped tables
