@@ -88,3 +88,42 @@ export const sample_targetOnUser2 = {
     userId : 999995,
     targetId: 999995
 }
+export const sample_target6 = {
+    id: 999994,
+    name: 'John Doe6',
+    description: 'DEscription xd',
+    creatorId: 999994,
+}
+export const sample_user6 = {
+    id: 999994,
+    name: 'John Doe6',
+    email: 'johndoe6@gmail.com',
+    password: '$2a$10$CwTycUXWue0Thq9StjUM0uBroupzYajcgoPfzad9vhEzOHEIAa3Cy',
+    reliability: 99999
+}
+export const sample_user7 = {
+    id: 999993,
+    name: 'John Doe6',
+    email: 'johndoe6@gmail.com',
+    password: '$2a$10$CwTycUXWue0Thq9StjUM0uBroupzYajcgoPfzad9vhEzOHEIAa3Cy',
+    reliability: 99999
+}
+export const sample_location3 = {
+    id: 999997,
+    address: 'Poznan3',
+    coordinates: '5.435, 43f.55',
+    details: '756765756775675',
+    targetId: 999994,
+    creatorId: 999994,
+}
+
+export const sample_locationOnUser = {
+    userId: 999994,
+    locationId: 999997,
+    value: 4
+}
+export const sample_locationOnUser2 = {
+    userId: 999993,
+    locationId: 999997,
+    value: 4
+}
