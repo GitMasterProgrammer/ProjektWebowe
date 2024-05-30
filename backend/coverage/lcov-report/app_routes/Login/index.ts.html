@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.09% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/21</span>
+                <span class='fraction'>18/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/20</span>
+                <span class='fraction'>17/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -93,63 +93,60 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+<span class="cline-any cline-yes">6x</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
 import { PrismaClient } from '@prisma/client';
 import { Express, Request, Response, Router } from 'express';
 &nbsp;
 const prisma = new PrismaClient();
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const router = Router();
 &nbsp;
-router.post('/', <span class="fstat-no" title="function not covered" >async (r</span>eq : Request, res: Response) =&gt;<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" > {</span></span>
-    const { email, password } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+router.post('/', async (req : Request, res: Response) =&gt; {
+    const { email, password } = req.body;
   
-<span class="cstat-no" title="statement not covered" >    try {</span>
-      const user = <span class="cstat-no" title="statement not covered" >await prisma.user.findUnique({ where: { email: email } });</span>
-<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (!user) {</span>
-<span class="cstat-no" title="statement not covered" >        return res.status(400).json({ message: '🐵🐵🐵User not found y are the nogger🐵🐵🐵' });</span>
+    try {
+      const user = await prisma.user.findUnique({ where: { email: email } });
+      if (!user) {
+        return res.status(400).json({ message: '🐵🐵🐵User not found y are the nogger🐵🐵🐵' });
       }
 &nbsp;
-      const isMatch = <span class="cstat-no" title="statement not covered" >password == user.password;</span>
-<span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (!isMatch) {</span>
-<span class="cstat-no" title="statement not covered" >        return res.status(400).json({ message: '🐵🐵🐵Invalid credentials nogger🐵🐵🐵' });</span>
+      const isMatch = password == user.password;
+      if (!isMatch) {
+        return res.status(400).json({ message: '🐵🐵🐵Invalid credentials nogger🐵🐵🐵' });
       }
 &nbsp;
-      const token = <span class="cstat-no" title="statement not covered" >jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });</span>
-<span class="cstat-no" title="statement not covered" >      res.json({ 'token': token, 'id' : user.id });</span>
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      res.json({ 'token': token, 'id' : user.id });
     } catch (err) {
 <span class="cstat-no" title="statement not covered" >      console.error(err);</span>
 <span class="cstat-no" title="statement not covered" >      res.status(500).json({ message: '🐵🐵🐵Server error something broke🐵🐵🐵' });</span>
@@ -163,7 +160,7 @@ export {router as router_login};</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-29T18:56:36.966Z
+                at 2024-05-30T16:27:07.101Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

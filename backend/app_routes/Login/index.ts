@@ -4,7 +4,6 @@ import { Express, Request, Response, Router } from 'express';
 
 const prisma = new PrismaClient();
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const router = Router();
 
 router.post('/', async (req : Request, res: Response) => {

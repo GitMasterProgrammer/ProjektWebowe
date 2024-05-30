@@ -46,36 +46,51 @@ afterAll(async ()=> {
         }});
 })
 describe('Targets on users',   ()=> {
-    it('Correct Post', async ()=> {
-        await supertest(app).post('/api/favourites/')
-            .send(sample_targetOnUser2)
-            .set('Content-Type', 'application/json')
-            .expect(200)
+    describe('Post', () => {
+        it('Correct Post', async ()=> {
+            await supertest(app).post('/api/favourites/')
+                .send(sample_targetOnUser2)
+                .set('Content-Type', 'application/json')
+                .expect(200)
+        })
+        it('Missing data', async ()=> {
+            await supertest(app).post('/api/favourites/')
+                .send({'userId': 999995})
+                .set('Content-Type', 'application/json')
+                .expect(400)
+        })
+        it('Wrong body', async ()=> {
+            await supertest(app).post('/api/favourites/')
+                .send({'xd': '2137'})
+                .set('Content-Type', 'application/json')
+                .expect(400)
+        })
     })
-    it('Missing data', async ()=> {
-        await supertest(app).post('/api/favourites/')
-            .send({'userId': 999995})
-            .set('Content-Type', 'application/json')
-            .expect(400)
+    describe('Get liked', ()=> {
+        it('Wring Id', async ()=> {
+            await supertest(app).get('/api/user/get/likedTargets/xd')
+                .expect(400)
+        })
+        it('Correct', async ()=> {
+            const res = await supertest(app).get('/api/user/get/likedTargets/999995')
+                .expect(200)
+            expect(res.body.record.id).toBe(999995)
+            expect(res.body.record.favourites.length).toBeGreaterThanOrEqual(1)
+        })
     })
-    it('Wrong body', async ()=> {
-        await supertest(app).post('/api/favourites/')
-            .send({'xd': '2137'})
-            .set('Content-Type', 'application/json')
-            .expect(400)
+    describe('Delete',   ()=> {
+        it('Correct delete', async ()=> {
+            const res  = await supertest(app).delete('/api/favourites/?targetId=999995&userId=999995').expect(200)
+        })
+        it('Wrong query', async ()=> {
+            const res  = await supertest(app).delete('/api/favourites/?id=xd').expect(400)
+        })
+        it('Missing data', async ()=> {
+            await supertest(app).delete('/api/favourites/')
+                .send({'userId': 999995})
+                .set('Content-Type', 'application/json')
+                .expect(400)
+        })
     })
-})
-describe('Delete',   ()=> {
-    it('Correct delete', async ()=> {
-        const res  = await supertest(app).delete('/api/favourites/?targetId=999995&userId=999995').expect(200)
-    })
-    it('Wrong query', async ()=> {
-        const res  = await supertest(app).delete('/api/favourites/?id=xd').expect(400)
-    })
-    it('Missing data', async ()=> {
-        await supertest(app).delete('/api/favourites/')
-            .send({'userId': 999995})
-            .set('Content-Type', 'application/json')
-            .expect(400)
-    })
+
 })
