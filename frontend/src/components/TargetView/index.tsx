@@ -5,12 +5,16 @@ import LinkButton from "../LinkButton";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import FollowButton from "../FollowButton";
 
+interface AuthUser {
+    id: string; 
+}
+
 export default function TargetView() {
-    const auth  = useAuthUser()
+    const auth  = useAuthUser() as AuthUser;
     const [targets, setTargets] = React.useState<Target[]|null>(null)
     const [favourities, setFavourities] = React.useState<number[]|null>(null)
     // const [order, setOrder] = React.useState("likes_desc");
-    const [quantity, setQuantity] = React.useState(25);
+    const [quantity] = React.useState(25);
     const [name, setName] = React.useState('');
 
     const Refresh = ()=> {
@@ -65,7 +69,7 @@ export default function TargetView() {
             .then(data => {
                 const favouritesIds: number[] = []
                 const favs = data.record.favourites
-                favs.map((fav) => {
+                favs.map((fav : any) => {
                     favouritesIds.push(fav.targetId)
                 })
                 setFavourities(favouritesIds)
@@ -80,7 +84,7 @@ export default function TargetView() {
 
     return (
         <div className="TargetView"> 
-            <form className="filterOptions form-inline"> 
+            <form className="filterOptions form-inline d-flex">
                 {/*
                 <div className="form-group mr-2"> 
                     <label htmlFor="quantity">Liczba wyników:</label>
@@ -101,17 +105,16 @@ export default function TargetView() {
                 {/*        <option value="likes">Likes</option>*/}
                 {/*    </select>*/}
                 {/*</div>*/}
-                <div className="form-group mr-2"> 
-                    <label htmlFor="search">Szukaj:</label>
+                <div className="form-group mr-2 w-100"> 
                     <input onChange={(e) => setName(e.target.value)} type="text" id="search"
                            name="search" className="form-control" placeholder="Szukaj..."/>
                 </div>
-                <input type="reset" value="Wyczyść filtry" onClick={()=> {
+                {/*<input type="reset" value="Wyczyść filtry" onClick={()=> {
                     setName('')
                     setQuantity(25)
                     Refresh()
-                }} className="btn btn-secondary mr-2"/>
-                <button type="button" className="btn btn-primary" onClick={Refresh}>Filtruj</button>
+                }} className="btn btn-secondary mr-2"/>*/}
+                <button type="button" className="btn btn-primary btn-normal border-radius-max" onClick={Refresh}>Szukaj</button>
             </form>
             <div className="targetList mt-4"> 
                 {targets?.map(target => {
@@ -123,8 +126,10 @@ export default function TargetView() {
                                 <p className="card-text targetDesc">Opis: {target.description}</p>
                                 <p className="card-text">Polubienia: {target.likes}</p>
                                 <p className="card-text">Twórca: {target.creator.name}</p>
-                                <FollowButton isFollowed={isFollowed??false} targetId={target.id}/>
-                                <LinkButton href={'/targets/' + target.id} content={"More info"}/> 
+                                <div className="d-flex gap-3">
+                                    <FollowButton isFollowed={isFollowed??false} targetId={target.id}/>
+                                    <LinkButton href={'/targets/' + target.id} content={"More info"}/> 
+                                </div>
                             </div>
                         </div>
                     )

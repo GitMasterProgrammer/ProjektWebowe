@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 interface FollowButtonProps {
@@ -6,8 +6,13 @@ interface FollowButtonProps {
     isFollowed: boolean;
 }
 
+interface AuthUser {
+    id: string; 
+}
+
+
 export default function FollowButton({ targetId, isFollowed }: FollowButtonProps) {
-    const auth = useAuthUser();
+    const auth = useAuthUser() as AuthUser;
     const [isFollowing, setFollowing] = useState(isFollowed);
 
     const Follow = () => {
@@ -23,7 +28,7 @@ export default function FollowButton({ targetId, isFollowed }: FollowButtonProps
         console.log(JSON.stringify(reqData));
         fetch('http://localhost:3000/api/favourites/', requestOptions)
             .then(response => response.json())
-            .then(data => {
+            .then(() => {
                 setFollowing(true);
             })
             .catch(err => {
@@ -42,7 +47,7 @@ export default function FollowButton({ targetId, isFollowed }: FollowButtonProps
         console.log(seachParams);
         fetch('http://localhost:3000/api/favourites?' + seachParams, requestOptions)
             .then(response => response.json())
-            .then(data => {
+            .then(() => {
                 setFollowing(false);
             })
             .catch(err => {

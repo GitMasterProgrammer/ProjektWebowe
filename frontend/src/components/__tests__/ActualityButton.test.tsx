@@ -62,7 +62,7 @@ describe('ActualityButton', () => {
     it('handles fetch error when isActive is true and button is clicked', async () => {
         (global.fetch as jest.Mock).mockImplementationOnce(() => Promise.reject('API is down'));
 
-        console.error = jest.fn(); // Suppress console error for this test
+        console.error = jest.fn(); 
 
         const { getByText } = render(<ActualityButton reportId={1} isActive={true} />);
         fireEvent.click(getByText('Ustaw jako nieaktywne'));

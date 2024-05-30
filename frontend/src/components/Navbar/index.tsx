@@ -3,8 +3,9 @@ import { routes } from "../../helpers/routing.tsx";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 
+
 export default function Navbar() {
-    const auth = useAuthUser() as { email: string } | null;
+    const auth = useAuthUser() as {email:string};
     
     const signOut = useSignOut();
     const navigate = useNavigate();
@@ -14,8 +15,8 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg"> 
-            <div className="d-flex align-items-center">
+        <nav className="navbar navbar-expand-lg flex-wrap">
+            <div className="logo-nav d-flex align-items-center flex-wrap">
             <Link className="navbar-brand" to="/">
                 <img src="/logo.png" alt="Logo" width="55" height="55" className="d-inline-block align-top" />
             </Link>

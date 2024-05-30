@@ -7,7 +7,7 @@ export default function Profile() {
 
     return (
         <div className="container">
-            <Heading content={"Profil użytkownia"} />
+            <Heading content={"Profil użytkownia"} className="title-main-lighter"/>
             <UserData userId={auth.id}  />
         </div>
     )

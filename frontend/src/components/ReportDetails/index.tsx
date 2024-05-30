@@ -7,13 +7,17 @@ import ActualityButton from "../ActualityButton";
 import {Rating} from "@mui/material";
 import {fixData} from "../../helpers/fixDate.tsx";
 
+interface AuthUser {
+    id: string; 
+}
+
 export default function ReportDetails() {
     const [reportData, setReportData] = useState<Location|null>(null)
     const [rating, setRating] = useState<number|null>(null)
 
     const { reportId  } = useParams();
 
-    const auth = useAuthUser();
+    const auth = useAuthUser() as AuthUser;
 
     useEffect(() => {
         const requestOptions = {
@@ -63,7 +67,7 @@ export default function ReportDetails() {
             const reqData = {
                 value: newRating,
                 userId: auth.id,
-                locationId: parseInt(reportId)
+                locationId: parseInt(reportId as string)
             };
 
             const requestOptions = {
@@ -74,7 +78,7 @@ export default function ReportDetails() {
 
             fetch('http://localhost:3000/api/likedLocations/post', requestOptions)
                 .then(response => response.json())
-                .then(data => {
+                .then(() => {
                     console.log('success')
                 })
                 .catch(err => {
@@ -84,7 +88,7 @@ export default function ReportDetails() {
             const reqData = {
                 value: newRating,
                 userId: auth.id,
-                locationId: parseInt(reportId)
+                locationId: parseInt(reportId as string)
             };
 
             const requestOptions = {
@@ -95,7 +99,7 @@ export default function ReportDetails() {
 
             fetch('http://localhost:3000/api/likedLocations/put', requestOptions)
                 .then(response => response.json())
-                .then(data => {
+                .then(() => {
                     console.log('updated')
                 })
                 .catch(err => {
@@ -108,25 +112,26 @@ export default function ReportDetails() {
         return (<p>Ten obiekt nie istnieje</p>)
     }
     return (
-        <div className="reportDetails">
-            <Heading content={reportData.target.name} level={2}/>
+        <div className="reportDetails container-center">
+            <Heading content={reportData.target.name} level={2} className="header-yellow"/>
+            <p>Ostatnio aktualizowane: {fixData(reportData.updatedAt)}</p>
             <p>Adres: {reportData.address}</p>
             <p>Średnia ocen: {reportData.rating}</p>
             <p>Aktualne: {reportData.actual ? "Tak" : "Nie"}</p>
             <p>Szczegóły: {reportData.details}</p>
-            <p>Ostatio aktualizowane: {fixData(reportData.updatedAt)}</p>
             <p>Zgłaszający: {reportData.creator?.name} ({reportData.creator?.reliability})</p>
-            {reportData.creator?.id === auth.id ?
-                <ActualityButton reportId={parseInt(reportId)} isActive={reportData.actual}/>
+            {reportData.creator?.id === auth.id as any ?
+                <ActualityButton reportId={parseInt(reportId as string)} isActive={reportData.actual}/>
                 :
                 (
-                    <div>
+                    <div className="d-flex">
                         <p>Oceń to zgłoszenie</p>
                         <Rating
                             name="rating"
                             value={rating}
                             onChange={(event, newValue) => {
-                                updateRating(newValue)
+                                console.log(event)
+                                updateRating(newValue as number)
                                 setRating(newValue ?? 0);
                             }}
                         />

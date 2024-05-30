@@ -2,15 +2,18 @@ import React from "react";
 import {useNavigate} from "react-router-dom";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
+interface AuthUser {
+    id: string; 
+}
 
 export default function TargetForm(){
     const [formData, setFormData] = React.useState({name: '', description: ''})
     const [error, setError] = React.useState("")
     const navigate = useNavigate ();
-    const auth  = useAuthUser()
+    const auth  = useAuthUser() as AuthUser;
 
 
-    const OnSubmit = (event ) => {
+    const OnSubmit = (event : any) => {
         event.preventDefault()
         const reqData = {
             name: formData.name,
@@ -29,7 +32,7 @@ export default function TargetForm(){
         console.log(JSON.stringify(reqData))
         fetch('http://localhost:3000/api/target/post', requestOptions)
             .then(response => response.json())
-            .then(data => {
+            .then(() => {
                 navigate('/targets')
             })
             .catch(err=>{setError(err)})

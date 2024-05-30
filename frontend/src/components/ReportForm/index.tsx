@@ -4,9 +4,13 @@ import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import FindTarget from "../FindTarget";
 import { useNavigate } from "react-router-dom";
 
+interface AuthUser {
+    id: string; 
+}
+
 export default function ReportForm() {
     const navigate = useNavigate();
-    const auth = useAuthUser()
+    const auth = useAuthUser() as AuthUser;
     const [favourites, setFavourites] = React.useState<Target[] | null>(null);
     const [targetId, setTargetId] = useState(-1);
     const [formData, setFormData] = React.useState({ address: '', coordinates: '', details: '' });
@@ -88,7 +92,7 @@ export default function ReportForm() {
     return (
         <form method="post" onSubmit={onSubmit} className="needs-validation"> 
             <div className="form-group"> 
-                <label>Wybierz osobę, której pozycję zgłaszasz (z twoich polubionych):</label>
+                <label>Osoba którą pozycję zgłaszasz:</label>
                 <FindTarget setValue={setTargetId} />
                 <select name="targetId" value={targetId} onChange={(e) => setTargetId(parseInt(e.target.value))} className="form-control"> 
                     <option value={-1}>Wybierz...</option>
@@ -112,7 +116,7 @@ export default function ReportForm() {
                 <textarea required onChange={(e) => setFormData({ ...formData, details: e.target.value })} name="details" className="form-control"></textarea> 
             </div>
             <p className="text-danger">{errors}</p> 
-            <button type="submit" className="btn btn-primary">Utwórz raport</button>
+            <button type="submit" className="btn btn-primary btn-normal border-radius-max w-100">Utwórz raport</button>
         </form>
     );
 }

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poetsen+One&family=Reddit+Mono:wght@200..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
 
 *{
   color: var(--dark);
@@ -8,6 +9,7 @@
   font-family: "Kanit", sans-serif;
   color: white;
   font-family: "Reddit Mono", monospace;
+  
 }
 
 :root {
@@ -24,9 +26,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --dark: #2f2f30;
-  --purple: #9958e1;
-  --hover-purple: #a971ea;
+  --purple: #7a25f0;
+  --hover-purple: #8e3cf1;
   --normal-margin: 15%;
+  --color-light: whitesmoke;
+  --yellow:#dcff00;
 }
 
 a{
@@ -35,6 +39,9 @@ a{
   text-decoration: inherit;
 }
 
+.list-group-item p{
+  color: var(--dark);
+}
 
 a:hover {
   color: #535bf2;
@@ -45,7 +52,7 @@ body {
   display: flex;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #111111;
+  background-color: var(--dark);
   
 }
 
@@ -65,6 +72,7 @@ h1 {
   border: 1px solid var(--purple);
   padding: 7px 20px;
   font-weight: bold;
+  height: fit-content;
 }
 
 .btn-normal:hover, .nav-login:hover{
@@ -182,6 +190,11 @@ nav .nav-link {
   height: fit-content;
 }
 
+.filterOptions{
+  align-items: center;
+  gap: 20px;
+}
+
 .nav-item::after {
   width: 0;
   background-color: white;
@@ -197,6 +210,70 @@ nav .nav-link {
 
 .nav-item:hover::after {
   width: 100%;
+}
+
+.search-button-non-primary{
+  background-color: #404040;
+  color: white;
+  border-color: #404040;
+  padding: 7px 20px;
+  font-weight: 600;
+  margin-right: 15px;
+}
+
+.form-control{
+  border-radius: 9999px;
+  min-width: 350px;
+  max-width: 450px;
+  border-color: transparent;
+  background-color: transparent;
+  border:2px solid white;
+  color: var(--color-light);
+}
+
+textarea.form-control{
+  border-radius: 20px;
+}
+
+.form-control option{
+  color: var(--dark);
+}
+
+.btn-link{
+  color: var(--purple);
+}
+
+select.form-control::placeholder, input.form-control::placeholder {
+  color: var(--color-light);
+  opacity: 1; 
+}
+
+.container-center{
+  margin: auto auto !important;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12% !important;
+}
+
+.reportDetails p{
+  margin: 0;
+}
+
+.header-yellow{
+  color: var(--yellow);
+  font-weight: 700;
+  font-size: 4.5rem;
+  text-transform: uppercase;
+}
+
+select.form-control:focus, .form-group input{
+  box-shadow: none;
+}
+
+.border-radius-max{
+  border-radius: 9999px !important;
 }
 
 .title-main{
@@ -332,6 +409,53 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.reportList{
+  
+}
+
+.flex-wrap{
+  flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 800px) {
+  .title-main{
+    font-size: 3.55rem;
+    max-width: 80%;
+  }
+
+  .title-main-lighter{
+    max-width: 80%;
+    flex-wrap: wrap;
+    font-size: 3rem;
+  }
+
+  .main-description{
+    font-size: 1rem;
+    max-width: 80%;
+  }
+
+  .navbar{
+    flex-wrap: wrap;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .navbar-brand{
+    margin-right: 0;
+  }
+
+  .logo-nav{
+    justify-content: center;
+    align-content: center;
+  }
+
+  .navbar-expand-lg .navbar-nav{
+    width: 80vw;
+    display: flex !important;
+    justify-content: center;
+  }
 }
 
 @media (prefers-color-scheme: light) {

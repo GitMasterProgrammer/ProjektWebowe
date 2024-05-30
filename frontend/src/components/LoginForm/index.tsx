@@ -56,11 +56,11 @@ export default function LoginForm() {
             </div>
             <div className="form-group"> 
                 <label>Hasło:</label>
-                <input required onChange={(e) => setFormData({ ...formData, password: e.target.value })} type="password" name="password" className="form-control" /> 
+                <input required onChange={(e) => setFormData({ ...formData, password: e.target.value })} type="password" name="password" className="form-control" placeholder="hasło"/> 
             </div>
             <p>{errors}</p>
-            <button type="submit" className="btn btn-primary">Zaloguj się</button>
-            <p>Nie masz konta? <a href={'/register'} className="btn btn-link">Zarejestruj się</a></p> 
+            <button type="submit" className="btn btn-primary btn-normal w-100 border-radius-max">Zaloguj się</button>
+            <p>Nie masz konta? <a href={'/register'} className="btn btn-link">Zarejestruj się</a></p>
         </form>
     );
 }

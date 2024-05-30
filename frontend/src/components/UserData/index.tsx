@@ -2,10 +2,10 @@ import {User} from "../../interfaces/User.tsx";
 import {useEffect, useState} from "react";
 import {fixData} from "../../helpers/fixDate.tsx";
 
-
 interface UserDataProps {
     userId: number
 }
+
 export default function UserData({userId} : UserDataProps) {
     const [user_data, setUserData] = useState<User|null>(null)
     const requestOptions = {
