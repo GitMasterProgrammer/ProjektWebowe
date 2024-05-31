@@ -6,6 +6,7 @@ import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import ActualityButton from "../ActualityButton";
 import {Rating} from "@mui/material";
 import {fixData} from "../../helpers/fixDate.tsx";
+import LinkButton from "../LinkButton";
 
 interface AuthUser {
     id: string; 
@@ -138,6 +139,7 @@ export default function ReportDetails() {
                     </div>
                 )
             }
+            <LinkButton href={'/reports'} content={'Wróć'} />
         </div>
     )
 }
