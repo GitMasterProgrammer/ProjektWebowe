@@ -21,6 +21,7 @@ export default function ReportView() {
         };
         const searchParams = new URLSearchParams({
             'orderBy': order,
+            'lastHrs': lastHrs.toString(),
             'actual': String(onlyActual),
             'maxRows': quantity.toString()
         });
@@ -30,6 +31,7 @@ export default function ReportView() {
         fetch('http://localhost:3000/api/location/get?' + searchParams, requestOptions)
             .then(response => response.json())
             .then(data => {
+                console.log(data.record)
                 setLocations(data.record);
             })
             .catch(error => {
@@ -108,11 +110,11 @@ export default function ReportView() {
                             {/*<p className="card-text">Adres: {location.address}</p>*/}
                             <div className="card-text rating">
                                 <div className="big">{(location.rating).toFixed(2)}</div>
-                                <div className="small">rating</div>
+                                <div className="small">ocena</div>
                             </div>
                             {/*<p className="card-text">Zaktualizowano: {fixData(location.createdAt)}</p>*/}
                             {/*<p className="card-text">Aktualność: {location.actual ? "Jak najbardziej" : "no niezbyt"}</p>*/}
-                            <LinkButton content={'Details'} href={`/reports/${location.id}`}
+                            <LinkButton content={'Szczegóły'} href={`/reports/${location.id}`}
                                         icon={<FontAwesomeIcon icon={faArrowRight}/>} className="text-light"/>
                         </div>
                     </div>
