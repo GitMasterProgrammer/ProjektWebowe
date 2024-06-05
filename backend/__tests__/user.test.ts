@@ -44,9 +44,10 @@ describe('User Tests', () => {
             expect(res.body.record.length).toBeGreaterThanOrEqual(1)
         })
         it('Get all with order by', async ()=> {
-            const res  = await supertest(app).get('/api/user/get/?orderBy=id_desc')
+            const res  = await supertest(app).get('/api/user/get?orderBy=id_desc')
             expect(res.body.record[0].id).toBe(999999)
         })
+
     })
     describe('Post',   ()=> {
         it('Correct Post', async ()=> {

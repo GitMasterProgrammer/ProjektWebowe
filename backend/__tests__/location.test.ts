@@ -51,6 +51,10 @@ describe('Location Tests', () => {
             const res  = await supertest(app).get('/api/location/get/?orderBy=id_desc')
             expect(res.body.record[0].id).toBe(999999)
         })
+        it('Get all with date', async ()=> {
+            const res  = await supertest(app).get('/api/location/get?lastHrs=1&orderBy=id_desc')
+            expect(res.body.record[0].id).toBe(999999)
+        })
     })
     describe('Post',   ()=> {
         it('Correct Post', async ()=> {
