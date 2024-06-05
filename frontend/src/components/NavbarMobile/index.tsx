@@ -1,5 +1,5 @@
 import { useClickAway } from "react-use";
-import { useRef } from "react";
+import {useEffect, useRef} from "react";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Squash as Hamburger } from "hamburger-react";
@@ -19,6 +19,7 @@ export default function  NavbarMobile() {
         signOut();
         navigate('/');
     };
+    const element_count = routes.filter(route => !route.hidden).length;
     useClickAway(ref, () => setOpen(false));
 
     return (
@@ -49,38 +50,76 @@ export default function  NavbarMobile() {
                                         key={route.label}
                                         className="nav-item"
                                     >
-                                        {/*<a*/}
-                                        {/*    */}
-                                        {/*    className={*/}
-                                        {/*        "flex items-center justify-between w-full p-5 rounded-xl bg-neutral-950"*/}
-                                        {/*    }*/}
-                                        {/*    href={route.path}*/}
-                                        {/*>*/}
-                                        {/*    <span className="flex gap-1 text-lg">{route.label}</span>*/}
-                                        {/*</a>*/}
                                         <Link onClick={() => setOpen((prev) => !prev)} className="nav-link" to={route.path}>{route.label}</Link>
-
                                     </motion.li>
                                 );
                             })}
                         </ul>
                         {auth ? (
-                            <ul className="navbar-nav ml-auto">
-                                <li className="nav-item">
+                            <ul className="navbar-nav navbar-nav-bottom mr-auto">
+                                <motion.li
+                                    initial={{scale: 0, opacity: 0}}
+                                    animate={{scale: 1, opacity: 1}}
+                                    transition={{
+                                        type: "spring",
+                                        stiffness: 260,
+                                        damping: 20,
+                                        delay: 0.1 + (element_count-1)/ 10,
+                                    }}
+                                    key={auth.email}
+                                    className="nav-item no-after"
+                                >
                                     <span className="nav-link">{auth.email}</span>
-                                </li>
-                                <li className="nav-item no-after">
+                                </motion.li>
+                                <motion.li
+                                    initial={{scale: 0, opacity: 0}}
+                                    animate={{scale: 1, opacity: 1}}
+                                    transition={{
+                                        type: "spring",
+                                        stiffness: 260,
+                                        damping: 20,
+                                        delay: 0.1 + (element_count) / 10,
+                                    }}
+                                    key={'logout'}
+                                    className="nav-item"
+                                >
                                     <button className="btn btn-outline-danger" onClick={handleSignOut}>Wyloguj się</button>
-                                </li>
+                                </motion.li>
                             </ul>
                         ) : (
-                            <ul className="navbar-nav ml-auto">
-                                <li className="nav-item nav-login no-after" key={'login'}>
-                                    <Link className="nav-link" to={"/login"}>Zaloguj się</Link>
-                                </li>
-                                <li className="nav-item nav-register no-after" key={'register'}>
-                                    <Link className="nav-link" to={"/register"}>Zarejestruj się</Link>
-                                </li>
+                            <ul className="navbar-nav navbar-nav-bottom mr-auto">
+
+                                <motion.li
+                                    initial={{scale: 0, opacity: 0}}
+                                    animate={{scale: 1, opacity: 1}}
+                                    transition={{
+                                        type: "spring",
+                                        stiffness: 260,
+                                        damping: 20,
+                                        delay: 0.1 + (element_count - 1) / 10,
+                                    }}
+                                    key={'login'}
+                                    className="nav-item nav-login no-after"
+                                >
+                                    <Link onClick={() => setOpen((prev) => !prev)} className="nav-link" to={"/login"}>Zaloguj
+                                        się</Link>
+                                </motion.li>
+
+                                <motion.li
+                                    initial={{scale: 0, opacity: 0}}
+                                    animate={{scale: 1, opacity: 1}}
+                                    transition={{
+                                        type: "spring",
+                                        stiffness: 260,
+                                        damping: 20,
+                                        delay: 0.1 + (element_count) / 10,
+                                    }}
+                                    key={'register'}
+                                    className="nav-item nav-login no-after"
+                                >
+                                    <Link onClick={() => setOpen((prev) => !prev)}
+                                          className="nav-link" to={"/register"}>Zarejestruj się</Link>
+                                </motion.li>
                             </ul>
                         )}
                     </motion.div>
