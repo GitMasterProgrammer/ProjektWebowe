@@ -1,4 +1,4 @@
-import validateEmail from '../../helpers/validateEmail.tsx';
+import validateEmail from '../../../helpers/validateEmail.tsx';
 
 describe('validateEmail', () => {
     test('returns non-null for a valid email address', () => {

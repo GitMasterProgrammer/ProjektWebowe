@@ -26,20 +26,20 @@ export default function ReportForm() {
                 const favs: Target[] = data.record.favourites.map((relation : any) => relation.target);
                 setFavourites(favs);
             })
-            .catch(err => {
-                console.log(err);
+            .catch(() => {
                 setFavourites(null);
             });
     };
 
     const onSubmit = (event : any) => {
         event.preventDefault();
+
         if (formData.address === '' || formData.address === null) {
-            setError("Please enter a valid address");
-            return;
+            return setError("Please enter a valid address");
+
         } else if (targetId < 1) {
-            setError("Please select a target");
-            return;
+            return setError("Please select a target");
+
         }
 
         const reqData = {
@@ -64,6 +64,7 @@ export default function ReportForm() {
             body: JSON.stringify(reqData)
         };
 
+
         fetch('http://localhost:3000/api/location/post', requestOptions)
             .then(response => response.json())
             .then(/*data*/() => {
@@ -71,6 +72,7 @@ export default function ReportForm() {
             })
             .catch(err => {
                 setError(err.toString());
+                console.log(err.toString())
             });
     };
 
@@ -94,7 +96,7 @@ export default function ReportForm() {
             <div className="form-group"> 
                 <label>Osoba którą pozycję zgłaszasz:</label>
                 <FindTarget setValue={setTargetId} />
-                <select name="targetId" value={targetId} onChange={(e) => setTargetId(parseInt(e.target.value))} className="form-control"> 
+                <select data-testid={'select-fav'} name="targetId" value={targetId} onChange={(e) => setTargetId(parseInt(e.target.value))} className="form-control">
                     <option value={-1}>Wybierz...</option>
                     {
                         favourites?.map(target =>
@@ -104,16 +106,16 @@ export default function ReportForm() {
                 </select>
             </div>
             <div className="form-group"> 
-                <label>Adres:</label>
+                <label  htmlFor={'address'}>Adres:</label>
                 <input required onChange={(e) => setFormData({ ...formData, address: e.target.value })} type="text" name="address" className="form-control" placeholder="adres" /> 
             </div>
             <div className="form-group"> 
-                <label>Koordynaty:</label>
+                <label  htmlFor={'coordinates'}>Koordynaty:</label>
                 <input value={formData.coordinates} onChange={(e) => setFormData({ ...formData, coordinates: e.target.value })} type="text" name="coordinates" className="form-control" />
             </div>
             <div className="form-group"> 
-                <label>Szczegóły:</label>
-                <textarea required onChange={(e) => setFormData({ ...formData, details: e.target.value })} name="details" className="form-control"></textarea> 
+                <label htmlFor={'details'}>Szczegóły:</label>
+                <textarea required onChange={(e) => setFormData({ ...formData, details: e.target.value })} name="details" id={'details'} className="form-control"></textarea>
             </div>
             <p className="text-danger">{errors}</p> 
             <button type="submit" className="btn btn-primary btn-normal border-radius-max w-100">Utwórz raport</button>

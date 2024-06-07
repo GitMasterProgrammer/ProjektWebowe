@@ -50,11 +50,11 @@ export default function RegisterForm() {
                                         navigate('/profile');
                                     } else {
                                         //console.log(res);
-                                        setErrors([res.data.message]);
+                                        setErrors([res.data?.message]);
                                     }
                                 }
                             }).catch((res) => {
-                                setErrors([res.response.data.message]);
+                                setErrors([res.toString()]);
                             });
                     } else {
                         setErrors(['Wystąpił niezydentyfikowany błąd']);

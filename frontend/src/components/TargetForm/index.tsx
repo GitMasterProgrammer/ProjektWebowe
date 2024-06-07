@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {useNavigate} from "react-router-dom";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
@@ -7,8 +7,8 @@ interface AuthUser {
 }
 
 export default function TargetForm(){
-    const [formData, setFormData] = React.useState({name: '', description: ''})
-    const [error, setError] = React.useState("")
+    const [formData, setFormData] = useState({name: '', description: ''})
+    const [error, setError] = useState("")
     const navigate = useNavigate ();
     const auth  = useAuthUser() as AuthUser;
 

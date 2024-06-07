@@ -47,10 +47,8 @@
             <div className="FindTarget">
                 <input
                     onChange={(e) => {
-                        console.log("NEGRIERIO------------------------------+++++++++++++++, Value: ", e.target.value)
                         setName(e.target.value);
                         Refresh();
-                        console.log("++++++ ", name, " ++++++");
                     }}
                     type="text"
                     className="form-control"

@@ -1,29 +1,30 @@
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import RegisterForm from '../RegisterForm';
+import RegisterForm from '../../RegisterForm';
 import  AuthProvider  from 'react-auth-kit';
 import { MemoryRouter } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
-import { store } from '../../store';
+import { store } from '../../../store';
 
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
-import validateEmail from '../../helpers/validateEmail';
-import { validatePassword } from '../../helpers/validatePassword';
-import LoginForm from "../LoginForm";
+import validateEmail from '../../../helpers/validateEmail';
+import { validatePassword } from '../../../helpers/validatePassword';
+import LoginForm from "../../LoginForm";
 
 jest.mock('react-auth-kit/hooks/useSignIn');
 jest.mock('axios');
-jest.mock('../../helpers/validateEmail');
-jest.mock('../../helpers/validatePassword');
+jest.mock('../../../helpers/validateEmail');
+jest.mock('../../../helpers/validatePassword');
 jest.mock('bcryptjs', () => ({
     hashSync: jest.fn().mockReturnValue('hashed_password'),
 }));
 
+const mockedUsedNavigate = jest.fn();
+
 jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useNavigate: jest.fn(),
+    ...jest.requireActual('react-router-dom') as any,
+    useNavigate: () => mockedUsedNavigate,
 }));
 
 const mockedUseSignIn = useSignIn as jest.Mock;
@@ -39,7 +40,98 @@ describe('RegisterForm', () => {
         mockedAxiosPost.mockClear();
         mockedValidateEmail.mockClear();
         mockedValidatePassword.mockClear();
-        (useNavigate as jest.Mock).mockReturnValue(jest.fn());
+        jest.clearAllMocks();
+
+    });
+
+    it('shows error message when registration fails_', async () => {
+        //mockedAxiosPost.mockRejectedValueOnce({ status: 200 });
+        mockedAxiosPost.mockRejectedValueOnce({ error: 'Registration failed'});
+        mockedValidateEmail.mockReturnValue(true);
+        mockedValidatePassword.mockReturnValue([]);
+
+        const mockSignIn = jest.fn().mockReturnValue(false);
+        mockedUseSignIn.mockReturnValue(mockSignIn);
+
+
+        render(
+            <AuthProvider store={store}>
+                <MemoryRouter>
+                    <RegisterForm />
+                </MemoryRouter>
+            </AuthProvider>
+        );
+
+        fireEvent.change(screen.getByLabelText(/Username/i), { target: { value: 'testuser' } });
+        fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'test@gmail.com' } });
+        fireEvent.change(screen.getByLabelText(/Podaj hasło/i), { target: { value: 'Password123#' } });
+        fireEvent.change(screen.getByLabelText(/Powtórz hasło/i), { target: { value: 'Password123#' } });
+        fireEvent.click(screen.getByRole('button', { name: /Utwórz konto/i }));
+
+        await waitFor(() => {
+            expect(screen.getByText(/Registration failed/i)).toBeInTheDocument();
+        });
+    });
+
+
+    it('check if navigation change is called', async () => {
+        //mockedAxiosPost.mockRejectedValueOnce({ status: 200 });
+        mockedAxiosPost.mockResolvedValue({ data: { token : 'nigga', id:2 }, status : 200, response:{ data :{ message:'' } } });
+        mockedValidateEmail.mockReturnValue(true);
+        mockedValidatePassword.mockReturnValue([]);
+
+        const mockSignIn = jest.fn().mockReturnValue(true);
+        await mockedUseSignIn.mockReturnValue(mockSignIn);
+
+        render(
+            <AuthProvider store={store}>
+                <MemoryRouter>
+                    <RegisterForm />
+                </MemoryRouter>
+            </AuthProvider>
+        );
+
+        fireEvent.change(screen.getByLabelText(/Username/i), { target: { value: 'testuser' } });
+        fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'test@gmail.com' } });
+        fireEvent.change(screen.getByLabelText(/Podaj hasło/i), { target: { value: 'Password123#' } });
+        fireEvent.change(screen.getByLabelText(/Powtórz hasło/i), { target: { value: 'Password123#' } });
+        fireEvent.click(screen.getByRole('button', { name: /Utwórz konto/i }));
+
+        await waitFor(() => {
+            //expect(screen.getByText(/Registration failed/i)).toBeInTheDocument();
+            expect(mockedUsedNavigate).toHaveBeenCalledWith('/profile');
+
+        });
+    });
+
+    it('submits the form successfully', async () => {
+        mockedValidatePassword.mockReturnValue([]);
+        mockedValidateEmail.mockReturnValue(true);
+
+        const mockSignIn = jest.fn().mockReturnValue(true);
+        mockedUseSignIn.mockReturnValue(mockSignIn);
+
+        mockedAxiosPost.mockResolvedValueOnce({ status: 200 });
+        mockedAxiosPost.mockResolvedValueOnce({ status: 200, data: { token: 'token', id: 'id' } });
+
+        render(
+            <AuthProvider store={store}>
+                <MemoryRouter>
+                    <RegisterForm />
+                </MemoryRouter>
+            </AuthProvider>
+        );
+
+        fireEvent.change(screen.getByLabelText(/Username/i), { target: { value: 'testuser' } });
+        fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'test@example.com' } });
+        fireEvent.change(screen.getByLabelText(/Podaj hasło/i), { target: { value: 'Password123#' } });
+        fireEvent.change(screen.getByLabelText(/Powtórz hasło/i), { target: { value: 'Password123#' } });
+        fireEvent.click(screen.getByRole('button', { name: /Utwórz konto/i }));
+
+        await waitFor(() => {
+            expect(mockedAxiosPost).toHaveBeenCalledWith('http://localhost:3000/api/user/post', expect.any(Object));
+            expect(mockedAxiosPost).toHaveBeenCalledWith('http://localhost:3000/api/login', expect.any(Object));
+        });
     });
 
     it('renders the form without crashing', () => {
@@ -190,65 +282,6 @@ describe('RegisterForm', () => {
         });
     });
 
-    it('submits the form successfully', async () => {
-        mockedValidatePassword.mockReturnValue([]);
-        mockedValidateEmail.mockReturnValue(true);
-
-        const mockSignIn = jest.fn().mockReturnValue(true);
-        mockedUseSignIn.mockReturnValue(mockSignIn);
-
-        mockedAxiosPost.mockResolvedValueOnce({ status: 200 });
-        mockedAxiosPost.mockResolvedValueOnce({ status: 200, data: { token: 'token', id: 'id' } });
-
-        render(
-            <AuthProvider store={store}>
-                <MemoryRouter>
-                    <RegisterForm />
-                </MemoryRouter>
-            </AuthProvider>
-        );
-
-        fireEvent.change(screen.getByLabelText(/Username/i), { target: { value: 'testuser' } });
-        fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'test@example.com' } });
-        fireEvent.change(screen.getByLabelText(/Podaj hasło/i), { target: { value: 'Password123#' } });
-        fireEvent.change(screen.getByLabelText(/Powtórz hasło/i), { target: { value: 'Password123#' } });
-        fireEvent.click(screen.getByRole('button', { name: /Utwórz konto/i }));
-
-        await waitFor(() => {
-            expect(mockedAxiosPost).toHaveBeenCalledWith('http://localhost:3000/api/user/post', expect.any(Object));
-            expect(mockedAxiosPost).toHaveBeenCalledWith('http://localhost:3000/api/login', expect.any(Object));
-        });
-    });
-
-    it('shows error message when registration fails_', async () => {
-        //mockedAxiosPost.mockRejectedValueOnce({ status: 200 });
-        mockedAxiosPost.mockRejectedValueOnce({ error: 'Registration failed'});
-        mockedValidateEmail.mockReturnValue(true);
-        mockedValidatePassword.mockReturnValue([]);
-
-        const mockSignIn = jest.fn().mockReturnValue(false);
-        mockedUseSignIn.mockReturnValue(mockSignIn);
-
-
-        render(
-            <AuthProvider store={store}>
-                <MemoryRouter>
-                    <RegisterForm />
-                </MemoryRouter>
-            </AuthProvider>
-        );
-
-        fireEvent.change(screen.getByLabelText(/Username/i), { target: { value: 'testuser' } });
-        fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'test@gmail.com' } });
-        fireEvent.change(screen.getByLabelText(/Podaj hasło/i), { target: { value: 'Password123#' } });
-        fireEvent.change(screen.getByLabelText(/Powtórz hasło/i), { target: { value: 'Password123#' } });
-        fireEvent.click(screen.getByRole('button', { name: /Utwórz konto/i }));
-
-        await waitFor(() => {
-            expect(screen.getByText(/Registration failed/i)).toBeInTheDocument();
-        });
-    });
-
     it('check if catch works', async () => {
         (axios.post as jest.Mock).mockResolvedValueOnce({ data : { message: 'Login failed' }, status : 200 } );
         (axios.post as jest.Mock).mockRejectedValue({ response: { data : { message: 'Login failed' } }, status : 200 } );
@@ -264,38 +297,6 @@ describe('RegisterForm', () => {
 
         await waitFor(() => {
             //expect(getByText('Login failed')).toBeInTheDocument();
-        });
-    });
-
-    it('check if navigation change is called', async () => {
-        //mockedAxiosPost.mockRejectedValueOnce({ status: 200 });
-        mockedAxiosPost.mockResolvedValue({ data: { token : 'nigga', id:2 }, status : 200 });
-        mockedValidateEmail.mockReturnValue(true);
-        mockedValidatePassword.mockReturnValue([]);
-        const mockedNavigate = jest.fn();
-        (useNavigate as jest.Mock).mockReturnValue(mockedNavigate);
-
-        const mockSignIn = jest.fn().mockReturnValue(true);
-        mockedUseSignIn.mockReturnValue(mockSignIn);
-
-        render(
-            <AuthProvider store={store}>
-                <MemoryRouter>
-                    <RegisterForm />
-                </MemoryRouter>
-            </AuthProvider>
-        );
-
-        fireEvent.change(screen.getByLabelText(/Username/i), { target: { value: 'testuser' } });
-        fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: 'test@gmail.com' } });
-        fireEvent.change(screen.getByLabelText(/Podaj hasło/i), { target: { value: 'Password123#' } });
-        fireEvent.change(screen.getByLabelText(/Powtórz hasło/i), { target: { value: 'Password123#' } });
-        fireEvent.click(screen.getByRole('button', { name: /Utwórz konto/i }));
-
-        await waitFor(() => {
-            //expect(screen.getByText(/Registration failed/i)).toBeInTheDocument();
-            expect(useNavigate).toHaveBeenCalled();
-
         });
     });
 });

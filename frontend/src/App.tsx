@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import {routes} from "./helpers/routing.tsx";
 import RequireAuth from "@auth-kit/react-router/RequireAuth";
 import {useEffect} from "react";
+import NavbarMobile from "./components/NavbarMobile";
 
 function App() {
     useEffect(() => {
@@ -11,7 +12,7 @@ function App() {
   return (
       <Router>
           <Navbar/>
-
+          <NavbarMobile />
           <Routes>
               {routes.map((route)=> {
                   if (!route.requireAuth) {
@@ -32,7 +33,6 @@ function App() {
 
               })}
           </Routes>
-
       </Router>
   )
 }

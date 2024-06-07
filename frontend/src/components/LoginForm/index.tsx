@@ -36,7 +36,7 @@ export default function LoginForm() {
                             id: res.data.id
                         }
                     })) {
-                        console.log("GIGGAAA NIIIIIGGGGGGAAAAAAAAAAAAA")
+                        console.log("********************---------------")
                         navigate(-1);
                     } else {
                         setErrors(res.data.message);

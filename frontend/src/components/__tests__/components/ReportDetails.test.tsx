@@ -1,7 +1,7 @@
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { MemoryRouter, useParams } from 'react-router-dom';
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser';
-import ReportDetails from '../ReportDetails';
+import ReportDetails from '../../ReportDetails';
 import "@testing-library/jest-dom";
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),

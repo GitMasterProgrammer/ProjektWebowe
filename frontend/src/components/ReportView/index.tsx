@@ -1,5 +1,5 @@
 import Heading from "../Heading";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Location } from "../../interfaces/Location.tsx";
 import LinkButton from "../LinkButton";
 /*import {fixData} from "../../helpers/fixDate.tsx";*/
@@ -7,10 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function ReportView() {
-    const [order, setOrder] = React.useState("createdAt_desc");
-    const [quantity/*, setQuantity*/] = React.useState(25);
-    const [lastHrs, setLastHrs] = React.useState(24);
-    const [onlyActual, setActuality] = React.useState(true);
+    const [order, setOrder] = useState("createdAt_desc");
+    const [quantity/*, setQuantity*/] = useState(25);
+    const [lastHrs, setLastHrs] = useState(24);
+    const [onlyActual, setActuality] = useState(true);
     const [locations, setLocations] = useState<Location[] | null>(null);
     const [showFilters, setShowFilters] = useState(false); // New state for showing/hiding filters
 
@@ -21,6 +21,7 @@ export default function ReportView() {
         };
         const searchParams = new URLSearchParams({
             'orderBy': order,
+            'lastHrs': lastHrs.toString(),
             'actual': String(onlyActual),
             'maxRows': quantity.toString()
         });
@@ -30,6 +31,7 @@ export default function ReportView() {
         fetch('http://localhost:3000/api/location/get?' + searchParams, requestOptions)
             .then(response => response.json())
             .then(data => {
+                console.log(data.record)
                 setLocations(data.record);
             })
             .catch(error => {
@@ -62,8 +64,8 @@ export default function ReportView() {
                     </select>
                 </div>*/}
                     <div className="form-group">
-                        <label>Czas od zgłoszenia:</label>
-                        <select name="quantity" value={lastHrs} onChange={(e) => setLastHrs(parseInt(e.target.value))}
+                        <label htmlFor={'quantity'}>Czas od zgłoszenia:</label>
+                        <select name="quantity" id={'quantity'} value={lastHrs} onChange={(e) => setLastHrs(parseInt(e.target.value))}
                                 className="form-control">
                             <option value="1">1 godzina</option>
                             <option value="2">2 godziny</option>
@@ -76,7 +78,7 @@ export default function ReportView() {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Sortuj po:</label>
+                        <label htmlFor={'order'}>Sortuj po:</label>
                         <select name="order" value={order} onChange={(e) => setOrder(e.target.value)}
                                 className="form-control">
                             <option value="createdAt_desc">Najnowsze</option>
@@ -108,11 +110,11 @@ export default function ReportView() {
                             {/*<p className="card-text">Adres: {location.address}</p>*/}
                             <div className="card-text rating">
                                 <div className="big">{(location.rating).toFixed(2)}</div>
-                                <div className="small">rating</div>
+                                <div className="small">ocena</div>
                             </div>
                             {/*<p className="card-text">Zaktualizowano: {fixData(location.createdAt)}</p>*/}
                             {/*<p className="card-text">Aktualność: {location.actual ? "Jak najbardziej" : "no niezbyt"}</p>*/}
-                            <LinkButton content={'Details'} href={`/reports/${location.id}`}
+                            <LinkButton content={'Szczegóły'} href={`/reports/${location.id}`}
                                         icon={<FontAwesomeIcon icon={faArrowRight}/>} className="text-light"/>
                         </div>
                     </div>

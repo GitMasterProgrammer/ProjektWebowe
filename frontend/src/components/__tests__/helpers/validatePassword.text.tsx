@@ -1,4 +1,4 @@
-import { validatePassword } from '../../helpers/validatePassword.tsx';
+import { validatePassword } from '../../../helpers/validatePassword.tsx';
 
 describe('validatePassword', () => {
     test('returns an error if password is less than 8 characters', () => {

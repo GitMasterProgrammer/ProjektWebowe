@@ -1,6 +1,6 @@
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ActualityButton from '../ActualityButton';
+import ActualityButton from '../../ActualityButton';
 import fetchMock from "jest-fetch-mock";
 
 fetchMock.enableMocks();

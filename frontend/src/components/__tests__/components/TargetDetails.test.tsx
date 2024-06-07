@@ -1,7 +1,7 @@
 import { render, waitFor, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { useParams } from 'react-router-dom';
-import TargetDetails from '../TargetDetails';
+import TargetDetails from '../../TargetDetails';
 
 jest.mock('react-router-dom', () => ({
     useParams: jest.fn()

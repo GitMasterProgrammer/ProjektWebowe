@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
-import Navbar from '../Navbar';
+import Navbar from '../../Navbar';
 import  AuthProvider  from 'react-auth-kit';
-import { store } from '../../store';
+import { store } from '../../../store';
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser';
 import useSignOut from 'react-auth-kit/hooks/useSignOut';
 

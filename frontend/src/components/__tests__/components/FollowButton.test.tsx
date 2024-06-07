@@ -1,5 +1,5 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import FollowButton from '../FollowButton';
+import FollowButton from '../../FollowButton';
 import useAuthUser from 'react-auth-kit/hooks/useAuthUser';
 import fetchMock from 'jest-fetch-mock';
 import "@testing-library/jest-dom";

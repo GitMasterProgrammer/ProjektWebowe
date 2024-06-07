@@ -1,5 +1,5 @@
 import Heading from "../Heading";
-import React, {useEffect} from "react";
+import { useEffect, useState  } from "react";
 import {Target} from "../../interfaces/Target.tsx";
 import LinkButton from "../LinkButton";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
@@ -11,11 +11,11 @@ interface AuthUser {
 
 export default function TargetView() {
     const auth  = useAuthUser() as AuthUser;
-    const [targets, setTargets] = React.useState<Target[]|null>(null)
-    const [favourities, setFavourities] = React.useState<number[]|null>(null)
+    const [targets, setTargets] = useState<Target[]|null>(null)
+    const [favourities, setFavourities] = useState<number[]|null>(null)
     // const [order, setOrder] = React.useState("likes_desc");
-    const [quantity] = React.useState(25);
-    const [name, setName] = React.useState('');
+    const [quantity] = useState(25);
+    const [name, setName] = useState('');
 
     const Refresh = ()=> {
         loadFavourites()
@@ -36,7 +36,6 @@ export default function TargetView() {
                 .then(response => response.json())
                 .then(data => {
                     setTargets(data.recordsLike)
-
                 })
                 .catch(error => {
                     console.log(error)
@@ -51,7 +50,7 @@ export default function TargetView() {
                 .then(response => response.json())
                 .then(data => {
                     setTargets(data.recordsLike)
-                    console.log(data)
+                    console.log(data.recordsLike)
                     console.log(targets)
 
                 }).catch(error => {
