@@ -1,31 +1,16 @@
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ActualityButton from '../ActualityButton';
+import fetchMock from "jest-fetch-mock";
 
-global.fetch = jest.fn(() =>
-    Promise.resolve({
-      json: () => Promise.resolve({}),
-      ok: true,
-      status: 200,
-      headers: new Headers(),
-      redirected: false,
-      statusText: '',
-      type: 'default',
-      url: '',
-      clone: jest.fn(),
-      arrayBuffer: jest.fn(),
-      blob: jest.fn(),
-      formData: jest.fn(),
-      text: jest.fn(),
-      body: null,
-      bodyUsed: false,
-    })
-  );
+fetchMock.enableMocks();
+jest.mock('react-auth-kit/hooks/useAuthUser');
+
+beforeEach(() => {
+    fetchMock.resetMocks();
+});
   
 describe('ActualityButton', () => {
-    beforeEach(() => {
-        (global.fetch as jest.Mock).mockClear();
-    });
 
     it('renders correctly when isActive is true', () => {
         const { getByText } = render(<ActualityButton reportId={1} isActive={true} />);
@@ -38,6 +23,8 @@ describe('ActualityButton', () => {
     });
 
     it('calls fetch with correct parameters when isActive is true and button is clicked', () => {
+        fetchMock.mockResponseOnce(JSON.stringify({actual: false}));
+
         const { getByText } = render(<ActualityButton reportId={1} isActive={true} />);
         fireEvent.click(getByText('Ustaw jako nieaktywne'));
 
@@ -49,6 +36,7 @@ describe('ActualityButton', () => {
     });
 
     it('calls fetch with correct parameters when isActive is false and button is clicked', () => {
+        fetchMock.mockResponseOnce(JSON.stringify({ actual: true }));
         const { getByText } = render(<ActualityButton reportId={1} isActive={false} />);
         fireEvent.click(getByText('Ustaw jako aktywne'));
 

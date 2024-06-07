@@ -13,16 +13,19 @@
             const requestOptions = {
                 method: 'GET'
             };
+
             if (name !== "") {
+                console.log("NIGGA")
                 const seachParams = new URLSearchParams({
                     'name': name,
                     'orderBy': "likes_desc",
                     'maxRows': '5'
                 });
-                console.log('http://localhost:3000/api/target/get?' + seachParams);
+                //console.log('http://localhost:3000/api/target/get?' + seachParams);
                 fetch('http://localhost:3000/api/target/get?' + seachParams, requestOptions)
                     .then(response => response.json())
                     .then(data => {
+                        console.log(data)
                         setTargets(data.recordsLike);
                         console.log(data.recordsLike);
                     });
@@ -33,7 +36,7 @@
             console.log(e.target.getAttribute('data-target-id'));
             const targetId: number = parseInt(e.target.getAttribute('data-target-id'));
             setValue(targetId);
-            targets?.map(target=>{
+            targets?.map(target=> {
                 if (target.id === targetId) {
                     setName(target.name);
                 }
@@ -44,8 +47,10 @@
             <div className="FindTarget">
                 <input
                     onChange={(e) => {
+                        console.log("NEGRIERIO------------------------------+++++++++++++++, Value: ", e.target.value)
                         setName(e.target.value);
                         Refresh();
+                        console.log("++++++ ", name, " ++++++");
                     }}
                     type="text"
                     className="form-control"
@@ -53,7 +58,7 @@
                     placeholder="Nazwa osoby"
                     value={name}
                 />
-                <div className="list-group mt-3"> {}
+                <div className="list-group mt-3">
                     {targets?.map((target) => (
                         <div
                             key={target.id}

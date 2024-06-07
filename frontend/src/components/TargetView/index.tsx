@@ -1,5 +1,5 @@
 import Heading from "../Heading";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Target} from "../../interfaces/Target.tsx";
 import LinkButton from "../LinkButton";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";

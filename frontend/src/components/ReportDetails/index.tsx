@@ -30,18 +30,22 @@ export default function ReportDetails() {
                     .then(response => response.json())
                     .then(data => {
                         setReportData(data.record);
+                        //console.log("data creator: ", data.record.creator.id)
+                        //console.log("data auth: ", auth.id)
+
                         if (data.record.creator?.id !== auth.id) {
+
                             const searchParams = new URLSearchParams({
-                                'locationId': data.record.id.toString(),
+                                'locationId': data.record.id,
                                 'userId': auth.id,
                             });
+
                             fetch('http://localhost:3000/api/likedLocations/get?' + searchParams, requestOptions)
                                 .then(response => response.json())
                                 .then(record_data => {
-                                    console.log(record_data);
                                     if (record_data.record[0] !== undefined) {
                                         setRating(record_data.record[0].value)
-                                        console.log(record_data.record[0].value);
+                                        console.log("Recorded data: ", record_data);
                                     }
                                 })
                                 .catch(error => {
@@ -58,11 +62,11 @@ export default function ReportDetails() {
             }
         };
         fetchUserData();
-        console.log(auth)
+        //console.log(auth)
     }, []);
 
     const updateRating = (newRating: number) => {
-        console.log(newRating)
+        //console.log(newRating)
         if (rating == undefined) {
             const reqData = {
                 value: newRating,
@@ -79,7 +83,7 @@ export default function ReportDetails() {
             fetch('http://localhost:3000/api/likedLocations/post', requestOptions)
                 .then(response => response.json())
                 .then(() => {
-                    console.log('success')
+                   // console.log('success')
                 })
                 .catch(err => {
                     console.log(err.toString());
@@ -113,7 +117,7 @@ export default function ReportDetails() {
     }
     return (
         <div className="reportDetails container-center">
-            <Heading content={reportData.target.name} level={2} className="header-yellow"/>
+            <Heading content={reportData.target?.name} level={2} className="header-yellow"/>
             <p>Ostatnio aktualizowane: {fixData(reportData.updatedAt)}</p>
             <p>Adres: {reportData.address}</p>
             <p>Średnia ocen: {reportData.rating}</p>

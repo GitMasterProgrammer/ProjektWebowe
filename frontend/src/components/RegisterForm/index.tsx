@@ -1,6 +1,6 @@
-import React from "react";
+import { useState } from "react";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
-import bcrypt from "bcryptjs";
+import { hashSync } from "bcryptjs";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import validateEmail from "../../helpers/validateEmail.tsx";
@@ -8,8 +8,8 @@ import { validatePassword } from "../../helpers/validatePassword.tsx";
 
 export default function RegisterForm() {
     const signIn = useSignIn();
-    const [formData, setFormData] = React.useState({ name: "", password1: '', email: '', password2: '' });
-    const [errors, setErrors] = React.useState<string[]>([]);
+    const [formData, setFormData] = useState({ name: "", password1: '', email: '', password2: '' });
+    const [errors, setErrors] = useState<string[]>([]);
     const navigate = useNavigate();
 
     const onSubmit = (e : any) => {
@@ -21,7 +21,7 @@ export default function RegisterForm() {
         } else if (passwordErrors.length > 1) {
             setErrors(passwordErrors);
         } else if (validateEmail(formData.email)) {
-            const password = bcrypt.hashSync(formData.password1, '$2a$10$CwTycUXWue0Thq9StjUM0u')
+            const password = hashSync(formData.password1, '$2a$10$CwTycUXWue0Thq9StjUM0u')
             const reqData = {
                 name: formData.name,
                 email: formData.email,
@@ -29,11 +29,13 @@ export default function RegisterForm() {
             };
             axios.post('http://localhost:3000/api/user/post', reqData)
                 .then((res) => {
-                    console.log(res);
+
                     if (res.status === 200) {
+
                         axios.post('http://localhost:3000/api/login', { 'email': reqData.email, 'password': password })
                             .then((res) => {
                                 if (res.status === 200) {
+
                                     if (signIn({
                                         auth: {
                                             token: res.data.token,
@@ -44,21 +46,21 @@ export default function RegisterForm() {
                                             id: res.data.id
                                         }
                                     })) {
+                                        console.log(res)
                                         navigate('/profile');
                                     } else {
+                                        //console.log(res);
                                         setErrors([res.data.message]);
                                     }
                                 }
                             }).catch((res) => {
-                                console.log(res);
                                 setErrors([res.response.data.message]);
                             });
                     } else {
-                        throw res.data;
+                        setErrors(['Wystąpił niezydentyfikowany błąd']);
                     }
                 })
                 .catch((res) => {
-                    console.log(res);
                     setErrors([res.error]);
                 });
         } else {
@@ -69,20 +71,20 @@ export default function RegisterForm() {
     return (
         <form method="post" onSubmit={onSubmit} className="needs-validation">
             <div className="form-group"> 
-                <label>Userame:</label>
-                <input required onChange={(e) => setFormData({ ...formData, name: e.target.value })} type="text" name="userneme" className="form-control" placeholder="username" /> 
+                <label htmlFor={'username'}>Username:</label>
+                <input required onChange={(e) => setFormData({ ...formData, name: e.target.value })} type="text" name="userneme" className="form-control" placeholder="username" id={"username"}/>
             </div>
             <div className="form-group">
-                <label>Email:</label>
-                <input required onChange={(e) => setFormData({ ...formData, email: e.target.value })} type="email" name="email" className="form-control" placeholder="email" /> 
+                <label htmlFor={'email'}>Email:</label>
+                <input required onChange={(e) => setFormData({ ...formData, email: e.target.value })} type="text" name="email" className="form-control" placeholder="email" id={"email"}/>
             </div>
             <div className="form-group">
-                <label>Hasło:</label>
-                <input required onChange={(e) => setFormData({ ...formData, password1: e.target.value })} type="password" name="password1" className="form-control" /> 
+                <label htmlFor={'password1'}>Podaj hasło:</label>
+                <input required onChange={(e) => setFormData({ ...formData, password1: e.target.value })} type="password" name="password1" className="form-control" id={"password1"}/>
             </div>
             <div className="form-group">
-                <label>Powtórz hasło:</label>
-                <input required onChange={(e) => setFormData({ ...formData, password2: e.target.value })} type="password" name="password2" className="form-control" /> 
+                <label htmlFor={'password2'}>Powtórz hasło:</label>
+                <input required onChange={(e) => setFormData({ ...formData, password2: e.target.value })} type="password" name="password2" className="form-control" id={"password2"}/>
             </div>
             <ul className="list-unstyled">{errors.map((error) => (<li key={error} className="text-danger">{error}</li>))}</ul> 
             <button type="submit" className="btn btn-primary btn-normal border-radius-max w-100">Utwórz konto</button>

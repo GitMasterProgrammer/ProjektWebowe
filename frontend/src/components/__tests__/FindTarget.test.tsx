@@ -1,43 +1,41 @@
-/*import FindTarget from '../FindTarget';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import FindTarget from '../FindTarget';
 import '@testing-library/jest-dom';
 
-global.fetch = jest.fn();
+window.fetch = jest.fn();
 
-describe('FindTarget component', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+describe('FindTarget Component', () => {
+    const mockSetValue = jest.fn();
 
-  it('renders correctly', () => {
-    const setValue = jest.fn();
-    const { getByPlaceholderText } = render(<FindTarget setValue={setValue} />);
-    expect(getByPlaceholderText('Nazwa osoby')).toBeInTheDocument();
-  });
-
-  it('calls setValue when selecting a target', async () => {
-    const setValue = jest.fn();
-    const targets = [
-      { id: 1, name: 'Target 1', likes: 10, creator: { name: 'Creator 1' } },
-      { id: 2, name: 'Target 2', likes: 20, creator: { name: 'Creator 2' } },
-    ];
-
-    (global.fetch as jest.Mock).mockResolvedValueOnce({ json: () => Promise.resolve({ recordsLike: targets }),});
-
-
-    const { getByPlaceholderText, getByText } = render(<FindTarget setValue={setValue} />);
-    const input = getByPlaceholderText('Nazwa osoby');
-    fireEvent.change(input, { target: { value: 'Target' } });
-
-    await waitFor(() => {
-      expect(fetch).toHaveBeenCalledWith('http://localhost:3000/api/target/get?name=Target&orderBy=likes_desc&maxRows=5', { method: 'GET' });
-      expect(fetch).toHaveBeenCalledTimes(1);
+    beforeEach(() => {
+        jest.clearAllMocks();
     });
 
-    const targetElement = getByText('Target 1(10) by Creator 1');
-    fireEvent.click(targetElement);
+    test('renders input field', () => {
+        render(<FindTarget setValue={mockSetValue} />);
+        const input = screen.getByPlaceholderText('Nazwa osoby');
+        expect(input).toBeInTheDocument();
+    });
 
-    expect(setValue).toHaveBeenCalledWith(1);
-  });
+    test('calls fetch and updates targets on input change', async () => {
+        // Mocking fetch response before the component is rendered
+        window.fetch= jest.fn().mockResolvedValue({
+            json: jest.fn().mockResolvedValue({
+                recordsLike: [
+                    { id: 1, name: 'John Doe', likes: 10, creator: { name: 'Creator1' } }
+                ]
+            })
+        });
+
+        render(<FindTarget setValue={mockSetValue} />);
+        const input = screen.getByPlaceholderText('Nazwa osoby');
+
+        fireEvent.change(input, { target: { value: 'J' } });
+        fireEvent.change(input, { target: { value: 'o' } });
+        fireEvent.change(input, { target: { value: 'Joh' } });
+
+        await waitFor(() => {
+            expect(screen.getByText(/John Doe/)).toBeInTheDocument();
+        });
+    });
 });
-*/

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Target } from "../../interfaces/Target.tsx";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import FindTarget from "../FindTarget";
@@ -11,10 +11,10 @@ interface AuthUser {
 export default function ReportForm() {
     const navigate = useNavigate();
     const auth = useAuthUser() as AuthUser;
-    const [favourites, setFavourites] = React.useState<Target[] | null>(null);
+    const [favourites, setFavourites] = useState<Target[] | null>(null);
     const [targetId, setTargetId] = useState(-1);
-    const [formData, setFormData] = React.useState({ address: '', coordinates: '', details: '' });
-    const [errors, setError] = React.useState("");
+    const [formData, setFormData] = useState({ address: '', coordinates: '', details: '' });
+    const [errors, setError] = useState("");
 
     const loadFavourites = () => {
         const reqOptions = {

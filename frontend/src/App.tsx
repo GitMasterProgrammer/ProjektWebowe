@@ -9,10 +9,9 @@ function App() {
         document.title = 'Pysstektor';
     }, []);
   return (
-
       <Router>
-
           <Navbar/>
+
           <Routes>
               {routes.map((route)=> {
                   if (!route.requireAuth) {
@@ -39,7 +38,3 @@ function App() {
 }
 
 export default App
-
-/*
-    jtr dokoncze te cssy
-    */

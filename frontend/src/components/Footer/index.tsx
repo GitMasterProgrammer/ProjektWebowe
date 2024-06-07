@@ -5,5 +5,4 @@ export default function Footer() {
             PYSSTEKTOR© | 2024
         </footer>
     )
-
 }

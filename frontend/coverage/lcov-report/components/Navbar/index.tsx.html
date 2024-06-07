@@ -117,7 +117,9 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -140,8 +142,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,7 +182,7 @@ import useSignOut from "react-auth-kit/hooks/useSignOut";
 &nbsp;
 &nbsp;
 export default function Navbar() {
-    const auth = useAuthUser() as {email:string};
+    const auth = useAuthUser() as { email:string };
     
     const signOut = <span class="cstat-no" title="statement not covered" >useSignOut();</span>
     const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
@@ -188,41 +192,43 @@ export default function Navbar() {
     };
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
-        &lt;nav className="navbar navbar-expand-lg"&gt; 
-            &lt;div className="d-flex align-items-center"&gt;
-            &lt;Link className="navbar-brand" to="/"&gt;
-                &lt;img src="/logo.png" alt="Logo" width="55" height="55" className="d-inline-block align-top" /&gt;
-            &lt;/Link&gt;
-            &lt;ul className="navbar-nav navbar-nav-bottom mr-auto"&gt;
-                    {routes.filter(<span class="fstat-no" title="function not covered" >route </span>=&gt; <span class="cstat-no" title="statement not covered" >!route.hidden)</span>.map(<span class="fstat-no" title="function not covered" >(r</span>oute) =&gt; (
-<span class="cstat-no" title="statement not covered" >                        &lt;li className={"nav-item"} key={route.path}&gt;</span>
-                            &lt;Link className="nav-link" to={route.path}&gt;{route.label}&lt;/Link&gt;
-                        &lt;/li&gt;
-                    ))}
-            &lt;/ul&gt;
-            &lt;/div&gt;
-            &lt;div className="nav-container"&gt;
-                {auth ? (
-                    &lt;ul className="navbar-nav ml-auto"&gt;
-                        &lt;li className="nav-item"&gt;
-                            &lt;span className="nav-link"&gt;{auth.email}&lt;/span&gt; 
-                        &lt;/li&gt;
-                        &lt;li className="nav-item no-after"&gt;
-                            &lt;button className="btn btn-outline-danger" onClick={handleSignOut}&gt;Wyloguj się&lt;/button&gt;
-                        &lt;/li&gt;
+        &lt;&gt;
+            &lt;nav className="navbar navbar-expand-lg flex-wrap"&gt;
+                &lt;div className="logo-nav d-flex align-items-center flex-wrap"&gt;
+                    &lt;Link className="navbar-brand" to="/"&gt;
+                        &lt;img src="/logo.png" alt="Logo" width="55" height="55" className="d-inline-block align-top"/&gt;
+                    &lt;/Link&gt;
+                    &lt;ul className="navbar-nav navbar-nav-bottom mr-auto"&gt;
+                        {routes.filter(<span class="fstat-no" title="function not covered" >route </span>=&gt; <span class="cstat-no" title="statement not covered" >!route.hidden)</span>.map(<span class="fstat-no" title="function not covered" >(r</span>oute) =&gt; (
+<span class="cstat-no" title="statement not covered" >                            &lt;li className={"nav-item"} key={route.path}&gt;</span>
+                                &lt;Link className="nav-link" to={route.path}&gt;{route.label}&lt;/Link&gt;
+                            &lt;/li&gt;
+                        ))}
                     &lt;/ul&gt;
-                ) : (
-                    &lt;ul className="navbar-nav ml-auto"&gt;
-                        &lt;li className="nav-item nav-login no-after" key={'login'}&gt;
-                            &lt;Link className="nav-link" to={"/login"}&gt;Zaloguj się&lt;/Link&gt;
-                        &lt;/li&gt;
-                        &lt;li className="nav-item nav-register no-after" key={'register'}&gt;
-                            &lt;Link className="nav-link" to={"/register"}&gt;Zarejestruj się&lt;/Link&gt;
-                        &lt;/li&gt;
-                    &lt;/ul&gt;
-                )}
-            &lt;/div&gt;
-        &lt;/nav&gt;
+                &lt;/div&gt;
+                &lt;div className="nav-container"&gt;
+                    {auth ? (
+                        &lt;ul className="navbar-nav ml-auto"&gt;
+                            &lt;li className="nav-item"&gt;
+                                &lt;span className="nav-link"&gt;{auth.email}&lt;/span&gt;
+                            &lt;/li&gt;
+                            &lt;li className="nav-item no-after"&gt;
+                                &lt;button className="btn btn-outline-danger" onClick={handleSignOut}&gt;Wyloguj się&lt;/button&gt;
+                            &lt;/li&gt;
+                        &lt;/ul&gt;
+                    ) : (
+                        &lt;ul className="navbar-nav ml-auto"&gt;
+                            &lt;li className="nav-item nav-login no-after" key={'login'}&gt;
+                                &lt;Link className="nav-link" to={"/login"}&gt;Zaloguj się&lt;/Link&gt;
+                            &lt;/li&gt;
+                            &lt;li className="nav-item nav-register no-after" key={'register'}&gt;
+                                &lt;Link className="nav-link" to={"/register"}&gt;Zarejestruj się&lt;/Link&gt;
+                            &lt;/li&gt;
+                        &lt;/ul&gt;
+                    )}
+                &lt;/div&gt;
+            &lt;/nav&gt;
+        &lt;/&gt;
     );
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -232,7 +238,7 @@ export default function Navbar() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-05-30T17:45:21.135Z
+                at 2024-06-01T15:46:08.712Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

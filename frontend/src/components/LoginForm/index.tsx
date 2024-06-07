@@ -1,29 +1,28 @@
 import axios from "axios";
-import React from "react";
+import { useState } from "react";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
-import bcrypt from 'bcryptjs'
+import { hashSync } from 'bcryptjs'
 import { useNavigate } from "react-router-dom";
 import validateEmail from "../../helpers/validateEmail.tsx";
 
 export default function LoginForm() {
     const signIn = useSignIn();
-    const [formData, setFormData] = React.useState({ email: '', password: '' });
-    const [errors, setErrors] = React.useState("");
+    const [formData, setFormData] = useState({ email: '', password: '' });
+    const [errors, setErrors] = useState("");
     const navigate = useNavigate();
 
     const onSubmit = (e : any) => {
         e.preventDefault();
         if (!validateEmail(formData.email)) {
-            setErrors("Email jest niepoprawny");
-            return;
+            navigate(-1);
+            return setErrors("Email jest niepoprawny");
         }
 
         const reqData = {
             email: formData.email,
-            password: bcrypt.hashSync(formData.password, '$2a$10$CwTycUXWue0Thq9StjUM0u'),
+            password: hashSync(formData.password, '$2a$10$CwTycUXWue0Thq9StjUM0u'),
         };
 
-        console.log(formData);
         axios.post('http://localhost:3000/api/login', reqData)
             .then((res) => {
                 if (res.status === 200) {
@@ -37,6 +36,7 @@ export default function LoginForm() {
                             id: res.data.id
                         }
                     })) {
+                        console.log("GIGGAAA NIIIIIGGGGGGAAAAAAAAAAAAA")
                         navigate(-1);
                     } else {
                         setErrors(res.data.message);
@@ -44,19 +44,19 @@ export default function LoginForm() {
                 }
             }).catch((res) => {
                 console.log(res);
-                setErrors(res.response.data.message);
+                //setErrors(res.response.data.message);
             });
     };
 
     return (
         <form method="post" onSubmit={onSubmit} className="needs-validation"> 
             <div className="form-group"> 
-                <label>Email:</label>
-                <input required onChange={(e) => setFormData({ ...formData, email: e.target.value })} type="email" name="email" className="form-control" placeholder="email" /> 
+                <label htmlFor='email'>Email:</label>
+                <input required onChange={(e) => setFormData({ ...formData, email: e.target.value })} type="email" name="email" className="form-control" placeholder="email" id={"email"}/>
             </div>
             <div className="form-group"> 
-                <label>Hasło:</label>
-                <input required onChange={(e) => setFormData({ ...formData, password: e.target.value })} type="password" name="password" className="form-control" placeholder="hasło"/> 
+                <label htmlFor='password'>Hasło:</label>
+                <input required onChange={(e) => setFormData({ ...formData, password: e.target.value })} type="password" name="password" className="form-control" placeholder="hasło" id={"password"}/>
             </div>
             <p>{errors}</p>
             <button type="submit" className="btn btn-primary btn-normal w-100 border-radius-max">Zaloguj się</button>

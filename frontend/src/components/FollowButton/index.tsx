@@ -10,7 +10,6 @@ interface AuthUser {
     id: string; 
 }
 
-
 export default function FollowButton({ targetId, isFollowed }: FollowButtonProps) {
     const auth = useAuthUser() as AuthUser;
     const [isFollowing, setFollowing] = useState(isFollowed);
