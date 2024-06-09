@@ -45,9 +45,9 @@ Wspólne:
 - Logika biznesowa
 
 # Dane szczegółowe:
-Baza danych - mySQL (Prisma)
-Backend - Express
-Fontend - React (Vite)
+- Baza danych - mySQL (Prisma)
+- Backend - Express
+- Fontend - React (Vite)
 
 
 # Schemat bazy danych
