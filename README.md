@@ -47,7 +47,8 @@ Wspólne:
 # Dane szczegółowe:
 Baza danych - mySQL (Prisma)
 Backend - Express
-Fontend - React 
+Fontend - React (Vite)
+
 
 # Schemat bazy danych
 ![schamat_bazy_danych](https://github.com/GitMasterProgrammer/ProjektWebowe/assets/126171998/3c2f9319-5f55-4882-9d4f-e2f946405258)
