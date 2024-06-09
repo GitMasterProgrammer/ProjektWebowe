@@ -2,6 +2,9 @@ import {useEffect, useState} from "react";
 import {Target} from "../../interfaces/Target.tsx";
 import {useParams} from "react-router-dom";
 import LinkButton from "../LinkButton";
+import Heading from "../Heading";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faThumbsUp} from "@fortawesome/free-regular-svg-icons";
 
 // interface TargetDetailsProps {
 //     targetId: number
@@ -36,14 +39,18 @@ export default function TargetDetails() {
     }
 
     return (
-        <div className="TargetDetails container"> 
-            <ul className="list-group"> 
-                <li className="list-group-item">Nazwa: {targetData.name}</li>
-                <li className="list-group-item">Opis: {targetData.description}</li>
-                <li className="list-group-item">Twórca: {targetData.creator.name}</li>
-                <li className="list-group-item">Polubienia: {targetData.countLikedUsers}</li>
-            </ul>
-            <LinkButton href={'/targets'} content={'Wróć'} />
+        <div className="TargetDetails container-center dotted-back">
+            <div className={'box-container-target'}>
+                <div className={'border-radius-max author-top'}>
+                    {targetData.creator.name}
+                </div>
+                <Heading content={targetData.name} level={2} className="title-h2"/>
+                <li className="list-group-item">{targetData.description}</li>
+
+                <span className={'icon d-space gap-2 mb-3'}><a className={'font-weight-bold'}>Polubienia</a> <div
+                    className={''}><FontAwesomeIcon icon={faThumbsUp}/> {(targetData.countLikedUsers)}</div></span>
+                <LinkButton href={'/targets'} content={'Wróć'} className={'btn btn-primary btn-normal color-white'}/>
+            </div>
         </div>
     );
 }

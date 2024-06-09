@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.74% </span>
+                <span class="strong">96% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/47</span>
+                <span class='fraction'>48/50</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.74% </span>
+                <span class="strong">96% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/47</span>
+                <span class='fraction'>48/50</span>
             </div>
         
             
@@ -201,9 +201,24 @@
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
 <a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -322,6 +337,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -345,6 +369,9 @@ import {Target} from "../../interfaces/Target.tsx";
 import LinkButton from "../LinkButton";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import FollowButton from "../FollowButton";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import {faThumbsUp} from "@fortawesome/free-regular-svg-icons";
 &nbsp;
 interface AuthUser {
     id: string; 
@@ -424,7 +451,7 @@ export default function TargetView() {
 &nbsp;
     return (
         &lt;div className="TargetView"&gt; 
-            &lt;form className="filterOptions form-inline d-flex"&gt;
+            &lt;form className="filterOptions form-inline"&gt;
                 {/*
                 &lt;div className="form-group mr-2"&gt; 
                     &lt;label htmlFor="quantity"&gt;Liczba wyników:&lt;/label&gt;
@@ -454,24 +481,33 @@ export default function TargetView() {
                     setQuantity(25)
                     Refresh()
                 }} className="btn btn-secondary mr-2"/&gt;*/}
-                &lt;button type="button" className="btn btn-primary btn-normal border-radius-max w-100" onClick={Refresh}&gt;Szukaj&lt;/button&gt;
+                &lt;button type="button" className="btn btn-primary btn-normal search-btn" onClick={Refresh}&gt;Szukaj&lt;/button&gt;
             &lt;/form&gt;
-            &lt;div className="targetList mt-4"&gt; 
+            &lt;div className="targetList"&gt;
                 {targets?.map(target =&gt; {
                     const isFollowed = favourities?.includes(target.id);
                     return (
-                        &lt;div key={target.id} className="target card mb-3"&gt; 
-                            &lt;div className="card-body"&gt; 
-                                &lt;Heading level={3} content={target.name}/&gt;
-                                &lt;p className="card-text targetDesc"&gt;Opis: {target.description}&lt;/p&gt;
-                                &lt;p className="card-text"&gt;Polubienia: {target.likes}&lt;/p&gt;
-                                &lt;p className="card-text"&gt;Twórca: {target.creator.name}&lt;/p&gt;
-                                &lt;div className="d-flex gap-1"&gt;
-                                    &lt;FollowButton isFollowed={isFollowed??false} targetId={target.id} /&gt;
-                                    &lt;LinkButton href={'/targets/' + target.id} content={"More info"} className={'btn btn-primary btn-normal border-radius-max'}/&gt;
-                                &lt;/div&gt;
+                    &lt;div key={target.id} className="location card mb-3"&gt;
+                        &lt;div
+                            className={"background-red-light actuality sec-font"}&gt;{target.creator.name}&lt;/div&gt;
+&nbsp;
+                        &lt;div className="card-body"&gt;
+                            &lt;Heading level={3} content={target.name} className="name-location"/&gt;
+                            &lt;p className={'card-text'}&gt;{target.description}&lt;/p&gt;
+                            &lt;LinkButton href={'/targets/' + target.id} content={"Szczegóły"}
+                                        icon={&lt;FontAwesomeIcon icon={faArrowRight}/&gt;} className="hover-link"/&gt;
+&nbsp;
+                            &lt;FollowButton isFollowed={isFollowed ?? false} targetId={target.id}/&gt;
+&nbsp;
+                        &lt;/div&gt;
+&nbsp;
+                        &lt;div className={'bottom-data'}&gt;
+                            &lt;div className="card-text btm d-flex"&gt;
+                                &lt;span className={'icon w-100 d-space'}&gt;&lt;a className={'font-weight-bold'}&gt;Polubienia&lt;/a&gt; &lt;div
+                                    className={''}&gt;&lt;FontAwesomeIcon icon={faThumbsUp}/&gt; {(target.likes).toFixed(2)}&lt;/div&gt;&lt;/span&gt;
                             &lt;/div&gt;
                         &lt;/div&gt;
+                    &lt;/div&gt;
                     )
                 })}
             &lt;/div&gt;
@@ -484,7 +520,7 @@ export default function TargetView() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-07T20:50:12.402Z
+                at 2024-06-09T23:33:22.713Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

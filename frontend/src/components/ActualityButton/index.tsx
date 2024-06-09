@@ -50,7 +50,7 @@ export default function ActualityButton({ reportId, isActive }: ActualityButtonP
     };
 
     return (
-        <button className={`btn ${isActual ? "btn-danger" : "btn-primary"}`} onClick={isActual ? SetAsOtDated : SetAsActual}>
+        <button className={`btn mt-3 ${isActual ? "btn-danger" : "btn-primary"}`} onClick={isActual ? SetAsOtDated : SetAsActual}>
             {isActual ? "Ustaw jako nieaktywne" : "Ustaw jako aktywne"}
         </button>
     );

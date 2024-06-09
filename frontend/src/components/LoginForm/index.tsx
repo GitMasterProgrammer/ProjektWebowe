@@ -59,7 +59,7 @@ export default function LoginForm() {
                 <input required onChange={(e) => setFormData({ ...formData, password: e.target.value })} type="password" name="password" className="form-control" placeholder="hasło" id={"password"}/>
             </div>
             <p>{errors}</p>
-            <button type="submit" className="btn btn-primary btn-normal w-100 border-radius-max">Zaloguj się</button>
+            <button type="submit" className="btn btn-primary btn-normal w-100">Zaloguj się</button>
             <p>Nie masz konta? <a href={'/register'} className="btn btn-link">Zarejestruj się</a></p>
         </form>
     );

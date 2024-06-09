@@ -44,10 +44,10 @@ describe('TargetDetails Component', () => {
         await waitFor(() => expect(window.fetch).toHaveBeenCalledTimes(1));
         await waitFor(() => expect(window.fetch).toHaveBeenCalledWith('http://localhost:3000/api/target/get/1', { method: 'GET' }));
 
-        expect(screen.getByText('Nazwa: John Doe')).toBeInTheDocument();
-        expect(screen.getByText('Opis: A sample description')).toBeInTheDocument();
-        expect(screen.getByText('Twórca: Creator1')).toBeInTheDocument();
-        expect(screen.getByText('Polubienia: 10')).toBeInTheDocument();
+        expect(screen.getByText('John Doe')).toBeInTheDocument();
+        expect(screen.getByText('A sample description')).toBeInTheDocument();
+        expect(screen.getByText('Creator1')).toBeInTheDocument();
+        expect(screen.getByText('10')).toBeInTheDocument();
     });
 
     test('handles fetch error gracefully', async () => {

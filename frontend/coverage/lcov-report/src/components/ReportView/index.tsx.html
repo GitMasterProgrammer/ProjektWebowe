@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -188,13 +188,33 @@
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -205,7 +225,6 @@
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -294,7 +313,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -319,7 +355,9 @@ import { Location } from "../../interfaces/Location.tsx";
 import LinkButton from "../LinkButton";
 /*import {fixData} from "../../helpers/fixDate.tsx";*/
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-regular-svg-icons';
+&nbsp;
 &nbsp;
 export default function ReportView() {
     const [order, setOrder] = useState("createdAt_desc");
@@ -330,7 +368,6 @@ export default function ReportView() {
     const [showFilters, setShowFilters] = useState(false); // New state for showing/hiding filters
 &nbsp;
     const refresh = () =&gt; {
-        console.log("fdfd")
         const requestOptions = {
             method: 'GET'
         };
@@ -363,7 +400,7 @@ export default function ReportView() {
 &nbsp;
     return (
         &lt;div className="ReportView"&gt;
-            &lt;button className={'btn btn-secondary search-button-non-primary border-radius-max'} onClick={() =&gt; setShowFilters(!showFilters)}&gt;
+            &lt;button className={'btn btn-secondary'} onClick={() =&gt; setShowFilters(!showFilters)}&gt;
                 {showFilters ? "Ukryj filtry" : "Pokaż filtry"}
             &lt;/button&gt;
 &nbsp;
@@ -408,8 +445,8 @@ export default function ReportView() {
 &nbsp;
                     &lt;div className={"d-flex gap-2"}&gt;
                         &lt;input type="reset" value="Wyczyść filtry"
-                               className="btn btn-secondary search-button-non-primary border-radius-max"/&gt;
-                        &lt;button type="button" className="btn btn-primary btn-normal border-radius-max"
+                               className="btn btn-secondary"/&gt;
+                        &lt;button type="button" className="btn btn-primary"
                                 onClick={refresh}&gt;Filtruj
                         &lt;/button&gt;
                     &lt;/div&gt;
@@ -418,19 +455,36 @@ export default function ReportView() {
 &nbsp;
 &nbsp;
             &lt;div className="reportList mt-5 d-flex gap-3 flex-wrap"&gt;
-                {locations?.map(location =&gt; (
+                {locations?.map(location  =&gt; (
+&nbsp;
                     &lt;div key={location.id} className="location card mb-3"&gt;
+                        &lt;div className={location.actual ? "background-green-light actuality sec-font" : "background-blue-light actuality sec-font"}&gt;{location.actual ? "Aktualne" : "Nieaktualne"}&lt;/div&gt;
+&nbsp;
                         &lt;div className="card-body"&gt;
                             &lt;Heading level={3} content={location.target.name} className="name-location"/&gt;
-                            {/*&lt;p className="card-text"&gt;Adres: {location.address}&lt;/p&gt;*/}
-                            &lt;div className="card-text rating"&gt;
-                                &lt;div className="big"&gt;{(location.rating).toFixed(2)}&lt;/div&gt;
-                                &lt;div className="small"&gt;ocena&lt;/div&gt;
-                            &lt;/div&gt;
-                            {/*&lt;p className="card-text"&gt;Zaktualizowano: {fixData(location.createdAt)}&lt;/p&gt;*/}
-                            {/*&lt;p className="card-text"&gt;Aktualność: {location.actual ? "Jak najbardziej" : "no niezbyt"}&lt;/p&gt;*/}
+                            &lt;p className={'card-text'}&gt;{location.details}&lt;/p&gt;
                             &lt;LinkButton content={'Szczegóły'} href={`/reports/${location.id}`}
-                                        icon={&lt;FontAwesomeIcon icon={faArrowRight}/&gt;} className="text-light"/&gt;
+                                        icon={&lt;FontAwesomeIcon icon={faArrowRight}/&gt;} className="hover-link"/&gt;
+                        &lt;/div&gt;
+&nbsp;
+                        &lt;div className={'bottom-data'}&gt;
+                            &lt;div className="card-text btm d-flex"&gt;
+                                &lt;span className={'icon w-100 d-space'}&gt;&lt;a className={'font-weight-bold'}&gt;Ocena&lt;/a&gt; &lt;div
+                                    className={''}&gt;&lt;FontAwesomeIcon icon={faStar}/&gt; {(location.rating).toFixed(2)}&lt;/div&gt;&lt;/span&gt;
+                            &lt;/div&gt;
+&nbsp;
+                            &lt;div className="card-text btm d-flex"&gt;
+                                &lt;span className={'icon w-100 d-space'}&gt;
+                                    &lt;div&gt;
+                                        &lt;FontAwesomeIcon icon={faLocationDot}/&gt; &lt;a className={'font-weight-bold'}&gt;Adres&lt;/a&gt;
+&nbsp;
+                                    &lt;/div&gt;
+&nbsp;
+                                    {location.address}
+                                &lt;/span&gt;
+                            &lt;/div&gt;
+&nbsp;
+                            {/*&lt;p className="card-text btm"&gt;Zaktualizowano: {fixData(location.createdAt)}&lt;/p&gt;*/}
                         &lt;/div&gt;
                     &lt;/div&gt;
                 ))}
@@ -445,7 +499,7 @@ export default function ReportView() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-07T20:50:12.402Z
+                at 2024-06-09T23:33:22.713Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

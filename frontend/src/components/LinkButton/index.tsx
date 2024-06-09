@@ -8,8 +8,7 @@ interface LinkButtonProps {
 export default function LinkButton({ href, content, className = 'btn btn-primary', icon }: LinkButtonProps) {
     return (
         <a href={href} className={className}>
-            {content}
-            {icon && <span className="icon">{icon}</span>}
+            {content} {icon && <span className="icon">{icon}</span>}
         </a>
     );
 }

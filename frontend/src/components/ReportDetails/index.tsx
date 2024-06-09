@@ -6,7 +6,6 @@ import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import ActualityButton from "../ActualityButton";
 import {Rating} from "@mui/material";
 import {fixData} from "../../helpers/fixDate.tsx";
-import LinkButton from "../LinkButton";
 
 interface AuthUser {
     id: string; 
@@ -117,33 +116,50 @@ export default function ReportDetails() {
         return (<p>Ten obiekt nie istnieje</p>)
     }
     return (
-        <div className="reportDetails container-center">
-            <Heading content={reportData.target?.name} level={2} className="header-yellow"/>
-            <p>Ostatnio aktualizowane: {fixData(reportData.updatedAt)}</p>
-            <p>Adres: {reportData.address}</p>
-            <p>Średnia ocen: {reportData.rating}</p>
-            <p>Aktualne: {reportData.actual ? "Tak" : "Nie"}</p>
-            <p>Szczegóły: {reportData.details}</p>
-            <p>Zgłaszający: {reportData.creator?.name} ({reportData.creator?.reliability})</p>
-            {reportData.creator?.id === auth.id as any ?
-                <ActualityButton reportId={parseInt(reportId as string)} isActive={reportData.actual}/>
-                :
-                (
-                    <div className="d-flex">
-                        <p>Oceń to zgłoszenie</p>
-                        <Rating
-                            name="rating"
-                            value={rating}
-                            onChange={(event, newValue) => {
-                                console.log(event)
-                                updateRating(newValue as number)
-                                setRating(newValue ?? 0);
-                            }}
-                        />
+        <div className="reportDetails container-center dotted-back">
+            <div className={'box-container-target'}>
+                <Heading content={reportData.target?.name} level={2} className="title-h2"/>
+                <p>Ostatnio aktualizowane: {fixData(reportData.updatedAt)}</p>
+                <p>Adres: {reportData.address}</p>
+                <p>Średnia ocen: {reportData.rating}</p>
+
+                <p>Aktualne: {reportData.actual ? "Tak" : "Nie"}</p>
+                <p>Szczegóły: {reportData.details}</p>
+                <p>Zgłaszający: {reportData.creator?.name} ({reportData.creator?.reliability})</p>
+                {reportData.creator?.id === auth.id as any ?
+                    <ActualityButton reportId={parseInt(reportId as string)} isActive={reportData.actual}/>
+                    :
+                    (
+                        <div className="d-flex">
+                            <p>Oceń to zgłoszenie</p>
+                            <Rating
+                                name="rating"
+                                value={rating}
+                                onChange={(event, newValue) => {
+                                    console.log(event)
+                                    updateRating(newValue as number)
+                                    setRating(newValue ?? 0);
+                                }}
+                            />
+                        </div>
+                    )
+                }
+            </div>
+            {/*<div className={'info-bottom'}>
+                <div className={'info-bottom-container d-flex'}>
+                    <div className={'info-bottom-box'}>
+
                     </div>
-                )
-            }
-            <LinkButton href={'/reports'} content={'Wróć'} />
+
+                    <div className={'info-bottom-box'}>
+
+                    </div>
+
+                    <div className={'info-bottom-box'}>
+
+                    </div>
+                </div>
+            </div>*/}
         </div>
     )
 }

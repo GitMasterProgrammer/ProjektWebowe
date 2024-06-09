@@ -4,6 +4,9 @@ import {Target} from "../../interfaces/Target.tsx";
 import LinkButton from "../LinkButton";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import FollowButton from "../FollowButton";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import {faThumbsUp} from "@fortawesome/free-regular-svg-icons";
 
 interface AuthUser {
     id: string; 
@@ -83,7 +86,7 @@ export default function TargetView() {
 
     return (
         <div className="TargetView"> 
-            <form className="filterOptions form-inline d-flex">
+            <form className="filterOptions form-inline">
                 {/*
                 <div className="form-group mr-2"> 
                     <label htmlFor="quantity">Liczba wyników:</label>
@@ -113,24 +116,33 @@ export default function TargetView() {
                     setQuantity(25)
                     Refresh()
                 }} className="btn btn-secondary mr-2"/>*/}
-                <button type="button" className="btn btn-primary btn-normal border-radius-max w-100" onClick={Refresh}>Szukaj</button>
+                <button type="button" className="btn btn-primary btn-normal search-btn" onClick={Refresh}>Szukaj</button>
             </form>
-            <div className="targetList mt-4"> 
+            <div className="targetList">
                 {targets?.map(target => {
                     const isFollowed = favourities?.includes(target.id);
                     return (
-                        <div key={target.id} className="target card mb-3"> 
-                            <div className="card-body"> 
-                                <Heading level={3} content={target.name}/>
-                                <p className="card-text targetDesc">Opis: {target.description}</p>
-                                <p className="card-text">Polubienia: {target.likes}</p>
-                                <p className="card-text">Twórca: {target.creator.name}</p>
-                                <div className="d-flex gap-1">
-                                    <FollowButton isFollowed={isFollowed??false} targetId={target.id} />
-                                    <LinkButton href={'/targets/' + target.id} content={"More info"} className={'btn btn-primary btn-normal border-radius-max'}/>
-                                </div>
+                    <div key={target.id} className="location card mb-3">
+                        <div
+                            className={"background-red-light actuality sec-font"}>{target.creator.name}</div>
+
+                        <div className="card-body">
+                            <Heading level={3} content={target.name} className="name-location"/>
+                            <p className={'card-text'}>{target.description}</p>
+                            <LinkButton href={'/targets/' + target.id} content={"Szczegóły"}
+                                        icon={<FontAwesomeIcon icon={faArrowRight}/>} className="hover-link"/>
+
+                            <FollowButton isFollowed={isFollowed ?? false} targetId={target.id}/>
+
+                        </div>
+
+                        <div className={'bottom-data'}>
+                            <div className="card-text btm d-flex">
+                                <span className={'icon w-100 d-space'}><a className={'font-weight-bold'}>Polubienia</a> <div
+                                    className={''}><FontAwesomeIcon icon={faThumbsUp}/> {(target.likes).toFixed(2)}</div></span>
                             </div>
                         </div>
+                    </div>
                     )
                 })}
             </div>

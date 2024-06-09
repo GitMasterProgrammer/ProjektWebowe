@@ -4,7 +4,9 @@ import { Location } from "../../interfaces/Location.tsx";
 import LinkButton from "../LinkButton";
 /*import {fixData} from "../../helpers/fixDate.tsx";*/
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-regular-svg-icons';
+
 
 export default function ReportView() {
     const [order, setOrder] = useState("createdAt_desc");
@@ -15,7 +17,6 @@ export default function ReportView() {
     const [showFilters, setShowFilters] = useState(false); // New state for showing/hiding filters
 
     const refresh = () => {
-        console.log("fdfd")
         const requestOptions = {
             method: 'GET'
         };
@@ -48,7 +49,7 @@ export default function ReportView() {
 
     return (
         <div className="ReportView">
-            <button className={'btn btn-secondary search-button-non-primary border-radius-max'} onClick={() => setShowFilters(!showFilters)}>
+            <button className={'btn btn-secondary'} onClick={() => setShowFilters(!showFilters)}>
                 {showFilters ? "Ukryj filtry" : "Pokaż filtry"}
             </button>
 
@@ -93,8 +94,8 @@ export default function ReportView() {
 
                     <div className={"d-flex gap-2"}>
                         <input type="reset" value="Wyczyść filtry"
-                               className="btn btn-secondary search-button-non-primary border-radius-max"/>
-                        <button type="button" className="btn btn-primary btn-normal border-radius-max"
+                               className="btn btn-secondary"/>
+                        <button type="button" className="btn btn-primary"
                                 onClick={refresh}>Filtruj
                         </button>
                     </div>
@@ -103,19 +104,36 @@ export default function ReportView() {
 
 
             <div className="reportList mt-5 d-flex gap-3 flex-wrap">
-                {locations?.map(location => (
+                {locations?.map(location  => (
+
                     <div key={location.id} className="location card mb-3">
+                        <div className={location.actual ? "background-green-light actuality sec-font" : "background-blue-light actuality sec-font"}>{location.actual ? "Aktualne" : "Nieaktualne"}</div>
+
                         <div className="card-body">
                             <Heading level={3} content={location.target.name} className="name-location"/>
-                            {/*<p className="card-text">Adres: {location.address}</p>*/}
-                            <div className="card-text rating">
-                                <div className="big">{(location.rating).toFixed(2)}</div>
-                                <div className="small">ocena</div>
-                            </div>
-                            {/*<p className="card-text">Zaktualizowano: {fixData(location.createdAt)}</p>*/}
-                            {/*<p className="card-text">Aktualność: {location.actual ? "Jak najbardziej" : "no niezbyt"}</p>*/}
+                            <p className={'card-text'}>{location.details}</p>
                             <LinkButton content={'Szczegóły'} href={`/reports/${location.id}`}
-                                        icon={<FontAwesomeIcon icon={faArrowRight}/>} className="text-light"/>
+                                        icon={<FontAwesomeIcon icon={faArrowRight}/>} className="hover-link"/>
+                        </div>
+
+                        <div className={'bottom-data'}>
+                            <div className="card-text btm d-flex">
+                                <span className={'icon w-100 d-space'}><a className={'font-weight-bold'}>Ocena</a> <div
+                                    className={''}><FontAwesomeIcon icon={faStar}/> {(location.rating).toFixed(2)}</div></span>
+                            </div>
+
+                            <div className="card-text btm d-flex">
+                                <span className={'icon w-100 d-space'}>
+                                    <div>
+                                        <FontAwesomeIcon icon={faLocationDot}/> <a className={'font-weight-bold'}>Adres</a>
+
+                                    </div>
+
+                                    {location.address}
+                                </span>
+                            </div>
+
+                            {/*<p className="card-text btm">Zaktualizowano: {fixData(location.createdAt)}</p>*/}
                         </div>
                     </div>
                 ))}

@@ -55,7 +55,7 @@ export default function FollowButton({ targetId, isFollowed }: FollowButtonProps
     };
 
     return (
-        <button className={`btn btn-secondary search-button-non-primary border-radius-max ${isFollowing ? "btn-danger" : "btn-primary"}`} onClick={isFollowing ? UnFollow : Follow}>
+        <button className={`btn btn-secondary mt-3 font-weight-bold color-white ${isFollowing ? "btn-danger" : "btn-primary"}`} onClick={isFollowing ? UnFollow : Follow}>
             {isFollowing ? "Unfollow" : "Follow"}
         </button>
     );

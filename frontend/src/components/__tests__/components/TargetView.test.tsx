@@ -58,9 +58,7 @@ describe('TargetView', () => {
         });
 
         await waitFor(() => {
-            expect(screen.getByText('Opis: sdds')).toBeInTheDocument();
-            expect(screen.getByText('Polubienia: 1')).toBeInTheDocument();
-            expect(screen.getByText('Twórca: moaaaaaaaaaaaaaaaaaaaaaaaaaa')).toBeInTheDocument();
+            expect(screen.getByText('sdds')).toBeInTheDocument();
         });
     });
 

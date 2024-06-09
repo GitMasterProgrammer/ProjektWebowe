@@ -30,11 +30,11 @@ export default function UserData({userId} : UserDataProps) {
         return (<p>brak</p>)
     }
     return (
-            <ul className="list-group"> 
+            <div className="box-round-container">
                 <li className="list-group-item">Nazwa użytkownika: {user_data.name}</li>
                 <li className="list-group-item">Email: {user_data.email}</li> 
                 <li className="list-group-item">Utworzone: {fixData(user_data.createdAt)}</li>
                 <li className="list-group-item">Zaufanie: {user_data.reliability}</li>
-            </ul>
+            </div>
         )
 }

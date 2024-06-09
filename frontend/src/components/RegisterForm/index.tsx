@@ -87,7 +87,7 @@ export default function RegisterForm() {
                 <input required onChange={(e) => setFormData({ ...formData, password2: e.target.value })} type="password" name="password2" className="form-control" id={"password2"}/>
             </div>
             <ul className="list-unstyled">{errors.map((error) => (<li key={error} className="text-danger">{error}</li>))}</ul> 
-            <button type="submit" className="btn btn-primary btn-normal border-radius-max w-100">Utwórz konto</button>
+            <button type="submit" className="btn btn-primary btn-normal w-100">Utwórz konto</button>
             <p>Masz już konto? <a href={'/login'} className="btn btn-link">Zaloguj się</a></p>
         </form>
     );

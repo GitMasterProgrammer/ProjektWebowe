@@ -8,7 +8,6 @@ import {Link, useNavigate} from "react-router-dom";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 
-
 export default function  NavbarMobile() {
     const [isOpen, setOpen] = useState(false);
     const ref = useRef(null);
@@ -23,7 +22,7 @@ export default function  NavbarMobile() {
     useClickAway(ref, () => setOpen(false));
 
     return (
-        <div ref={ref} className="navbar-mobile">
+        <div ref={ref} className={ isOpen ? "navbar-mobile open-nav" : "navbar-mobile" }>
             <Hamburger toggled={isOpen} size={20} toggle={setOpen} />
             <AnimatePresence>
                 {isOpen && (
