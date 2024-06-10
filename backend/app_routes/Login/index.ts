@@ -12,12 +12,12 @@ router.post('/', async (req : Request, res: Response) => {
     try {
       const user = await prisma.user.findUnique({ where: { email: email } });
       if (!user) {
-        return res.status(400).json({ message: '🐵🐵🐵User not found y are the nogger🐵🐵🐵' });
+        return res.status(400).json({ message: '🐵🐵🐵Nie znaleziono użytkownika🐵🐵🐵' });
       }
 
       const isMatch = password == user.password;
       if (!isMatch) {
-        return res.status(400).json({ message: '🐵🐵🐵Invalid credentials nogger🐵🐵🐵' });
+        return res.status(400).json({ message: '🐵🐵🐵Błędne hasło🐵🐵🐵' });
       }
 
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });

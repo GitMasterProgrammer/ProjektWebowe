@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1718007129072" clover="3.2.0">
-  <project timestamp="1718007129072" name="All files">
-    <metrics statements="465" coveredstatements="431" conditionals="75" coveredconditionals="69" methods="135" coveredmethods="111" elements="675" coveredelements="611" complexity="0" loc="465" ncloc="465" packages="26" files="29" classes="29"/>
+<coverage generated="1718009512527" clover="3.2.0">
+  <project timestamp="1718009512527" name="All files">
+    <metrics statements="466" coveredstatements="436" conditionals="75" coveredconditionals="71" methods="135" coveredmethods="112" elements="676" coveredelements="619" complexity="0" loc="466" ncloc="466" packages="26" files="29" classes="29"/>
     <package name="src">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="store.tsx" path="C:\Users\Kacper\Desktop\Pracownia_webowych\ProjektWebowe\frontend\src\store.tsx">
@@ -109,8 +109,8 @@
         <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="6" type="stmt"/>
         <line num="8" count="6" type="cond" truecount="2" falsecount="0"/>
-        <line num="9" count="25" type="stmt"/>
-        <line num="10" count="25" type="stmt"/>
+        <line num="9" count="33" type="stmt"/>
+        <line num="10" count="33" type="stmt"/>
       </file>
     </package>
     <package name="src.components.LinkButton">
@@ -122,36 +122,37 @@
       </file>
     </package>
     <package name="src.components.LoginForm">
-      <metrics statements="27" coveredstatements="25" conditionals="4" coveredconditionals="3" methods="6" coveredmethods="6"/>
+      <metrics statements="28" coveredstatements="26" conditionals="4" coveredconditionals="3" methods="6" coveredmethods="6"/>
       <file name="index.tsx" path="C:\Users\Kacper\Desktop\Pracownia_webowych\ProjektWebowe\frontend\src\components\LoginForm\index.tsx">
-        <metrics statements="27" coveredstatements="25" conditionals="4" coveredconditionals="3" methods="6" coveredmethods="6"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
-        <line num="9" count="14" type="stmt"/>
-        <line num="10" count="14" type="stmt"/>
-        <line num="11" count="14" type="stmt"/>
-        <line num="12" count="14" type="stmt"/>
-        <line num="14" count="14" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="cond" truecount="1" falsecount="0"/>
+        <metrics statements="28" coveredstatements="26" conditionals="4" coveredconditionals="3" methods="6" coveredmethods="6"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="11" type="stmt"/>
+        <line num="10" count="11" type="stmt"/>
+        <line num="11" count="11" type="stmt"/>
+        <line num="12" count="11" type="stmt"/>
+        <line num="14" count="11" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="16" count="3" type="cond" truecount="1" falsecount="0"/>
         <line num="17" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
-        <line num="21" count="3" type="stmt"/>
-        <line num="26" count="3" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
         <line num="28" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="29" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="39" count="0" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
         <line num="42" count="1" type="stmt"/>
-        <line num="46" count="2" type="stmt"/>
-        <line num="51" count="14" type="stmt"/>
-        <line num="55" count="4" type="stmt"/>
-        <line num="59" count="4" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="51" count="11" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="59" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.components.Navbar">
@@ -222,9 +223,9 @@
       </file>
     </package>
     <package name="src.components.ReportDetails">
-      <metrics statements="54" coveredstatements="45" conditionals="11" coveredconditionals="8" methods="17" coveredmethods="12"/>
+      <metrics statements="54" coveredstatements="49" conditionals="11" coveredconditionals="10" methods="17" coveredmethods="13"/>
       <file name="index.tsx" path="C:\Users\Kacper\Desktop\Pracownia_webowych\ProjektWebowe\frontend\src\components\ReportDetails\index.tsx">
-        <metrics statements="54" coveredstatements="45" conditionals="11" coveredconditionals="8" methods="17" coveredmethods="12"/>
+        <metrics statements="54" coveredstatements="49" conditionals="11" coveredconditionals="10" methods="17" coveredmethods="13"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
@@ -233,37 +234,37 @@
         <line num="7" count="2" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
-        <line num="15" count="9" type="stmt"/>
-        <line num="16" count="9" type="stmt"/>
-        <line num="18" count="9" type="stmt"/>
-        <line num="20" count="9" type="stmt"/>
-        <line num="22" count="9" type="stmt"/>
-        <line num="23" count="9" type="stmt"/>
-        <line num="26" count="9" type="stmt"/>
-        <line num="27" count="9" type="stmt"/>
-        <line num="28" count="9" type="stmt"/>
-        <line num="30" count="9" type="stmt"/>
-        <line num="31" count="6" type="stmt"/>
-        <line num="33" count="6" type="stmt"/>
-        <line num="37" count="6" type="cond" truecount="1" falsecount="0"/>
-        <line num="39" count="5" type="stmt"/>
-        <line num="44" count="5" type="stmt"/>
-        <line num="45" count="3" type="stmt"/>
-        <line num="47" count="3" type="cond" truecount="1" falsecount="0"/>
-        <line num="48" count="3" type="stmt"/>
-        <line num="49" count="3" type="stmt"/>
+        <line num="15" count="17" type="stmt"/>
+        <line num="16" count="17" type="stmt"/>
+        <line num="18" count="17" type="stmt"/>
+        <line num="20" count="17" type="stmt"/>
+        <line num="22" count="17" type="stmt"/>
+        <line num="23" count="17" type="stmt"/>
+        <line num="26" count="17" type="stmt"/>
+        <line num="27" count="17" type="stmt"/>
+        <line num="28" count="17" type="stmt"/>
+        <line num="30" count="17" type="stmt"/>
+        <line num="31" count="17" type="stmt"/>
+        <line num="33" count="17" type="stmt"/>
+        <line num="37" count="17" type="cond" truecount="1" falsecount="0"/>
+        <line num="39" count="15" type="stmt"/>
+        <line num="44" count="15" type="stmt"/>
+        <line num="45" count="15" type="stmt"/>
+        <line num="47" count="15" type="cond" truecount="1" falsecount="0"/>
+        <line num="48" count="4" type="stmt"/>
+        <line num="49" count="4" type="stmt"/>
         <line num="53" count="0" type="stmt"/>
-        <line num="59" count="2" type="stmt"/>
-        <line num="62" count="3" type="stmt"/>
-        <line num="65" count="9" type="stmt"/>
-        <line num="69" count="9" type="stmt"/>
-        <line num="71" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="72" count="0" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="84" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="90" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="65" count="17" type="stmt"/>
+        <line num="69" count="17" type="stmt"/>
+        <line num="71" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="72" count="2" type="stmt"/>
+        <line num="78" count="2" type="stmt"/>
+        <line num="84" count="2" type="stmt"/>
+        <line num="85" count="2" type="stmt"/>
+        <line num="87" count="2" type="stmt"/>
+        <line num="90" count="2" type="stmt"/>
         <line num="93" count="0" type="stmt"/>
         <line num="96" count="1" type="stmt"/>
         <line num="102" count="1" type="stmt"/>
@@ -273,12 +274,12 @@
         <line num="114" count="1" type="stmt"/>
         <line num="115" count="1" type="stmt"/>
         <line num="119" count="0" type="stmt"/>
-        <line num="124" count="9" type="cond" truecount="1" falsecount="0"/>
+        <line num="124" count="17" type="cond" truecount="1" falsecount="0"/>
         <line num="125" count="4" type="stmt"/>
-        <line num="127" count="5" type="stmt"/>
-        <line num="148" count="1" type="stmt"/>
-        <line num="149" count="1" type="stmt"/>
-        <line num="150" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="127" count="13" type="stmt"/>
+        <line num="148" count="3" type="stmt"/>
+        <line num="149" count="3" type="stmt"/>
+        <line num="150" count="3" type="cond" truecount="1" falsecount="1"/>
       </file>
     </package>
     <package name="src.components.ReportForm">
@@ -508,12 +509,12 @@
       <file name="fixDate.tsx" path="C:\Users\Kacper\Desktop\Pracownia_webowych\ProjektWebowe\frontend\src\helpers\fixDate.tsx">
         <metrics statements="7" coveredstatements="7" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
-        <line num="2" count="5" type="stmt"/>
-        <line num="3" count="5" type="cond" truecount="1" falsecount="0"/>
-        <line num="4" count="5" type="stmt"/>
-        <line num="5" count="5" type="stmt"/>
-        <line num="6" count="5" type="stmt"/>
-        <line num="9" count="5" type="stmt"/>
+        <line num="2" count="13" type="stmt"/>
+        <line num="3" count="13" type="cond" truecount="1" falsecount="0"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="9" count="13" type="stmt"/>
       </file>
       <file name="routing.tsx" path="C:\Users\Kacper\Desktop\Pracownia_webowych\ProjektWebowe\frontend\src\helpers\routing.tsx">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>

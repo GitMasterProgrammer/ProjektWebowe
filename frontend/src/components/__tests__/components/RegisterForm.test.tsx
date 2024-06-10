@@ -10,7 +10,6 @@ import { store } from '../../../store';
 import useSignIn from 'react-auth-kit/hooks/useSignIn';
 import validateEmail from '../../../helpers/validateEmail';
 import { validatePassword } from '../../../helpers/validatePassword';
-import LoginForm from "../../LoginForm";
 
 jest.mock('react-auth-kit/hooks/useSignIn');
 jest.mock('axios');
@@ -279,24 +278,6 @@ describe('RegisterForm', () => {
 
         await waitFor(() => {
             expect(screen.getByText(/Email nie jest poprawny/i)).toBeInTheDocument();
-        });
-    });
-
-    it('check if catch works', async () => {
-        (axios.post as jest.Mock).mockResolvedValueOnce({ data : { message: 'Login failed' }, status : 200 } );
-        (axios.post as jest.Mock).mockRejectedValue({ response: { data : { message: 'Login failed' } }, status : 200 } );
-        mockedValidateEmail.mockReturnValue(true);
-        mockedValidatePassword.mockReturnValue([]);
-
-        const { getByLabelText, getByText } = render(<LoginForm />);
-
-        fireEvent.change(getByLabelText('Email:'), { target: { value: 'test@example.com' } });
-        fireEvent.change(getByLabelText('Hasło:'), { target: { value: 'password' } });
-
-        fireEvent.click(getByText('Zaloguj się'));
-
-        await waitFor(() => {
-            //expect(getByText('Login failed')).toBeInTheDocument();
         });
     });
 });

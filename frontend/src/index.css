@@ -449,6 +449,7 @@ textarea.form-control{
 
 .container-normal{
   padding-left: var(--normal-margin);
+  padding-right: var(--normal-margin);
   text-align: left;
   padding-top: 5%;
   position: relative;

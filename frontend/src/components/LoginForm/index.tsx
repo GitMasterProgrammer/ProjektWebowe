@@ -44,7 +44,7 @@ export default function LoginForm() {
                 }
             }).catch((res) => {
                 console.log(res);
-                //setErrors(res.response.data.message);
+                setErrors(res.response.data.message);
             });
     };
 

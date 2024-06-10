@@ -21,7 +21,7 @@ describe('ReportDetails', () => {
 
     test('renders report details correctly for non-creator', async () => {
         mockFetch
-            .mockResolvedValueOnce({
+            .mockResolvedValue({
                 json: async () => ({
                     record: {
                         id: 1,
@@ -61,7 +61,7 @@ describe('ReportDetails', () => {
 
     test('renders report details correctly for creator', async () => {
         mockFetch
-            .mockResolvedValueOnce({
+            .mockResolvedValue({
                 json: async () => ({
                     record: {
                         id: 1,
@@ -100,7 +100,7 @@ describe('ReportDetails', () => {
 
     test('handles rating change', async () => {
         mockFetch
-            .mockResolvedValueOnce({
+            .mockResolvedValue({
                 json: async () => ({
                     record: {
                         id: 1,
@@ -141,7 +141,7 @@ describe('ReportDetails', () => {
 
     test('handles rating change with preavius rating', async () => {
         mockFetch
-            .mockResolvedValueOnce({
+            .mockResolvedValue({
                 json: async () => ({
                     record: {
                         id: 1,
@@ -178,7 +178,7 @@ describe('ReportDetails', () => {
         fireEvent.click(ratingInput);
 
         mockFetch
-            .mockResolvedValueOnce({
+            .mockResolvedValue({
                 json: async () => ({
                     record: {
                         id: 1,
@@ -193,7 +193,7 @@ describe('ReportDetails', () => {
                 }),
                 ok: true,
             })
-            .mockResolvedValueOnce({
+            .mockResolvedValue({
                 json: async () => ({ record: [{ value: 4 }] }),
                 ok: true,
             });
