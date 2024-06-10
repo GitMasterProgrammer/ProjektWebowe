@@ -35,7 +35,7 @@ Wspólne:
 # Schemat bazy danych
 ![schamat_bazy_danych](https://github.com/GitMasterProgrammer/ProjektWebowe/assets/126171998/3c2f9319-5f55-4882-9d4f-e2f946405258)
 
-# Sprawozdanie z Testów Aplikacji Pysstektor
+# Sprawozdanie z Testów Komponentów Aplikacji Pysstektor
 
 ## 1. Wstęp
 **Cel testów**: Celem testów było sprawdzenie poprawności działania komponentów aplikacji React oraz ich wzajemnej integracji.
@@ -61,4 +61,28 @@ Sprawdzono wszystkie przypadki z wyjątkiem catch oraz wypisywania do konsoli b�
 ## 5. Problemy i Rozwiązania
 **Problem 1**: Znaleziono problem w ReportDetails, naprawiony.
 
+# Sprawozdanie z Testów API Aplikacji Pysstektor
+
+## 1. Wstęp
+**Cel testów**: Celem testów było sprawdzenie poprawności działania Rest Api utworzonego w Node.
+
+**Zakres testów**: Przetestowano główne wszystkie ścieżki Api zwracającego dane z bazy danych.
+
+## 2. Opis Środowiska Testowego
+**Technologie**: 
+- Node v20.9.0
+
+## 3. Wyniki Testów
+### Podsumowanie Wyników
+- Liczba testów: 8
+- Przeszło: 8
+- Nie przeszło: 0
+
+## 4. Pokrycie Testów
+### Podsumowanie
+Sprawdzono wszystkie możliwe przypadki z wyjątkiem wypisywania do konsoli błędów.
+
+
+## 5. Problemy i Rozwiązania
+**Nie znaleziono**
 
