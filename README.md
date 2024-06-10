@@ -49,8 +49,8 @@ Wspólne:
 
 ## 3. Wyniki Testów
 ### Podsumowanie Wyników
-- Liczba testów: 18
-- Przeszło: 18
+- Liczba zestawów testów: 18
+- Liczba testów: 87 przeszło, 87 razem
 - Nie przeszło: 0
 
 ## 4. Pokrycie Testów
