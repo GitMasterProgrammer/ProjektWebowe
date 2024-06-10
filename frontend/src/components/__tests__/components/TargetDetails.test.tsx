@@ -58,7 +58,5 @@ describe('TargetDetails Component', () => {
         render(<TargetDetails />);
 
         await waitFor(() => expect(window.fetch).toHaveBeenCalledTimes(1));
-
-        // You can also check for error messages in console if necessary
     });
 });

@@ -23,6 +23,7 @@ export default function ReportDetails() {
         const requestOptions = {
             method: 'GET'
         };
+        console.log('eff')
         const fetchUserData =  () => {
             try {
                 // console.log('http://localhost:3000/api/location/get/' + reportId)
@@ -63,7 +64,7 @@ export default function ReportDetails() {
         };
         fetchUserData();
         //console.log(auth)
-    }, []);
+    }, [rating, reportData]);
 
     const updateRating = (newRating: number) => {
         //console.log(newRating)
@@ -83,7 +84,10 @@ export default function ReportDetails() {
             fetch('http://localhost:3000/api/likedLocations/post', requestOptions)
                 .then(response => response.json())
                 .then(() => {
-                   // console.log('success')
+                   console.log('success')
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-expect-error
+                    setReportData({...reportData, rating: newRating})
                 })
                 .catch(err => {
                     console.log(err.toString());
@@ -105,6 +109,11 @@ export default function ReportDetails() {
                 .then(response => response.json())
                 .then(() => {
                     console.log('updated')
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    // @ts-expect-error
+                    setReportData({...reportData, rating: newRating})
+                    setRating(newRating)
+
                 })
                 .catch(err => {
                     console.log(err.toString());
@@ -121,7 +130,7 @@ export default function ReportDetails() {
                 <Heading content={reportData.target?.name} level={2} className="title-h2"/>
                 <p>Ostatnio aktualizowane: {fixData(reportData.updatedAt)}</p>
                 <p>Adres: {reportData.address}</p>
-                <p>Średnia ocen: {reportData.rating}</p>
+                <p>Średnia ocen: {reportData.rating?.toFixed(2)}</p>
 
                 <p>Aktualne: {reportData.actual ? "Tak" : "Nie"}</p>
                 <p>Szczegóły: {reportData.details}</p>
