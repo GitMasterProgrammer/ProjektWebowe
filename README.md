@@ -54,6 +54,8 @@ Wspólne:
 - Nie przeszło: 0
 
 ## 4. Pokrycie Testów
+![obraz](https://github.com/GitMasterProgrammer/ProjektWebowe/assets/118828179/a5c4b44e-45f9-41e1-a082-4bb4ad81a1dc)
+
 ### Podsumowanie
 Sprawdzono wszystkie przypadki z wyjątkiem catch oraz wypisywania do konsoli błędów
 
@@ -64,23 +66,28 @@ Sprawdzono wszystkie przypadki z wyjątkiem catch oraz wypisywania do konsoli b�
 # Sprawozdanie z Testów API Aplikacji Pysstektor
 
 ## 1. Wstęp
-**Cel testów**: Celem testów było sprawdzenie poprawności działania Rest Api utworzonego w Node.
+**Cel testów**: Celem testów było sprawdzenie poprawności działania Rest Api utworzonego w Node (Express).
 
-**Zakres testów**: Przetestowano główne wszystkie ścieżki Api zwracającego dane z bazy danych.
+**Zakres testów**: Przetestowano główne wszystkie ścieżki Api zwracającego dane z bazy danych wraz z sortawaniem i innymi funkcjami dostepnymi w API.
 
 ## 2. Opis Środowiska Testowego
 **Technologie**: 
 - Node v20.9.0
-
+- Jest ^29.7.0
+- supertest: 7.0.0
 ## 3. Wyniki Testów
+
 ### Podsumowanie Wyników
-- Liczba testów: 8
-- Przeszło: 8
-- Nie przeszło: 0
+- Liczba zestawów testów: 6
+- Liczba testów: 58 przeszło, 58 razem
+- Czas: 8.195 s
+
 
 ## 4. Pokrycie Testów
+![obraz](https://github.com/GitMasterProgrammer/ProjektWebowe/assets/118828179/447787ef-18b1-4fdf-b02b-4ce15ac41f79)
+
 ### Podsumowanie
-Sprawdzono wszystkie możliwe przypadki z wyjątkiem wypisywania do konsoli błędów.
+Sprawdzono wszystkie możliwe przypadki z wyjątkiem instrukcji try...catch i mniej ważnych funkcji.
 
 
 ## 5. Problemy i Rozwiązania
