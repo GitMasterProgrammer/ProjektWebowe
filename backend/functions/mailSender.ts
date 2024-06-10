@@ -76,14 +76,12 @@ async function sendEmailToTargetLikers(targetId: number, locationId: number) {
           font-weight:bold;
         }
     
-    a:hover {
-      text-decoration: underline;
-    }
+
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Nowe zgłoszenie</h1>
+    <h1>Nowe zgłoszenie</h1><br>
     <p>Witaj,<br>pojawiło się nowe zgłoszenie ${target.name}.<br><a class="button-link" href="http://localhost:5173/reports/${locationId}">Zobacz ogłoszenie</a>.<br><br>Z poważaniem<br>Zespół Pysstektor</p>
   </div>
 </body>
