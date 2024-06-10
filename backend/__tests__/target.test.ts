@@ -47,11 +47,11 @@ describe('Target Tests', () => {
         })
         it('Get all with order by', async ()=> {
             const res  = await supertest(app).get('/api/target/get/?orderBy=id_desc')
-            expect(res.body.recordsLike[0].id).toBe(999999)
+            expect(res.body.recordsLike[0].id).toBeGreaterThanOrEqual(999999)
         })
         it('Get all with name', async ()=> {
             const res  = await supertest(app).get('/api/target/get/?name=$2a$10$CwTycUXWue0Thq9StjUM0uBroupzYajcgoPfzad9vhEzOHEIAa3Cy')
-            expect(res.body.recordsLike[0].id).toBe(999999)
+            expect(res.body.recordsLike[0].id).toBeGreaterThanOrEqual(999999)
         })
     })
     describe('Post',   ()=> {

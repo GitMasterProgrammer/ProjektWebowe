@@ -41,6 +41,7 @@
                     setName(target.name);
                 }
             })
+            setTargets(null)
         };
 
         return (

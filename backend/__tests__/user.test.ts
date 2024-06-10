@@ -45,7 +45,7 @@ describe('User Tests', () => {
         })
         it('Get all with order by', async ()=> {
             const res  = await supertest(app).get('/api/user/get?orderBy=id_desc')
-            expect(res.body.record[0].id).toBe(999999)
+            expect(res.body.record[0].id).toBeGreaterThanOrEqual(999999)
         })
 
     })

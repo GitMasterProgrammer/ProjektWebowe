@@ -3,6 +3,7 @@ import { Express, Request, Response, Router } from 'express';
 import { unsetKeys } from '../../functions/unsetKeys';
 import { convertToInt } from '../../functions/convertToInt';
 import CustomRequest from '../../interfaces/customReq';
+import sendEmailToTargetLikers from "../../functions/mailSender";
 
 const prisma = new PrismaClient();
 
@@ -68,19 +69,21 @@ router.get('/get/:id', async (req: Request, res: Response) => {
     }
 });
 
-router.post('/post', async (req : Request, res: Response) => {
+router.post('/post', async (req: Request, res: Response) => {
     try {
         const data = req.body;
 
         const record = await prisma.location.create({ data });
 
+        await sendEmailToTargetLikers(record.targetId, record.id);
+
         res.json({
-            status: "success",
-            data: record
+            status: 'success',
+            data: record,
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ status:'failed', error: (error as Error).message });
+        res.status(500).json({ status: 'failed', error: (error as Error).message });
     }
 });
 

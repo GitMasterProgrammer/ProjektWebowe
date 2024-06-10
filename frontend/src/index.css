@@ -86,7 +86,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: var(--background);
-  
+  overflow-x: hidden !important;
 }
 
 #root{
@@ -436,7 +436,11 @@ nav .nav-link {
 }
 
 textarea.form-control{
-  border-radius: 10px;
+  border-radius: 5px;
+}
+
+.container{
+  max-width: 1500px !important;
 }
 
 .form-control option{
@@ -445,11 +449,11 @@ textarea.form-control{
 
 .container-normal{
   padding-left: var(--normal-margin);
-  padding-right: var(--normal-margin);
   text-align: left;
   padding-top: 5%;
   position: relative;
   padding-bottom: 5%;
+  overflow-x: hidden;
 }
 
 
@@ -717,6 +721,14 @@ button:focus-visible {
 
 
 @media only screen and (max-width: 800px) {
+  .container, .container-normal{
+    padding-left: 5%;
+  }
+
+  .box-round-container{
+    padding: 15px;
+  }
+
   .title-main{
     font-size: 3.55rem;
     max-width: 80%;
@@ -725,7 +737,7 @@ button:focus-visible {
   .title-main-lighter{
     max-width: 80%;
     flex-wrap: wrap;
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   .form-control{
