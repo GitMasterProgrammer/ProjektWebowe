@@ -127,14 +127,14 @@ h1 {
 }
 
 .box-round-container {
-  border-radius: 20px;
-  padding: 30px 40px;
-  border: 1px solid var(--color-text);
-  position: relative;
-  background-color: var(--background);
-  -webkit-box-shadow: -16px 16px 0px 0px var(--color-text);
-  -moz-box-shadow: -16px 16px 0px 0px var(--color-text);
-  box-shadow: -16px 16px 0px 0px var(--color-text);
+    border-radius: 20px;
+    padding: 30px 40px;
+    border: 1px solid var(--color-text);
+    position: relative;
+    background-color: var(--background);
+    -webkit-box-shadow: -16px 16px 0px 0px var(--color-text);
+    -moz-box-shadow: -16px 16px 0px 0px var(--color-text);
+    box-shadow: -16px 16px 0px 0px var(--color-text);
 }
 
 .box-container-target {
