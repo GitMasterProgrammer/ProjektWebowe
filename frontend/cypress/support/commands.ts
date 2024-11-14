@@ -35,3 +35,21 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add("loginViaUi", (user) => {
+    cy.session(
+        user,
+        () => {
+            cy.visit('/login')
+            cy.get('input[name=email]').type(user.email)
+            cy.get('input[name=password]').type(user.password)
+            cy.get('button.btn').click()
+            // cy.get('span.nav-link').contains(`${user.email}`)
+        },
+        {
+            validate: () => {
+                return true
+            },
+        }
+    )
+})

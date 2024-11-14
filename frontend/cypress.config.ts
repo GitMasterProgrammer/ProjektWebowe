@@ -6,7 +6,7 @@ export default defineConfig({
       // implement node event listeners her\
     },
     baseUrl: 'http://localhost:5173',
-
+    testIsolation: false,
   },
 
 
