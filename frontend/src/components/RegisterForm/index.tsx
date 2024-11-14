@@ -49,19 +49,22 @@ export default function RegisterForm() {
                                         console.log(res)
                                         navigate('/profile');
                                     } else {
-                                        //console.log(res);
+                                        console.log(res);
                                         setErrors([res.data?.message]);
                                     }
                                 }
                             }).catch((res) => {
+                            // console.log(res)
                                 setErrors([res.toString()]);
                             });
                     } else {
+                        // console.log(res)
                         setErrors(['Wystąpił niezydentyfikowany błąd']);
                     }
                 })
                 .catch((res) => {
-                    setErrors([res.error]);
+                    console.log(res.response.data.error)
+                    setErrors([res.response.data.error ?? res.error]);
                 });
         } else {
             setErrors(["Email nie jest poprawny"]);
@@ -72,7 +75,7 @@ export default function RegisterForm() {
         <form method="post" onSubmit={onSubmit} className="needs-validation">
             <div className="form-group"> 
                 <label htmlFor={'username'}>Username:</label>
-                <input required onChange={(e) => setFormData({ ...formData, name: e.target.value })} type="text" name="userneme" className="form-control" placeholder="username" id={"username"}/>
+                <input required onChange={(e) => setFormData({ ...formData, name: e.target.value })} type="text" name="username" className="form-control" placeholder="username" id={"username"}/>
             </div>
             <div className="form-group">
                 <label htmlFor={'email'}>Email:</label>

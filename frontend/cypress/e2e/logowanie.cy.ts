@@ -19,5 +19,5 @@ describe('Logowanie', () => {
     cy.loginViaUi({email: 'kont@wp.pl', password: '!Admin1234'})
     cy.contains('Nie znaleziono użytkownika')
   })
-  
+
 })

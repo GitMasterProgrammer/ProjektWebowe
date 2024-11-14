@@ -53,3 +53,23 @@ Cypress.Commands.add("loginViaUi", (user) => {
         }
     )
 })
+
+Cypress.Commands.add("registerViaUi", (user) => {
+    cy.session(
+        user,
+        () => {
+            cy.get("a#register").click()
+            cy.get('input[name=email]').type(user.email)
+            cy.get('input[name=username]').type(user.name)
+            cy.get('input[name=password1]').type(user.password1)
+            cy.get('input[name=password2]').type(user.password2)
+            cy.get('button.btn').click()
+            // cy.get('span.nav-link').contains(`${user.email}`)
+        },
+        {
+            validate: () => {
+                return true
+            },
+        }
+    )
+})
