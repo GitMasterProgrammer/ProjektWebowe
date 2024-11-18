@@ -42,10 +42,10 @@ export default function Navbar() {
                     ) : (
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item no-after" key={'login'}>
-                                <Link className="nav-link" to={"/login"}>Zaloguj się</Link>
+                                <Link id={'login'} className="nav-link" to={"/login"}>Zaloguj się</Link>
                             </li>
                             <li className="nav-item nav-login no-after" key={'register'}>
-                                <Link className="nav-link" to={"/register"}>Zarejestruj się</Link>
+                                <Link id={'register'} className="nav-link" to={"/register"}>Zarejestruj się</Link>
                             </li>
                         </ul>
                     )}
