@@ -11,7 +11,6 @@ describe('API Tests', () => {
     });
 
     describe('Login', () => {
-
         it('Login with wrong password', () => {
             cy.request({
                 method: 'POST',
@@ -46,7 +45,6 @@ describe('API Tests', () => {
 
 
     describe('User', () => {
-
         it('Change user name', () => {
             cy.request({
                 method: 'PUT',
