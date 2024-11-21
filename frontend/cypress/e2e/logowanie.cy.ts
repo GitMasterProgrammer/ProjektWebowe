@@ -20,4 +20,11 @@ describe('Logowanie', () => {
     cy.contains('Nie znaleziono użytkownika')
   })
 
+  it('wylogowywanie', () => {
+    cy.visit('/login')
+    cy.loginViaUi({email: 'konto@wp.pl', password: '!Admin1234'})
+    cy.visit('/')
+    cy.contains('.btn', 'Wyloguj się').click();
+    cy.get('a#login').should('exist');
+  })
 })
